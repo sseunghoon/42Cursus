@@ -6,7 +6,7 @@
 /*   By: seunghso <seunghso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/04 11:03:07 by seunghso          #+#    #+#             */
-/*   Updated: 2022/07/20 15:46:44 by seunghso         ###   ########.fr       */
+/*   Updated: 2022/07/20 16:11:52 by seunghso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ static int	ft_ilen(int n)
 	return (result_length);
 }
 
-char	*ft_itoa(int n)
+char	*ft_itoa(long long n)
 {
 	int		result_length;
 	int		sign;
@@ -42,7 +42,7 @@ char	*ft_itoa(int n)
 	result = (char *)malloc(sizeof(char) * (result_length + 1));
 	if (result == NULL)
 	{
-		return (0);
+		return (NULL);
 	}
 	result[result_length] = '\0';
 	while (result_length-- > 0)
