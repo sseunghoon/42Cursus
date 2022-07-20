@@ -6,7 +6,7 @@
 /*   By: seunghso <seunghso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/05 21:51:20 by seunghso          #+#    #+#             */
-/*   Updated: 2022/07/15 15:52:16 by seunghso         ###   ########.fr       */
+/*   Updated: 2022/07/20 15:45:10 by seunghso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@
 # include <unistd.h>
 # include <stdarg.h>
 # include <sys/types.h>
-# include "./libft/libft.h"
 
 # include <stdio.h>
 

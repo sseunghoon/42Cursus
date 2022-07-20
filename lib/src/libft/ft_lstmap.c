@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstmap copy.c                                   :+:      :+:    :+:   */
+/*   ft_lstmap.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: seunghso <seunghso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/04 11:03:07 by seunghso          #+#    #+#             */
-/*   Updated: 2022/07/07 19:31:07 by seunghso         ###   ########.fr       */
+/*   Updated: 2022/07/20 15:47:23 by seunghso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../../include/libft.h"
 
 static t_list	*ft_lstminimap(t_list *lst, \
 void *(*f)(void *), void (*del)(void *), t_list *new_lst)

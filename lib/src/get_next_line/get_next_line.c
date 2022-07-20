@@ -6,11 +6,11 @@
 /*   By: seunghso <seunghso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/07 22:08:01 by seunghso          #+#    #+#             */
-/*   Updated: 2022/07/10 20:01:36 by seunghso         ###   ########.fr       */
+/*   Updated: 2022/07/20 15:46:01 by seunghso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "../../include/get_next_line.h"
 
 int	ft_read_process(char **buffers, int fd, char **result)
 {

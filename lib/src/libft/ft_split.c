@@ -6,11 +6,11 @@
 /*   By: seunghso <seunghso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/30 21:46:55 by seunghso          #+#    #+#             */
-/*   Updated: 2022/07/07 17:35:23 by seunghso         ###   ########.fr       */
+/*   Updated: 2022/07/20 16:06:05 by seunghso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../../include/libft.h"
 
 static char	**ft_malloc_result1(char const *str, char c)
 {

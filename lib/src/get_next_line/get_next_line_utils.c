@@ -6,11 +6,11 @@
 /*   By: seunghso <seunghso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/07 22:08:01 by seunghso          #+#    #+#             */
-/*   Updated: 2022/07/10 16:02:23 by seunghso         ###   ########.fr       */
+/*   Updated: 2022/07/20 15:46:06 by seunghso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "../../include/get_next_line.h"
 
 int	ft_malloc_buff(char **buffers, int fd)
 {

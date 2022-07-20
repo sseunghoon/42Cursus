@@ -6,11 +6,11 @@
 /*   By: seunghso <seunghso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/04 11:03:07 by seunghso          #+#    #+#             */
-/*   Updated: 2022/07/06 17:18:15 by seunghso         ###   ########.fr       */
+/*   Updated: 2022/07/20 15:47:43 by seunghso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../../include/libft.h"
 
 void	*ft_memmove(void *dst, const void *src, size_t len)
 {
