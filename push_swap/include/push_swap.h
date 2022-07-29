@@ -13,7 +13,7 @@
 # ifndef PUSH_SWAP_H
 # define PUSH_SWAP_H
 
-# include "../libft/include/ft_print.h"
+# include "../libft/include/ft_printf.h"
 # include "../libft/include/libft.h"
 
 typedef struct s_node
@@ -25,8 +25,9 @@ typedef struct s_node
 
 typedef struct s_deq
 {
-	struct t_node	*top;
-	struct t_node	*bot;
+	t_node	*top;
+	t_node	*bot;
+	char	name;
 }	t_deq;
 
 # endif
