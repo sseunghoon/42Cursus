@@ -6,7 +6,7 @@
 /*   By: seunghso <seunghso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/05 21:51:20 by seunghso          #+#    #+#             */
-/*   Updated: 2022/07/28 17:19:26 by seunghso         ###   ########.fr       */
+/*   Updated: 2022/08/03 21:30:18 by seunghso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,9 @@ typedef struct s_list
 	struct s_list	*next;
 }				t_list;
 
+int		ft_abs(int n);
+int		ft_min(int n1, int n2);
+int		ft_max(int n1, int n2);
 int		ft_isalpha(int c);
 int		ft_isalnum(int c);
 int		ft_isascii(int c);
@@ -30,9 +33,6 @@ int		ft_isprint(int c);
 int		ft_isdigit(int c);
 int		ft_tolower(int c);
 int		ft_toupper(int c);
-int		ft_min(int n1, int n2);
-int		ft_max(int n1, int n2);
-int		ft_atoi(const char *str);
 void	*ft_calloc(size_t count, size_t size);
 void	*ft_memset(void *b, int c, size_t len);
 void	*ft_memchr(const void *s, int c, size_t n);
@@ -52,6 +52,7 @@ char	*ft_substr(char const *s, unsigned int start, size_t len);
 char	*ft_strjoin(char const *s1, char const *s2);
 char	*ft_strtrim(char const *s1, char const *set);
 char	**ft_split(char const *s, char c);
+int		ft_atoi(const char *str);
 char	*ft_itoa(long long n);
 char	*ft_strmapi(char const *s, char (*f)(unsigned int, char));
 void	ft_striteri(char *s, void (*f)(unsigned int, char*));

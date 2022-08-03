@@ -111,6 +111,39 @@ void	print_deque(t_deque *x)
 	}
 }
 
+int	find_dest(t_deque *a, t_node *src)
+{
+	t_node	*p;
+	int		dest;
+
+	if (src->data < a->top->data)
+		return (0);
+	p = a->top->next;
+	dest = 1;
+	while (p)
+	{
+		if (p->prev->data < src->data && src->data < p->data)
+			break ;
+		p = p->next;
+		dest++;
+	}
+	if (dest > a->size / 2)
+		dest = dest - a->size;
+	return (dest);
+}
+
+int	is_better(int tmp_dest, int tmp_sttp, int dest, int sttp)
+{
+	int	cnt;
+	int	tmp_cnt;
+
+	tmp_cnt = ft_abs(tmp_dest) + ft_abs(tmp_sttp);
+	cnt = ft_abs(dest) + ft_abs(sttp);
+	if (tmp_cnt < cnt)
+		return (1);
+	return (0);
+}
+
 void	get_best_loc(t_deque *a, t_deque *b, int *dest, int *sttp)
 {
 	int		i;
@@ -125,14 +158,13 @@ void	get_best_loc(t_deque *a, t_deque *b, int *dest, int *sttp)
 		tmp_dest = find_dest(a, p);
 		tmp_sttp = i;
 		if (tmp_sttp > b->size / 2)
-			tmp_sttp = (b->size - i) * (-1);
-		if (i == 0 || is_better(tmp_dest, tmp_sttp, dest, sttp))
+			tmp_sttp = i - b->size;
+		if (i == 0 || is_better(tmp_dest, tmp_sttp, *dest, *sttp))
 		{
 			*dest = tmp_dest;
 			*sttp = tmp_sttp;
 		}
-		
-
+		p = p->next;
 		i++;
 	}
 }
