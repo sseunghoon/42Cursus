@@ -23,11 +23,28 @@ typedef struct s_node
 	struct	s_node	*prev;
 }	t_node;
 
-typedef struct s_deq
+typedef struct t_deque
 {
 	t_node	*top;
 	t_node	*bot;
 	char	name;
-}	t_deq;
+	int		size;
+}	t_deque;
+
+// command.c
+void	swap(t_deque *d);
+void	push(t_deque *x, t_deque *y);
+void	rotate(t_deque *x);
+void	reverse_rotate(t_deque *x);
+
+// utils.c
+void	add_top(t_deque *x, t_node *new_node);
+void	add_bot(t_deque *x, t_node *new_node);
+t_node	*pop_top(t_deque *x);
+t_node	*pop_bot(t_deque *x);
+
+// main.c
+void	append_data(t_deque *x, int data);
+void	parse_argument(t_deque *a, t_deque *b, int argc, char **argv);
 
 # endif
