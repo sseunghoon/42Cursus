@@ -38,7 +38,7 @@ void	push(t_deque *x, t_deque *y)
 {
 	t_node	*p;
 
-	p = pop(y);
+	p = pop_top(y);
 	if (p == NULL)
 		return ;
 	add_top(x, p);

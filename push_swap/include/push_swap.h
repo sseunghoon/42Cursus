@@ -43,7 +43,7 @@ void	add_bot(t_deque *x, t_node *new_node);
 t_node	*pop_top(t_deque *x);
 t_node	*pop_bot(t_deque *x);
 
-// main.c
+// push_swap.c
 void	append_data(t_deque *x, int data);
 void	parse_argument(t_deque *a, t_deque *b, int argc, char **argv);
 

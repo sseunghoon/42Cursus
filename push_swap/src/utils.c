@@ -82,5 +82,4 @@ t_node	*pop_bot(t_deque *x)
 		return (p);
 	}
 	return (p);
-	leaks();
 }
