@@ -12,26 +12,32 @@
 
 #include "../include/push_swap.h"
 
-void	swap(t_deque *d)
+void	swap(t_deque *x)
 {
 	t_node	*p;
 	t_node	*q;
 
-	p = d->top;
-	q = d->top->next;
-	if (p == NULL || q == NULL)
-		return ;
-	if (q == d->bot)
-	{
-		p->next = NULL;
-		d->top = q;
-		d->bot = p;
-	}
-	else
-		p->next = q->next;
-	q->prev = NULL;
-	q->next = p;
-	p->prev = q;
+	p = pop_top(x);
+	q = pop_top(x);
+	add_top(x, p);
+	add_top(x, q);
+	ft_printf("s%c\n",x->name);
+}
+
+void	swap_both(t_deque *x, t_deque *y)
+{
+	t_node	*p;
+	t_node	*q;
+
+	p = pop_top(x);
+	q = pop_top(x);
+	add_top(x, p);
+	add_top(x, q);
+	p = pop_top(y);
+	q = pop_top(y);
+	add_top(y, p);
+	add_top(y, q);
+	ft_printf("ss\n");
 }
 
 void	push(t_deque *x, t_deque *y)
@@ -42,6 +48,7 @@ void	push(t_deque *x, t_deque *y)
 	if (p == NULL)
 		return ;
 	add_top(x, p);
+	ft_printf("p%c\n",x->name);
 }
 
 void	rotate(t_deque *x)
@@ -55,6 +62,28 @@ void	rotate(t_deque *x)
 		exit(0);
 	}
 	add_bot(x, p);
+	ft_printf("r%c\n",x->name);
+}
+
+void	rotate_both(t_deque *x, t_deque *y)
+{
+	t_node	*p;
+
+	p = pop_top(x);
+	if (p == NULL)
+	{
+		ft_printf("Empty deque\n");
+		exit(0);
+	}
+	add_bot(x, p);
+	p = pop_top(y);
+	if (p == NULL)
+	{
+		ft_printf("Empty deque\n");
+		exit(0);
+	}
+	add_bot(y, p);
+	ft_printf("rr\n");
 }
 
 void	reverse_rotate(t_deque *x)
@@ -68,4 +97,26 @@ void	reverse_rotate(t_deque *x)
 		exit(0);
 	}
 	add_top(x, p);
+	ft_printf("rr%c\n",x->name);
+}
+
+void	reverse_rotate_both(t_deque *x, t_deque *y)
+{
+	t_node	*p;
+
+	p = pop_bot(x);
+	if (p == NULL)
+	{
+		ft_printf("Empty deque\n");
+		exit(0);
+	}
+	add_top(x, p);
+	p = pop_bot(y);
+	if (p == NULL)
+	{
+		ft_printf("Empty deque\n");
+		exit(0);
+	}
+	add_top(y, p);
+	ft_printf("rrr\n");
 }

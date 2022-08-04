@@ -31,11 +31,29 @@ typedef struct t_deque
 	int		size;
 }	t_deque;
 
+typedef enum e_command
+{
+	SA,
+	SB,
+	SS,
+	PA,
+	PB,
+	RA,
+	RB,
+	RR,
+	RRA,
+	RRB,
+	RRR
+}	t_command;
+
 // command.c
 void	swap(t_deque *d);
+void	swap_both(t_deque *x, t_deque *y);
 void	push(t_deque *x, t_deque *y);
 void	rotate(t_deque *x);
+void	rotate_both(t_deque *x, t_deque *y);
 void	reverse_rotate(t_deque *x);
+void	reverse_rotate_both(t_deque *x, t_deque *y);
 
 // utils.c
 void	add_top(t_deque *x, t_node *new_node);

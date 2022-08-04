@@ -30,7 +30,8 @@ void	append_data(t_deque *x, int data)
 	{
 		x->bot->next = new_node;
 		new_node->prev = x->bot;
-		new_node->next = NULL;
+		new_node->next = x->top;
+		x->top->prev = new_node;
 		x->bot = new_node;
 	}
 	x->size++;
@@ -93,10 +94,8 @@ void	divide_3part(t_deque *a, t_deque *b)
 			rotate(a);
 		cnt--;
 	}
-	while (a->size > 3)
-	{
+	while (a->size)
 		push(b, a);
-	}
 }
 
 void	print_deque(t_deque *x)
@@ -107,8 +106,11 @@ void	print_deque(t_deque *x)
 	while (p)
 	{
 		printf("%d\n", p->data);
+		if (p == x->bot)
+			break ;
 		p = p->next;
 	}
+	printf("\n");
 }
 
 int	find_dest(t_deque *a, t_node *src)
@@ -116,13 +118,15 @@ int	find_dest(t_deque *a, t_node *src)
 	t_node	*p;
 	int		dest;
 
-	if (src->data < a->top->data)
-		return (0);
-	p = a->top->next;
-	dest = 1;
+	p = a->top;
+	dest = 0;
 	while (p)
 	{
-		if (p->prev->data < src->data && src->data < p->data)
+		if (p->prev->data <= src->data && src->data <= p->data)
+			break ;
+		if (a->bot->data < src->data && src->data < a->top->data)
+			break ;
+		if (p->prev->data > p->data && src->data < p->data)
 			break ;
 		p = p->next;
 		dest++;
@@ -169,6 +173,44 @@ void	get_best_loc(t_deque *a, t_deque *b, int *dest, int *sttp)
 	}
 }
 
+void	integrated_rotate(t_deque *a, t_deque *b, int dest, int sttp)
+{
+	if (dest == sttp)
+	{
+		while (dest > 0)
+		{
+			rotate_both(a, b);
+			dest--;
+		}
+		while (dest < 0)
+		{
+			reverse_rotate_both(a, b);
+			dest++;
+		}
+		return ;
+	}
+	while (dest > 0)
+	{
+		rotate(a);
+		dest--;
+	}
+	while (dest < 0)
+	{
+		reverse_rotate(a);
+		dest++;
+	}
+	while (sttp > 0)
+	{
+		rotate(b);
+		sttp--;
+	}
+	while (sttp < 0)
+	{
+		reverse_rotate(b);
+		sttp++;
+	}
+}
+
 void	greedy(t_deque *a, t_deque *b)
 {
 	int	dest;
@@ -177,6 +219,12 @@ void	greedy(t_deque *a, t_deque *b)
 	while (b->size)
 	{
 		get_best_loc(a, b, &dest, &sttp);
+		integrated_rotate(a, b, dest, sttp);
+		push(a,b);
+	}
+	while (a->bot->data < a->top->data)
+	{
+		reverse_rotate(a);
 	}
 }
 
@@ -188,4 +236,5 @@ int	main(int argc, char **argv)
 	parse_argument(&a, &b, argc, argv);
 	divide_3part(&a, &b);
 	greedy(&a, &b);
+	print_deque(&a);
 }
