@@ -23,11 +23,13 @@ void	add_top(t_deque *x, t_node *new_node)
 	if (p == NULL)
 	{
 		x->bot = new_node;
-		new_node->prev = x->bot;
+		new_node->prev = new_node;
+		new_node->next = new_node;
 		return ;
 	}
 	new_node->prev = x->bot;
 	p->prev = new_node;
+	x->bot->next = x->top;
 }
 
 void	add_bot(t_deque *x, t_node *new_node)
@@ -41,11 +43,13 @@ void	add_bot(t_deque *x, t_node *new_node)
 	if (p == NULL)
 	{
 		x->top = new_node;
-		new_node->next = x->top;
+		new_node->prev = new_node;
+		new_node->next = new_node;
 		return ;
 	}
 	new_node->next = x->top;
 	p->next = new_node;
+	x->top->prev = x->bot;
 }
 
 t_node	*pop_top(t_deque *x)
