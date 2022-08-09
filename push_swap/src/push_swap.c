@@ -214,21 +214,24 @@ void	divide_3part(t_deque *a, t_deque *b)
 	int	pivot2;
 	int	cnt;
 
-	pivot1 = a->size / 3 * 1;
-	pivot2 = a->size / 3 * 2;
-	cnt = a->size;
-	while (cnt && a->size > 3)
+	if (a->size > 10)
 	{
-		if (a->top->data <= pivot1)
+		pivot1 = a->size / 3 * 1;
+		pivot2 = a->size / 3 * 2;
+		cnt = a->size;
+		while (cnt && a->size > 3)
 		{
-			push(b, a);
-			rotate(b);
+			if (a->top->data <= pivot1)
+			{
+				push(b, a);
+				rotate(b);
+			}
+			else if (a->top->data <= pivot2)
+				push(b, a);
+			else
+				rotate(a);
+			cnt--;
 		}
-		else if (a->top->data <= pivot2)
-			push(b, a);
-		else
-			rotate(a);
-		cnt--;
 	}
 	while (a->size > 3)
 		push(b, a);
@@ -246,17 +249,11 @@ int	find_dest(t_deque *a, t_node *src)
 	while (p)
 	{
 		if (p->prev->data > src->data && p->data > src->data && p->prev->data > p->data)
-		{
 			break ;
-		}
 		if (p->prev->data < src->data && p->data > src->data && p->prev->data < p->data)
-		{
 			break ;
-		}
 		if (p->prev->data < src->data && p->data < src->data && p->prev->data > p->data)
-		{
 			break ;
-		}
 		p = p->next;
 		dest++;
 	}
@@ -345,16 +342,16 @@ void	last_rotate(t_deque *a)
 	int		turning_point;
 	t_node *p;
 
-	turning_point = 0;
+	turning_point = 1;
 	p = a->top;
-	while (turning_point < a->size - 1)
+	while (turning_point < a->size)
 	{
 		if (p->data > p->next->data)
 			break ;
 		turning_point++;
 		p = p->next;
 	}
-	if (turning_point > a->size / 2)
+	if (turning_point >= a->size / 2)
 	{
 		while (a->bot->data < a->top->data)
 			reverse_rotate(a);
@@ -387,5 +384,7 @@ int	main(int argc, char **argv)
 
 	parse_argument(&a, &b, argc, argv);
 	divide_3part(&a, &b);
+	// printf("=========\n");
 	greedy(&a, &b);
+	// print_deque(&a);
 }
