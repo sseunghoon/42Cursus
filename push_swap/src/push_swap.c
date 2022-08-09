@@ -62,13 +62,13 @@ void	quick_sort(int *arr, int left, int right)
 	l = left;
 	r = right;
 	pivot = arr[(left + right) / 2];
-	while (l < r)
+	while (l <= r)
 	{
 		while (arr[l] < pivot)
 			l++;
 		while (arr[r] > pivot)
 			r--;
-		if (l < r)
+		if (l <= r)
 		{
 			tmp = arr[l];
 			arr[l] = arr[r];
@@ -83,27 +83,33 @@ void	quick_sort(int *arr, int left, int right)
 		quick_sort(arr, l, right);
 }
 
-int	find_idx(int *arr, int data, int left, int right)
+int	binary_search(int *arr, int data, int left, int right)
 {
 	int	mid = (left+ right) / 2;
-	if (arr[mid] == data)
+
+	if (arr[mid] < data)
+		return (binary_search(arr, data, mid + 1, right));
+	else if (arr[mid] > data)
+		return (binary_search(arr, data, left, mid - 1));
+	else
 		return (mid);
 }
 
 void	change_to_idx(t_deque *a)
 {
-	// 중복 발견 시 에러 출력
-	// 이진 탐색으로 인덱싱
 	int		*arr;
+	int		*dup_ck;
 	int		i;
 	t_node	*p;
 
 	arr = malloc(sizeof(int) * a->size);
+	dup_ck = malloc(sizeof(int) * a->size);
 	p = a->top;
 	i = 0;
 	while (i < a->size)
 	{
 		arr[i] = p->data;
+		dup_ck[i] = 0;
 		p = p->next;
 		i++;
 	}
@@ -113,6 +119,13 @@ void	change_to_idx(t_deque *a)
 	while (i < a->size)
 	{
 		p->data = binary_search(arr, p->data, 0, a->size - 1);
+		if (dup_ck[p->data] == 0)
+			dup_ck[p->data] = 1;
+		else
+		{
+			ft_printf("Error\n");
+			exit(1);
+		}
 		p = p->next;
 		i++;
 	}
@@ -133,6 +146,7 @@ void	init_deque(t_deque *a, t_deque *b)
 void	receive_input(t_deque *a, int argc, char **argv)
 {
 	char	**p;
+	char	**save_p;
 	int		i;
 
 	if (argc == 1)
@@ -143,13 +157,14 @@ void	receive_input(t_deque *a, int argc, char **argv)
 	if (argc == 2)
 	{
 		p = ft_split(argv[1], ' ');
+		save_p = p;
 		while (*p)
 		{
 			append_data(a, ft_atoi(*p));
 			free(*p);
 			p++;
 		}
-		free(p);
+		free(save_p);
 	}
 	else
 	{
@@ -199,8 +214,8 @@ void	divide_3part(t_deque *a, t_deque *b)
 	int	pivot2;
 	int	cnt;
 
-	pivot1 = a->top->data;
-	pivot2 = a->bot->data;
+	pivot1 = a->size / 3 * 1;
+	pivot2 = a->size / 3 * 2;
 	cnt = a->size;
 	while (cnt && a->size > 3)
 	{
@@ -217,8 +232,8 @@ void	divide_3part(t_deque *a, t_deque *b)
 	}
 	while (a->size > 3)
 		push(b, a);
-	sort_just3(a);
-	// print_deque(a);
+	if (a->size == 3)
+		sort_just3(a);
 }
 
 int	find_dest(t_deque *a, t_node *src)
@@ -232,28 +247,19 @@ int	find_dest(t_deque *a, t_node *src)
 	{
 		if (p->prev->data > src->data && p->data > src->data && p->prev->data > p->data)
 		{
-			// printf("break1\n");
 			break ;
 		}
 		if (p->prev->data < src->data && p->data > src->data && p->prev->data < p->data)
 		{
-			// printf("break2\n");
 			break ;
 		}
 		if (p->prev->data < src->data && p->data < src->data && p->prev->data > p->data)
 		{
-			// printf("prev: %d\n", p->prev->data);
-			// printf("next: %d\n", p->next->data);
-			// printf("p: %d\n", p->data);
-			// printf("src: %d\n", src->data);
-			// printf("break3\n");
 			break ;
 		}
 		p = p->next;
 		dest++;
-		// printf("test: %d\n", p->data);
 	}
-	// printf("dst: %d\n", dest);
 	if (dest > a->size / 2)
 		dest = dest - a->size;
 	return (dest);
@@ -344,7 +350,6 @@ void	greedy(t_deque *a, t_deque *b)
 		get_best_loc(a, b, &dest, &sttp);
 		integrated_rotate(a, b, dest, sttp);
 		push(a,b);
-		// print_deque(a); 
 	}
 	while (a->bot->data < a->top->data)
 	{
@@ -359,6 +364,5 @@ int	main(int argc, char **argv)
 
 	parse_argument(&a, &b, argc, argv);
 	divide_3part(&a, &b);
-	// 피봇 선택 크기의 3분의 1, 3분의 2 하면 되서 따로 저장할 필요 없음
 	greedy(&a, &b);
 }
