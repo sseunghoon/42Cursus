@@ -11,42 +11,43 @@
 /* ************************************************************************** */
 
 #include "../include/push_swap.h"
+#include <stdio.h>
 
-void	swap(t_deque *x)
+void	ft_swap(int *a, int *b)
 {
-	t_node	*p;
-	t_node	*q;
+	int	tmp;
 
-	p = pop_top(x);
-	q = pop_top(x);
-	add_top(x, p);
-	add_top(x, q);
-	ft_printf("s%c\n", x->name);
+	tmp = *a;
+	*a = *b;
+	*b = tmp;
 }
 
-void	swap_both(t_deque *x, t_deque *y)
+void	init_arr(int **arr, int **dup_ck, t_deque *a)
 {
 	t_node	*p;
-	t_node	*q;
+	int		i;
 
-	p = pop_top(x);
-	q = pop_top(x);
-	add_top(x, p);
-	add_top(x, q);
-	p = pop_top(y);
-	q = pop_top(y);
-	add_top(y, p);
-	add_top(y, q);
-	ft_printf("ss\n");
+	*arr = malloc(sizeof(int) * a->size);
+	*dup_ck = malloc(sizeof(int) * a->size);
+	p = a->top;
+	i = 0;
+	while (i < a->size)
+	{
+		(*arr)[i] = p->data;
+		(*dup_ck)[i] = 0;
+		p = p->next;
+		i++;
+	}
 }
 
-void	push(t_deque *x, t_deque *y)
+void	init_deque(t_deque *a, t_deque *b)
 {
-	t_node	*p;
-
-	p = pop_top(y);
-	if (p == NULL)
-		return ;
-	add_top(x, p);
-	ft_printf("p%c\n", x->name);
+	a->top = NULL;
+	a->bot = NULL;
+	b->top = NULL;
+	b->bot = NULL;
+	a->size = 0;
+	b->size = 0;
+	a->name = 'a';
+	b->name = 'b';
 }

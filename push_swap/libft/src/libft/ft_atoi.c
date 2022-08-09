@@ -6,9 +6,11 @@
 /*   By: seunghso <seunghso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/04 11:03:07 by seunghso          #+#    #+#             */
-/*   Updated: 2022/07/06 17:41:00 by seunghso         ###   ########.fr       */
+/*   Updated: 2022/08/09 22:14:24 by seunghso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include "../../include/libft.h"
 
 int	ft_atoi(const char *str)
 {
@@ -29,6 +31,11 @@ int	ft_atoi(const char *str)
 	{
 		result = result * 10 + (*str - '0') * sign;
 		str++;
+	}
+	if (*str != '\0')
+	{
+		write(1, "Error\n", ft_strlen("Error\n"));
+		exit(1);
 	}
 	return (result);
 }

@@ -6,19 +6,19 @@
 #    By: seunghso <seunghso@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/20 13:49:39 by seunghso          #+#    #+#              #
-#    Updated: 2022/08/03 19:38:59 by seunghso         ###   ########.fr        #
+#    Updated: 2022/08/09 22:08:01 by seunghso         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME	=	push_swap
 
 SRCS_DIR_M	=	src/
-SRCS_BASE_M	=	push_swap.c utils.c greedy.c command.c
+SRCS_BASE_M	=	push_swap.c utils.c greedy.c command.c command2.c etc.c parse.c
 OBJS_M		=	$(SRCS_M:%.c=%.o)
 SRCS_M		=	$(addprefix $(SRCS_DIR_M), $(SRCS_BASE_M))
 
 SRCS_DIR_B 	=	src_bonus/
-SRCS_BASE_B	=	push_swap.c utils.c greedy.c command.c
+SRCS_BASE_B	=	push_swap.c utils.c greedy.c command.c command2.c etc.c parse.c
 OBJS_B		=	$(SRCS_B:%.c=%.o)
 SRCS_B		=	$(addprefix $(SRCS_DIR_B), $(SRCS_BASE_B))
 
