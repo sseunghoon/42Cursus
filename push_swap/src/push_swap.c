@@ -302,7 +302,7 @@ void	get_best_loc(t_deque *a, t_deque *b, int *dest, int *sttp)
 	}
 }
 
-void	integrated_rotate(t_deque *a, t_deque *b, int dest, int sttp)
+void	best_rotate(t_deque *a, t_deque *b, int dest, int sttp)
 {
 	if (dest == sttp)
 	{
@@ -340,6 +340,32 @@ void	integrated_rotate(t_deque *a, t_deque *b, int dest, int sttp)
 	}
 }
 
+void	last_rotate(t_deque *a)
+{
+	int		turning_point;
+	t_node *p;
+
+	turning_point = 0;
+	p = a->top;
+	while (turning_point < a->size - 1)
+	{
+		if (p->data > p->next->data)
+			break ;
+		turning_point++;
+		p = p->next;
+	}
+	if (turning_point > a->size / 2)
+	{
+		while (a->bot->data < a->top->data)
+			reverse_rotate(a);
+	}
+	else
+	{
+		while (a->bot->data < a->top->data)
+			rotate(a);
+	}
+}
+
 void	greedy(t_deque *a, t_deque *b)
 {
 	int	dest;
@@ -348,13 +374,10 @@ void	greedy(t_deque *a, t_deque *b)
 	while (b->size)
 	{
 		get_best_loc(a, b, &dest, &sttp);
-		integrated_rotate(a, b, dest, sttp);
+		best_rotate(a, b, dest, sttp);
 		push(a,b);
 	}
-	while (a->bot->data < a->top->data)
-	{
-		reverse_rotate(a);
-	}
+	last_rotate(a);
 }
 
 int	main(int argc, char **argv)
