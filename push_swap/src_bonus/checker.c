@@ -35,6 +35,34 @@ void	parse_argument(t_deque *a, t_deque *b, int argc, char **argv)
 	receive_input(a, argc, argv);
 }
 
+char	**read_commands()
+{
+	char	*commands;
+	char	*tmp;
+	char	buff[100];
+	char	**result;
+	int		read_val;
+
+	tmp = malloc(sizeof(char));
+	*tmp = '\0';
+	read_val = 1;
+	while (read_val)
+	{
+		read_val = read(1, buff, 100);
+		if (read_val == -1)
+		{
+			ft_printf("Error\n");
+			exit(1);
+		}
+		commands = ft_strjoin(tmp, buff);
+		free(tmp);
+		tmp = commands;
+	}
+	result = ft_split(commands, '\n');
+	free(commands);
+	return (result);
+}
+
 int	main(int argc, char **argv)
 {
 	t_deque	a;
@@ -42,7 +70,7 @@ int	main(int argc, char **argv)
 	char	**commands;
 
 	parse_argument(&a, &b, argc, argv);
-	commands = read_command();
+	commands = read_commands();
 	execute_commands(&a, &b, commands);
 	check_sorted(&a, &b);
 	// 100 buffer 씩 계속 읽는다
