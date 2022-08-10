@@ -12,6 +12,18 @@
 
 #include "../include/checker.h"
 
+void	execute_commands(t_deque *a, t_deque *b, char **commands)
+{
+	char	*p;
+
+	p = *commands;
+	while (*commands)
+	{
+		classify_command(a, b, *commands);
+		commands++;
+	}
+}
+
 void	swap(t_deque *x)
 {
 	t_node	*p;
@@ -21,7 +33,6 @@ void	swap(t_deque *x)
 	q = pop_top(x);
 	add_top(x, p);
 	add_top(x, q);
-	ft_printf("s%c\n", x->name);
 }
 
 void	swap_both(t_deque *x, t_deque *y)
@@ -37,7 +48,6 @@ void	swap_both(t_deque *x, t_deque *y)
 	q = pop_top(y);
 	add_top(y, p);
 	add_top(y, q);
-	ft_printf("ss\n");
 }
 
 void	push(t_deque *x, t_deque *y)
@@ -48,5 +58,4 @@ void	push(t_deque *x, t_deque *y)
 	if (p == NULL)
 		return ;
 	add_top(x, p);
-	ft_printf("p%c\n", x->name);
 }

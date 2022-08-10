@@ -23,7 +23,6 @@ void	rotate(t_deque *x)
 		exit(0);
 	}
 	add_bot(x, p);
-	ft_printf("r%c\n", x->name);
 }
 
 void	rotate_both(t_deque *x, t_deque *y)
@@ -44,7 +43,6 @@ void	rotate_both(t_deque *x, t_deque *y)
 		exit(0);
 	}
 	add_bot(y, p);
-	ft_printf("rr\n");
 }
 
 void	reverse_rotate(t_deque *x)
@@ -58,7 +56,6 @@ void	reverse_rotate(t_deque *x)
 		exit(0);
 	}
 	add_top(x, p);
-	ft_printf("rr%c\n", x->name);
 }
 
 void	reverse_rotate_both(t_deque *x, t_deque *y)
@@ -79,5 +76,4 @@ void	reverse_rotate_both(t_deque *x, t_deque *y)
 		exit(0);
 	}
 	add_top(y, p);
-	ft_printf("rrr\n");
 }

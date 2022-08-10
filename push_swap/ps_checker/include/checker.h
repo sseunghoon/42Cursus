@@ -34,9 +34,12 @@ typedef struct t_deque
 
 // push_swap.c
 void	parse_argument(t_deque *a, t_deque *b, int argc, char **argv);
+int		check_sorted(t_deque *a, t_deque *b);
 void	init_deque(t_deque *a, t_deque *b);
+void	init_buff(char *buff);
 
 // command.c
+void	execute_commands(t_deque *a, t_deque *b, char **commands);
 void	swap(t_deque *d);
 void	swap_both(t_deque *x, t_deque *y);
 void	push(t_deque *x, t_deque *y);
@@ -56,5 +59,7 @@ t_node	*pop_bot(t_deque *x);
 // parse.c
 void	receive_input(t_deque *a, int argc, char **argv);
 void	append_data(t_deque *x, int data);
+char	**read_commands(void);
+void	classify_command(t_deque *a, t_deque *b, char *command);
 
 #endif
