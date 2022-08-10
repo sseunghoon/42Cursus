@@ -6,32 +6,40 @@
 #    By: seunghso <seunghso@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/20 13:49:39 by seunghso          #+#    #+#              #
-#    Updated: 2022/08/10 17:53:39 by seunghso         ###   ########.fr        #
+#    Updated: 2022/08/10 17:57:05 by seunghso         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME	=	push_swap
 
-PUSH_SWAP	=	ps_push_swap
-CHECKER		=	ps_checker
+SRCS_DIR	=	src/
+SRCS_BASE	=	push_swap.c utils.c greedy.c command.c command2.c etc.c parse.c
+OBJS		=	$(SRCS:%.c=%.o)
+SRCS		=	$(addprefix $(SRCS_DIR), $(SRCS_BASE))
+
+INC	=	include
+
+CC		=	cc
+CFLAGS	=	-Wall -Werror -Wextra
+CLIB	=	-Llibft -l_seunghso
+LIBFT	=	libft
 
 all		:	$(NAME)
 
-$(NAME)	:
-	make -C $(PUSH_SWAP)
+$(NAME)	:	$(OBJS)
+	make -C $(LIBFT)
+	$(CC) $(CFLAGS) $(CLIB) -I $(INC) $(OBJS) -o $(NAME)
 
-bonus	:
-	make -C $(PUSH_SWAP)
-	make -C $(CHECKER)
+%.o	:%.c
+	$(CC) $(CFLAGS) -c $< -o $@
 
 clean	:
-	make -C $(PUSH_SWAP) clean
-	make -C $(CHECKER) clean
+	rm -rf $(OBJS)
+	make -C $(LIBFT) clean
 
 fclean	: clean
-	rm -rf	push_swap checker
-	make -C $(PUSH_SWAP) fclean
-	make -C $(CHECKER) fclean
+	rm -rf	$(NAME)
+	make -C $(LIBFT) fclean
 
 re		: fclean all
 
