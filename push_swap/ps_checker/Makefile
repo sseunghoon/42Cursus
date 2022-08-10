@@ -6,14 +6,14 @@
 #    By: seunghso <seunghso@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/20 13:49:39 by seunghso          #+#    #+#              #
-#    Updated: 2022/08/10 20:48:51 by seunghso         ###   ########.fr        #
+#    Updated: 2022/08/10 21:23:26 by seunghso         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME	=	../checker
 
 SRCS_DIR	=	src/
-SRCS_BASE	=	checker.c utils.c command.c command2.c parse.c
+SRCS_BASE	=	checker.c utils.c command.c command2.c parse.c etc.c
 OBJS		=	$(SRCS:%.c=%.o)
 SRCS		=	$(addprefix $(SRCS_DIR), $(SRCS_BASE))
 

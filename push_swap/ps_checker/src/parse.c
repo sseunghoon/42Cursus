@@ -71,19 +71,23 @@ char	**read_commands(void)
 
 	tmp = malloc(sizeof(char));
 	*tmp = '\0';
+	commands = NULL;
+	result = NULL;
 	while (1)
 	{
-		// init_buff(buff);
 		buff = get_next_line(0);
 		if (buff == NULL)
-			break;
+			break ;
 		commands = ft_strjoin(tmp, buff);
 		free(tmp);
 		free(buff);
 		tmp = commands;
 	}
-	result = ft_split(commands, '\n');
-	free(commands);
+	if (commands)
+	{
+		result = ft_split(commands, '\n');
+		free(commands);
+	}
 	return (result);
 }
 
@@ -112,9 +116,6 @@ int	classify_command(t_deque *a, t_deque *b, char *command)
 	else if (ft_strcmp(command, "rrr") == 0)
 		reverse_rotate_both(a, b);
 	else
-	{
-		ft_printf("@@@%s@@@\n", command);
 		return (-1);
-	}
 	return (0);
 }

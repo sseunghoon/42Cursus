@@ -36,7 +36,6 @@ typedef struct t_deque
 void	parse_argument(t_deque *a, t_deque *b, int argc, char **argv);
 int		check_sorted(t_deque *a, t_deque *b);
 void	init_deque(t_deque *a, t_deque *b);
-void	init_buff(char *buff);
 
 // command.c
 void	execute_commands(t_deque *a, t_deque *b, char **commands);
@@ -61,5 +60,12 @@ void	receive_input(t_deque *a, int argc, char **argv);
 void	append_data(t_deque *x, int data);
 char	**read_commands(void);
 int		classify_command(t_deque *a, t_deque *b, char *command);
+
+// etc.c
+void	ft_swap(int *a, int *b);
+void	change_to_idx(t_deque *a);
+int		binary_search(int *arr, int data, int left, int right);
+void	quick_sort(int *arr, int left, int right);
+void	init_arr(int **arr, int **dup_ck, t_deque *a);
 
 #endif

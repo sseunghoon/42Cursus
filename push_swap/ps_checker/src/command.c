@@ -16,6 +16,8 @@ void	execute_commands(t_deque *a, t_deque *b, char **commands)
 {
 	char	*p;
 
+	if (commands == NULL)
+		return ;
 	p = *commands;
 	while (*commands)
 	{

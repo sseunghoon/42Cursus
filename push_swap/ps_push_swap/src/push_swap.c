@@ -71,10 +71,7 @@ void	divide_3part(t_deque *a, t_deque *b, int pivot1, int pivot2)
 void	parse_argument(t_deque *a, t_deque *b, int argc, char **argv)
 {
 	if (argc == 1)
-	{
-		ft_printf("Error\n");
-		exit(1);
-	}
+		exit(0);
 	init_deque(a, b);
 	receive_input(a, argc, argv);
 	change_to_idx(a);
@@ -94,20 +91,6 @@ void	greedy(t_deque *a, t_deque *b)
 	last_rotate(a);
 }
 
-void	print_deq(t_deque *a)
-{
-	int i = 0;
-	t_node *p;
-
-	p = a->top;
-	while (i < a->size)
-	{
-		ft_printf("%d\n", p->data);
-		p = p->next;
-		i++;
-	}
-}
-
 int	main(int argc, char **argv)
 {
 	t_deque	a;
@@ -116,5 +99,4 @@ int	main(int argc, char **argv)
 	parse_argument(&a, &b, argc, argv);
 	divide_3part(&a, &b, a.size / 3 * 1, a.size / 3 * 2);
 	greedy(&a, &b);
-	// print_deq(&a);
 }
