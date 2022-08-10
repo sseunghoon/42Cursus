@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include "../include/checker.h"
-#include <string.h>
 
 void	init_deque(t_deque *a, t_deque *b)
 {
@@ -67,6 +66,20 @@ int	check_sorted(t_deque *a, t_deque *b)
 	return (1);
 }
 
+void	print_deq(t_deque *a)
+{
+	int i = 0;
+	t_node *p;
+
+	p = a->top;
+	while (i < a->size)
+	{
+		ft_printf("%d\n", p->data);
+		p = p->next;
+		i++;
+	}
+}
+
 int	main(int argc, char **argv)
 {
 	t_deque	a;
@@ -80,5 +93,9 @@ int	main(int argc, char **argv)
 		ft_printf("OK\n");
 	else
 		ft_printf("KO\n");
+	// print_deq(&a);
+	
 	return (0);
 }
+
+// 중복

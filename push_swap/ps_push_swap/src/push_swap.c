@@ -94,6 +94,20 @@ void	greedy(t_deque *a, t_deque *b)
 	last_rotate(a);
 }
 
+void	print_deq(t_deque *a)
+{
+	int i = 0;
+	t_node *p;
+
+	p = a->top;
+	while (i < a->size)
+	{
+		ft_printf("%d\n", p->data);
+		p = p->next;
+		i++;
+	}
+}
+
 int	main(int argc, char **argv)
 {
 	t_deque	a;
@@ -102,4 +116,5 @@ int	main(int argc, char **argv)
 	parse_argument(&a, &b, argc, argv);
 	divide_3part(&a, &b, a.size / 3 * 1, a.size / 3 * 2);
 	greedy(&a, &b);
+	// print_deq(&a);
 }

@@ -19,7 +19,11 @@ void	execute_commands(t_deque *a, t_deque *b, char **commands)
 	p = *commands;
 	while (*commands)
 	{
-		classify_command(a, b, *commands);
+		if (classify_command(a, b, *commands) == -1)
+		{
+			ft_printf("Error\n");
+			exit(1);
+		}
 		commands++;
 	}
 }

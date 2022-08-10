@@ -6,11 +6,11 @@
 #    By: seunghso <seunghso@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/20 13:49:39 by seunghso          #+#    #+#              #
-#    Updated: 2022/08/10 17:53:39 by seunghso         ###   ########.fr        #
+#    Updated: 2022/08/10 20:17:24 by seunghso         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME	=	push_swap
+NAME	=	ps
 
 PUSH_SWAP	=	ps_push_swap
 CHECKER		=	ps_checker

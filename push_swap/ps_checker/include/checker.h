@@ -60,6 +60,6 @@ t_node	*pop_bot(t_deque *x);
 void	receive_input(t_deque *a, int argc, char **argv);
 void	append_data(t_deque *x, int data);
 char	**read_commands(void);
-void	classify_command(t_deque *a, t_deque *b, char *command);
+int		classify_command(t_deque *a, t_deque *b, char *command);
 
 #endif
