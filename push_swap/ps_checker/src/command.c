@@ -14,11 +14,11 @@
 
 void	execute_commands(t_deque *a, t_deque *b, char **commands)
 {
-	char	*p;
+	char	**p;
 
 	if (commands == NULL)
 		return ;
-	p = *commands;
+	p = commands;
 	while (*commands)
 	{
 		if (classify_command(a, b, *commands) == -1)
@@ -26,8 +26,10 @@ void	execute_commands(t_deque *a, t_deque *b, char **commands)
 			ft_printf("Error\n");
 			exit(1);
 		}
+		free(*commands);
 		commands++;
 	}
+	free(p);
 }
 
 void	swap(t_deque *x)

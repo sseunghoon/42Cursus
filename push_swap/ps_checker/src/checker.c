@@ -68,7 +68,5 @@ int	main(int argc, char **argv)
 	return (0);
 }
 
-// 중복
 // leaks
-// norm
-// size 1, 2, 3, 4, 5 까지 해보기
+// 컴파일 옵션
