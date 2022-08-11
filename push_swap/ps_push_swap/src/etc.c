@@ -53,3 +53,22 @@ void	init_deque(t_deque *a, t_deque *b)
 	a->name = 'a';
 	b->name = 'b';
 }
+
+int	check_sorted(t_deque *a, t_deque *b)
+{
+	int		i;
+	t_node	*p;
+
+	if (b->size)
+		return (0);
+	p = a->top;
+	i = 0;
+	while (i < a->size - 1)
+	{
+		if (p->data > p->next->data)
+			return (0);
+		i++;
+		p = p->next;
+	}
+	return (1);
+}

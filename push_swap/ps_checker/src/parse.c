@@ -128,5 +128,3 @@ int	classify_command(t_deque *a, t_deque *b, char *command)
 		return (-1);
 	return (0);
 }
-
-// 아무 명령도 입력되지 않았을 때, read_command의 tmp에 생기는 leak은 문제가 되는 누수가 아님

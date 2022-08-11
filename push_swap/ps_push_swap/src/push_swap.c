@@ -75,6 +75,8 @@ void	parse_argument(t_deque *a, t_deque *b, int argc, char **argv)
 	init_deque(a, b);
 	receive_input(a, argc, argv);
 	change_to_idx(a);
+	if (check_sorted(a, b))
+		exit(0);
 }
 
 void	greedy(t_deque *a, t_deque *b)

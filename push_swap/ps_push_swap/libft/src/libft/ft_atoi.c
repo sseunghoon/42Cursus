@@ -6,7 +6,7 @@
 /*   By: seunghso <seunghso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/04 11:03:07 by seunghso          #+#    #+#             */
-/*   Updated: 2022/08/09 22:14:24 by seunghso         ###   ########.fr       */
+/*   Updated: 2022/08/11 16:41:41 by seunghso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 int	ft_atoi(const char *str)
 {
-	int	result;
-	int	sign;
+	long long	result;
+	long long	sign;
 
 	result = 0;
 	sign = 1;
@@ -33,9 +33,8 @@ int	ft_atoi(const char *str)
 		str++;
 	}
 	if (*str != '\0')
-	{
-		write(1, "Error\n", ft_strlen("Error\n"));
-		exit(1);
-	}
+		ft_print_err();
+	if (result > 2147483647 || result < -2147483648)
+		ft_print_err();
 	return (result);
 }

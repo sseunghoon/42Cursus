@@ -72,5 +72,6 @@ void	quick_sort(int *arr, int left, int right);
 void	ft_swap(int *a, int *b);
 void	init_arr(int **arr, int **dup_ck, t_deque *a);
 void	init_deque(t_deque *a, t_deque *b);
+int		check_sorted(t_deque *a, t_deque *b);
 
 #endif
