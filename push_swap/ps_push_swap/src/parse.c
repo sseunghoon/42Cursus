@@ -70,6 +70,8 @@ void	append_data(t_deque *x, int data)
 	t_node	*new_node;
 
 	new_node = malloc(sizeof(t_node));
+	if (new_node == NULL)
+		exit(1);
 	new_node->prev = NULL;
 	new_node->next = NULL;
 	new_node->data = data;

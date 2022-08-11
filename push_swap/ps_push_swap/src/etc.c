@@ -29,6 +29,8 @@ void	init_arr(int **arr, int **dup_ck, t_deque *a)
 
 	*arr = malloc(sizeof(int) * a->size);
 	*dup_ck = malloc(sizeof(int) * a->size);
+	if (arr == NULL || dup_ck == NULL)
+		exit(1);
 	p = a->top;
 	i = 0;
 	while (i < a->size)

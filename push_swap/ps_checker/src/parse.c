@@ -43,6 +43,8 @@ void	append_data(t_deque *x, int data)
 	t_node	*new_node;
 
 	new_node = malloc(sizeof(t_node));
+	if (new_node == NULL)
+		exit(1);
 	new_node->prev = NULL;
 	new_node->next = NULL;
 	new_node->data = data;
@@ -62,6 +64,16 @@ void	append_data(t_deque *x, int data)
 	x->size++;
 }
 
+static void	init_var(char **tmp, char **commands, char ***result)
+{
+	*tmp = malloc(sizeof(char));
+	if (*tmp == NULL)
+		exit(1);
+	*(*tmp) = '\0';
+	*commands = NULL;
+	*result = NULL;
+}
+
 char	**read_commands(void)
 {
 	char	*commands;
@@ -69,10 +81,7 @@ char	**read_commands(void)
 	char	*buff;
 	char	**result;
 
-	tmp = malloc(sizeof(char));
-	*tmp = '\0';
-	commands = NULL;
-	result = NULL;
+	init_var(&tmp, &commands, &result);
 	while (1)
 	{
 		buff = get_next_line(0);

@@ -67,6 +67,3 @@ int	main(int argc, char **argv)
 		ft_printf("KO\n");
 	return (0);
 }
-
-// leaks
-// 컴파일 옵션
