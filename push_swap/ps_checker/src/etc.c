@@ -30,12 +30,14 @@ void	change_to_idx(t_deque *a)
 			dup_ck[p->data] = 1;
 		else
 		{
-			ft_printf("Error\n");
+			ft_print_err("Error\n");
 			exit(1);
 		}
 		p = p->next;
 		i++;
 	}
+	free(arr);
+	free(dup_ck);
 }
 
 void	init_arr(int **arr, int **dup_ck, t_deque *a)

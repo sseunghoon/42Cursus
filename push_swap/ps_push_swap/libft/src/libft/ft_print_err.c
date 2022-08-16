@@ -6,14 +6,14 @@
 /*   By: seunghso <seunghso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/04 11:03:07 by seunghso          #+#    #+#             */
-/*   Updated: 2022/08/11 16:41:01 by seunghso         ###   ########.fr       */
+/*   Updated: 2022/08/16 14:46:57 by seunghso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/libft.h"
 
-void	ft_print_err(void)
+void	ft_print_err(char *str)
 {
-	write(1, "Error\n", ft_strlen("Error\n"));
+	write(2, str, ft_strlen(str));
 	exit(1);
 }

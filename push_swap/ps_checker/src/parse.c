@@ -97,6 +97,8 @@ char	**read_commands(void)
 		result = ft_split(commands, '\n');
 		free(commands);
 	}
+	else
+		free(tmp);
 	return (result);
 }
 

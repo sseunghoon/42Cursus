@@ -6,7 +6,7 @@
 /*   By: seunghso <seunghso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/04 11:03:07 by seunghso          #+#    #+#             */
-/*   Updated: 2022/08/11 16:41:41 by seunghso         ###   ########.fr       */
+/*   Updated: 2022/08/16 14:55:14 by seunghso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,8 @@ int	ft_atoi(const char *str)
 		str++;
 	}
 	if (*str != '\0')
-		ft_print_err();
+		ft_print_err("Error\n");
 	if (result > 2147483647 || result < -2147483648)
-		ft_print_err();
+		ft_print_err("Error\n");
 	return (result);
 }

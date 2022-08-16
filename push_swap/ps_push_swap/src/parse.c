@@ -31,12 +31,14 @@ void	change_to_idx(t_deque *a)
 			dup_ck[p->data] = 1;
 		else
 		{
-			ft_printf("Error\n");
+			ft_print_err("Error\n");
 			exit(1);
 		}
 		p = p->next;
 		i++;
 	}
+	free(arr);
+	free(dup_ck);
 }
 
 void	receive_input(t_deque *a, int argc, char **argv)

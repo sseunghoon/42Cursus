@@ -23,7 +23,7 @@ void	execute_commands(t_deque *a, t_deque *b, char **commands)
 	{
 		if (classify_command(a, b, *commands) == -1)
 		{
-			ft_printf("Error\n");
+			ft_print_err("Error\n");
 			exit(1);
 		}
 		free(*commands);
