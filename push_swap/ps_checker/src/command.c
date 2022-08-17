@@ -39,7 +39,11 @@ void	swap(t_deque *x)
 
 	p = pop_top(x);
 	q = pop_top(x);
+	if (p == NULL)
+		return ;
 	add_top(x, p);
+	if (q == NULL)
+		return ;
 	add_top(x, q);
 }
 
@@ -50,11 +54,19 @@ void	swap_both(t_deque *x, t_deque *y)
 
 	p = pop_top(x);
 	q = pop_top(x);
+	if (p == NULL)
+		return ;
 	add_top(x, p);
+	if (q == NULL)
+		return ;
 	add_top(x, q);
 	p = pop_top(y);
 	q = pop_top(y);
+	if (p == NULL)
+		return ;
 	add_top(y, p);
+	if (q == NULL)
+		return ;
 	add_top(y, q);
 }
 
