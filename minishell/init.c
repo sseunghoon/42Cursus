@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   init.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: yehyun <yehyun@student.42seoul.kr>         +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/09/13 15:37:15 by yehyun            #+#    #+#             */
+/*   Updated: 2022/09/15 19:08:22 by yehyun           ###   ########seoul.kr  */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 extern char	**environ;
@@ -27,6 +39,8 @@ int	init_env(t_info *info)
 	info->env = 0;
 	while (environ[i])
 	{
+		if (!ft_strncmp(environ[i], "OLDPWD=", 7) && ++i)
+			continue ;
 		add_list(&info->env, environ[i]);
 		i++;
 	}

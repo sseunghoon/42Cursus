@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   excute_pipe.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: yehyun <yehyun@student.42seoul.kr>         +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/09/13 15:37:15 by yehyun            #+#    #+#             */
+/*   Updated: 2022/09/14 18:49:17 by yehyun           ###   ########seoul.kr  */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../minishell.h"
 
 void	pipe_child_proc(t_info *info, t_tree *myself, t_ftool *tool, int index)
@@ -51,6 +63,7 @@ int	execute_pipe(t_info *info, t_tree *myself)
 		i++;
 	}
 	dup2(in_fd, STDIN_FILENO);
+	close(in_fd);
 	waitpid(left, &tool.status, 0);
 	waitpid(right, &tool.status, 0);
 	return (WEXITSTATUS(tool.status));

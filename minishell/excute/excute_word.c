@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   excute_word.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: yehyun <yehyun@student.42seoul.kr>         +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/09/13 15:37:15 by yehyun            #+#    #+#             */
+/*   Updated: 2022/09/16 17:05:43 by yehyun           ###   ########seoul.kr  */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../minishell.h"
 
 extern int	g_exit_code;
@@ -94,11 +106,11 @@ int	execute_word(t_info *info, t_tree *myself)
 	if (!tool.pid)
 		word_child(argv, env, path);
 	waitpid(tool.pid, &tool.status, 0);
-	if (info->path_flag)
+	if (info->path_flag && info->path_flag--)
 		free(path);
 	free(argv);
 	free(env);
-	if (g_exit_code == 130)
+	if (g_exit_code == 130 || g_exit_code == 131)
 		return (g_exit_code);
 	return (WEXITSTATUS(tool.status));
 }

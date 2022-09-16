@@ -1,13 +1,13 @@
-NAME	      = libft.a
-SHELL		= bash
+NAME = libft.a
+SHELL = bash
 
-CC		= cc
-CFLAG	      = -Wall -Wextra -Werror
+CC = cc
+CFLAG = -Wall -Wextra -Werror
 
-RM		= rm -f
+RM = rm -f
 
-AR		= ar
-ARFLAGS       = crs
+AR = ar
+ARFLAGS = crs
 
 SRCS_1 = ft_strlen.c	\
 		 ft_strlcpy.c	\
@@ -46,48 +46,28 @@ SRCS_2 = ft_substr.c	\
  		 ft_putstr_fd.c	\
  		 ft_putendl_fd.c\
  		 ft_putnbr_fd.c	\
+		 get_next_line.c\
 
-SRCS_BN = ft_lstnew.c		\
-		  ft_lstsize.c		\
-		  ft_lstadd_front.c	\
-		  ft_lstadd_back.c	\
-		  ft_lstclear.c		\
-		  ft_lstlast.c		\
-		  ft_lstiter.c		\
-		  ft_lstmap.c		\
-		  ft_lstdelone.c	\
+SRCS = $(SRCS_1) \
+		$(SRCS_2) \
 
-SRCS	= $(SRCS_1)			\
-	  $(SRCS_2)			\
-
-OBJS_SRC	= $(SRCS:.c=.o)
-
-OBJS_BONUS = $(SRCS_BN:.c=.o)
+OBJS_SRC = $(SRCS:.c=.o)
 
 all : $(NAME)
+
+$(NAME) : $(OBJS_SRC)
+	@./make_libft.sh
+	@$(AR) $(ARFLAGS) $@ $^
 
 %.o : %.c
 	@$(CC) $(CFLAG) -c $< -o $@
 
-ifdef WITH_BONUS
-OBJ = $(OBJS_SRC) $(OBJS_BONUS)
-else
-OBJ = $(OBJS_SRC)
-endif
-
 clean :
-	@$(RM) $(RMFLAG) $(OBJS_SRC) $(OBJS_BONUS)
+	@$(RM) $(RMFLAG) $(OBJS_SRC)
 
 fclean : clean
 	@$(RM) $(RMFLAG) $(NAME)
 
 re : fclean all
 
-$(NAME) : $(OBJ)
-	@./make_libft.sh
-	@$(AR) $(ARFLAGS) $@ $^
-
-bonus : 
-	make WITH_BONUS=1 all
-   
-   .PHONY : all clean fclean re
+.PHONY : all clean fclean re

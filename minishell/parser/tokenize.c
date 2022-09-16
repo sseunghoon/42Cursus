@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   tokenize.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: littley <littley@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/09/13 15:37:15 by yehyun            #+#    #+#             */
+/*   Updated: 2022/09/13 21:08:06 by littley          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../minishell.h"
 
 int	is_sep_token(char *str, int i)
@@ -36,29 +48,25 @@ int	pass_quote(char *token, int i)
 
 int	split_token(char *token, t_dlist *curr, int i, int quote)
 {
-	while (token[i])
+	if (!is_sep_token(token, i))
 	{
-		if (token[i] == '\'' || token[i] == '\"')
-			i = pass_quote(token, i);
-		else if (!is_sep_token(token, i))
+		while (token[i] && !is_sep_token(token, i))
 		{
-			while (token[i] && !is_sep_token(token, i))
-				i++;
-			if (is_sep_token(token, i))
-				cut_node(curr, i - 1);
-			return (1);
+			if (token[i] == '\'' || token[i] == '\"')
+				i = pass_quote(token, i);
+			i++;
 		}
-		else if (is_sep_token(token, i))
-		{
-			if (token[i + 1] == token[i])
-				cut_node(curr, i + 1);
-			else
-				cut_node(curr, i);
-			return (1);
-		}
-		i++;
+		if (is_sep_token(token, i))
+			cut_node(curr, i - 1);
 	}
-	return (0);
+	else if (is_sep_token(token, i))
+	{
+		if (token[i + 1] == token[i])
+			cut_node(curr, i + 1);
+		else
+			cut_node(curr, i);
+	}
+	return (1);
 }
 
 int	is_complete_sep(char *token)

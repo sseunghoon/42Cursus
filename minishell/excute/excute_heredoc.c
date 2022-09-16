@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   excute_heredoc.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: yehyun <yehyun@student.42seoul.kr>         +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/09/13 15:37:15 by yehyun            #+#    #+#             */
+/*   Updated: 2022/09/16 17:06:12 by yehyun           ###   ########seoul.kr  */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../minishell.h"
 
 extern int	g_exit_code;
@@ -25,7 +37,7 @@ void	change2file(t_info *info, t_tree *myself)
 		return ;
 	change2file(info, myself->left_child);
 	change2file(info, myself->right_child);
-	if (myself->dlist->token[1] != '<')
+	if (!myself->dlist->token[0] || myself->dlist->token[1] != '<')
 		return ;
 	info->hd_cnt++;
 	file_num = ft_itoa(info->hd_cnt);
@@ -46,7 +58,7 @@ void	hd_gnl(char *limiter, int *fd)
 		str = get_next_line(0);
 		if (!str)
 			return ;
-		if (ft_strncmp(str, limiter, ft_strlen(str)) == '\n')
+		if (!str[0] || !ft_strncmp(str, limiter, ft_strlen(str)))
 		{
 			free(str);
 			return ;
@@ -66,10 +78,10 @@ void	do_here_doc(t_info *info, t_tree *myself)
 		return ;
 	do_here_doc(info, myself->left_child);
 	do_here_doc(info, myself->right_child);
-	if (myself->dlist->token[1] != '<')
+	if (!myself->dlist->token[0] || myself->dlist->token[1] != '<')
 		return ;
 	info->hd_cnt++;
-	limiter = ft_strdup(&myself->dlist->token[2]);
+	limiter = ft_strjoin(&myself->dlist->token[2], "\n");
 	fd = open_hdfile(myself, info);
 	hd_gnl(limiter, &fd);
 	free(limiter);
@@ -81,6 +93,7 @@ int	here_doc(t_info *info, t_tree *myself)
 	t_ftool	tool;
 
 	tool.pid = fork();
+	signal(SIGQUIT, SIG_IGN);
 	if (!tool.pid)
 	{
 		signal(SIGINT, hd_sig);
@@ -90,5 +103,6 @@ int	here_doc(t_info *info, t_tree *myself)
 	waitpid(tool.pid, &tool.status, 0);
 	change2file(info, myself);
 	g_exit_code = WEXITSTATUS(tool.status);
+	signal(SIGQUIT, signal_handler2);
 	return (WEXITSTATUS(tool.status));
 }
