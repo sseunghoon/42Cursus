@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   minishell.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: yehyun <yehyun@student.42seoul.kr>         +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/09/13 15:37:15 by yehyun            #+#    #+#             */
+/*   Updated: 2022/09/15 10:47:19 by yehyun           ###   ########seoul.kr  */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 int	g_exit_code;
@@ -9,7 +21,7 @@ int	before_cmd(char *str, t_info *info)
 		printf("exit\n");
 		exit(0);
 	}
-	if (space_check(str) == TRUE)
+	if (space_check(str) == 1)
 	{
 		free(str);
 		return (1);

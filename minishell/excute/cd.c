@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   cd.c                                               :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: yehyun <yehyun@student.42seoul.kr>         +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/09/13 15:37:15 by yehyun            #+#    #+#             */
+/*   Updated: 2022/09/14 09:36:19 by yehyun           ###   ########seoul.kr  */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../minishell.h"
 
 char	*get_path_cd(t_info *info, char *find)
@@ -74,6 +86,7 @@ int	cd(t_info *info, t_dlist *list)
 		free(old_path);
 		return (puterr_exit_code("cd", 0, 0));
 	}
-	add_export(info, old_path);
+	if (old_path)
+		add_export(info, old_path);
 	return (0);
 }

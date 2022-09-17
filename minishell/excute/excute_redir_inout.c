@@ -1,4 +1,28 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   excute_redir_inout.c                               :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: yehyun <yehyun@student.42seoul.kr>         +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/09/13 15:37:15 by yehyun            #+#    #+#             */
+/*   Updated: 2022/09/16 15:21:59 by yehyun           ###   ########seoul.kr  */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../minishell.h"
+
+void	first_redir(t_info *info)
+{
+	close(info->tmp_fd);
+	dup2(info->in_fd, STDIN_FILENO);
+	dup2(info->out_fd, STDOUT_FILENO);
+	close(info->in_fd);
+	close(info->out_fd);
+	info->redir_out_flag = 0;
+	info->redir_in_flag = 0;
+	info->tmp_fd = 0;
+}
 
 void	flag_on_redirin(t_info *info, t_tree *myself, int *r_fd)
 {
@@ -9,7 +33,6 @@ void	flag_on_redirin(t_info *info, t_tree *myself, int *r_fd)
 	}
 	else
 		info->err_flag = 1;
-	info->redir_in_flag = 1;
 }
 
 int	redir_input(t_info *info, t_tree *myself)
@@ -25,17 +48,15 @@ int	redir_input(t_info *info, t_tree *myself)
 	if (r_fd == -1 && (!myself->left_child
 			|| myself->left_child->dlist->type == WORD))
 		return (puterr_exit_code(file_name, 0, 0));
-	if (!info->redir_in_flag)
+	if (!info->redir_in_flag && ++info->redir_in_flag)
 		flag_on_redirin(info, myself, &r_fd);
 	left = execute(info, myself->left_child);
+	if (info->redir_cnt == 1)
+		first_redir(info);
 	if (left)
-	{
-		if (info->redir_cnt == 1)
-			first_redir(info);
 		return (left);
-	}
 	if (r_fd == -1)
-		return (puterr_exit_code(file_name, 0, REPLACE_ONE));
+		return (puterr_exit_code(file_name, 0, 0));
 	return (0);
 }
 
@@ -56,11 +77,11 @@ int	redir_output(t_info *info, t_tree *myself)
 		dup2(r_fd, STDOUT_FILENO);
 	close(r_fd);
 	left = execute(info, myself->left_child);
+	if (info->redir_cnt == 1)
+		first_redir(info);
 	if (left)
 	{
-		if (info->redir_cnt == 1)
-			first_redir(info);
-		if (left != 1)
+		if (left != 127 && left != 130 && left != 131)
 			unlink(file_name);
 		return (left);
 	}

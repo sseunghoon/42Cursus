@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   input_check.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: yehyun <yehyun@student.42seoul.kr>         +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/09/13 15:37:15 by yehyun            #+#    #+#             */
+/*   Updated: 2022/09/15 10:47:52 by yehyun           ###   ########seoul.kr  */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../minishell.h"
 
 int	is_single_quote(t_info *info, char *str, int *i)
@@ -48,9 +60,9 @@ int	is_quotes(char *str, t_info *info)
 		i++;
 	}
 	if (info->double_quote_flag == 0 && info->quote_flag == 0)
-		return (TRUE);
+		return (1);
 	else
-		return (FALSE);
+		return (0);
 }
 
 int	space_check(char *str)
@@ -59,14 +71,14 @@ int	space_check(char *str)
 
 	i = 0;
 	if (!str)
-		return (TRUE);
+		return (1);
 	while (str[i])
 	{
 		if (str[i] == 0 && i++)
 			continue ;
-		return (FALSE);
+		return (0);
 	}
-	return (TRUE);
+	return (1);
 }
 
 int	input_check(char *str)

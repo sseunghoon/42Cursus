@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   built_in.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: yehyun <yehyun@student.42seoul.kr>         +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/09/13 15:37:15 by yehyun            #+#    #+#             */
+/*   Updated: 2022/09/14 09:16:25 by yehyun           ###   ########seoul.kr  */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../minishell.h"
 
 int	is_echo_option(char *arg)
@@ -50,8 +62,13 @@ int	pwd(void)
 	char	*tmp;
 
 	tmp = getcwd(NULL, 0);
-	printf("%s\n", tmp);
-	free(tmp);
+	if (!tmp)
+		return (0);
+	else
+	{
+		printf("%s\n", tmp);
+		free(tmp);
+	}
 	return (0);
 }
 

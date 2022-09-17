@@ -1,26 +1,16 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   tree.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: yehyun <yehyun@student.42seoul.kr>         +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/09/13 15:37:15 by yehyun            #+#    #+#             */
+/*   Updated: 2022/09/14 09:53:39 by yehyun           ###   ########seoul.kr  */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../minishell.h"
-
-void	print_tree(t_tree *parent, int cnt)
-{
-	t_dlist	*temp;
-	t_tree	*tmp;
-
-	if (!parent)
-		return ;
-	tmp = parent;
-	temp = get_first(tmp->dlist);
-	printf("depth : %d, tree: ", cnt);
-	while (temp)
-	{
-		printf("|str : %s,  type: %d|", temp->token, temp->type);
-		temp = temp->next;
-		if (temp)
-			printf(", ");
-	}
-	printf("\n");
-	print_tree(tmp->left_child, cnt + 1);
-	print_tree(tmp->right_child, cnt + 1);
-}
 
 void	free_tree(t_tree *myself)
 {

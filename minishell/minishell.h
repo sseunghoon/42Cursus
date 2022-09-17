@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   minishell.h                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: yehyun <yehyun@student.42seoul.kr>         +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/09/13 15:37:15 by yehyun            #+#    #+#             */
+/*   Updated: 2022/09/15 17:19:08 by yehyun           ###   ########seoul.kr  */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
@@ -12,7 +24,6 @@
 # include <errno.h>
 # include <dirent.h>
 # include <sys/wait.h>
-# include "get_next_line/get_next_line.h"
 
 # define LINE 1
 # define PIPE 2
@@ -20,13 +31,8 @@
 # define WORD 4
 # define BRACKET 5
 
-# define FALSE 0
-# define TRUE 1
-
 # define VERTICAL 1
 # define HORIZONTAL 0
-
-# define REPLACE_ONE 140
 
 typedef struct s_operation
 {
@@ -87,7 +93,7 @@ void	set_signal_handler(int flag);
 void	signal_handler(int signal);
 void	set_terminal(void);
 void	signal_handler2(int signal);
-void	hd_sig(int signum);
+void	hd_sig(int signal);
 
 /* init.c */
 void	init_info(t_info *info);
@@ -120,12 +126,10 @@ t_dlist	*create_list(void);
 void	add_list(t_dlist **list, char *str);
 int		delete_node(t_dlist **list, t_dlist *node);
 void	delete_dlist(t_dlist *list);
-void	print_list(t_dlist *list);
 t_dlist	*get_first(t_dlist *curr);
 
 	/* tree.c */
 t_tree	*make_tree(t_tree *myself, t_dlist *dlist);
-void	print_tree(t_tree *parent, int cnt);
 void	free_tree(t_tree *myself);
 
 	/* utils.c */
@@ -136,9 +140,6 @@ int		ft_free(char **split);
 int		ft_isdigit_str(char *str);
 void	cut_node(t_dlist *curr, int i);
 char	*ft_strrep(char *token, char *value, int i);
-
-	/* other */
-char	*ft_strjoin_free(char *s1, char *s2);
 /*---minishell/utils---*/
 
 /*---minishell/expand---*/

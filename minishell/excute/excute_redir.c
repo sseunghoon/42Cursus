@@ -1,18 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   excute_redir.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: yehyun <yehyun@student.42seoul.kr>         +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/09/13 15:37:15 by yehyun            #+#    #+#             */
+/*   Updated: 2022/09/15 17:13:42 by yehyun           ###   ########seoul.kr  */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../minishell.h"
 
 extern int	g_exit_code;
-
-void	first_redir(t_info *info)
-{
-	close(info->tmp_fd);
-	dup2(info->in_fd, STDIN_FILENO);
-	dup2(info->out_fd, STDOUT_FILENO);
-	close(info->in_fd);
-	close(info->out_fd);
-	info->redir_out_flag = 0;
-	info->redir_in_flag = 0;
-	info->tmp_fd = 0;
-}
 
 t_tree	*move_hierarchy(t_tree *myself, int flag)
 {
@@ -88,8 +88,6 @@ int	execute_redir(t_info *info, t_tree *myself)
 		ret = redir_input(info, myself);
 	else if (myself->dlist->token[0] == '>')
 		ret = redir_output(info, myself);
-	if (!ret && info->redir_cnt == 1)
-		first_redir(info);
 	info->redir_cnt--;
 	return (ret);
 }

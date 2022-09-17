@@ -1,40 +1,57 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   signal.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: yehyun <yehyun@student.42seoul.kr>         +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/09/13 15:37:15 by yehyun            #+#    #+#             */
+/*   Updated: 2022/09/16 17:05:23 by yehyun           ###   ########seoul.kr  */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 extern int	g_exit_code;
 
-void	signal_handler(int signal)
+void	signal_handler(int sig)
 {
-	if (signal == SIGINT)
+	if (sig == SIGINT)
 	{
-		printf("\n");
+		write(1, "\n", 1);
 		rl_on_new_line();
 		rl_replace_line("", 1);
 		rl_redisplay();
 		g_exit_code = 1;
 	}
-	else if (signal == SIGQUIT)
-		return ;
 }
 
 void	signal_handler2(int signal)
 {
 	if (signal == SIGINT)
-	{
 		g_exit_code = 130;
-		printf("\n");
+	else if (signal == SIGQUIT)
+	{
+		g_exit_code = 131;
+		write(2, "Quit: 3\n", 8);
 	}
 }
 
 void	set_signal_handler(int flag)
 {
 	if (!flag)
+	{
+		signal(SIGQUIT, SIG_IGN);
 		signal(SIGINT, signal_handler);
+	}
 	else
+	{
+		signal(SIGQUIT, signal_handler2);
 		signal(SIGINT, signal_handler2);
-	signal(SIGQUIT, SIG_IGN);
+	}
 }
 
-void	hd_sig(int signum)
+void	hd_sig(int signal)
 {
 	exit(1);
 }

@@ -1,18 +1,36 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   wild_card.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: yehyun <yehyun@student.42seoul.kr>         +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/09/13 15:37:15 by yehyun            #+#    #+#             */
+/*   Updated: 2022/09/16 16:09:36 by yehyun           ###   ########seoul.kr  */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../minishell.h"
 
 int	check_wildcard(t_dlist *curr, char quote, int i, int w_cnt)
 {
 	char	*tmp;
+	int		path_cnt;
 
 	tmp = curr->token;
+	path_cnt = 0;
 	while (tmp[i])
 	{
-		if (tmp[i] == '\'' || tmp[i] == '\"')
+		if (tmp[i] == '/' && ++path_cnt && !w_cnt)
+			return (0);
+		else if (tmp[i] == '\'' || tmp[i] == '\"')
 		{
 			quote = tmp[i++];
 			while (tmp[i] != quote)
 				i++;
 		}
+		else if (tmp[i] == '*' && path_cnt)
+			return (0);
 		else if (tmp[i] == '*')
 			w_cnt++;
 		i++;
@@ -91,6 +109,10 @@ int	wildcard(t_dlist **now)
 	if (next_path)
 		free(next_path);
 	if (new_list && set_list(*now, new_list))
+	{
+		free((*now)->token);
+		free(*now);
 		*now = new_list;
+	}
 	return (0);
 }
