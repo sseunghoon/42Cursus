@@ -6,7 +6,7 @@
 /*   By: seunghso <seunghso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/20 18:42:08 by seunghso          #+#    #+#             */
-/*   Updated: 2022/09/01 18:02:07 by seunghso         ###   ########.fr       */
+/*   Updated: 2023/01/26 18:20:10 by seunghso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,10 @@ void	create_philosophers(pthread_t **philosophers, int num_philosophers, pthread
 	while (num_philosophers)
 	{
 		pthread_create(philosophers[num_philosophers-1], NULL, life_cycle, mutex);
+        pthread_join(&philosophers[num_philosophers-1], NULL);
 		num_philosophers--;
 	}
+    
 }
 
 int	main(int argc, char **argv)
