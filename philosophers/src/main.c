@@ -6,58 +6,127 @@
 /*   By: seunghso <seunghso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/20 18:42:08 by seunghso          #+#    #+#             */
-/*   Updated: 2023/01/26 18:20:10 by seunghso         ###   ########.fr       */
+/*   Updated: 2023/01/27 16:56:55 by seunghso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/philosophers.h"
 
-void	init_mutex(pthread_mutex_t *mutex)
+int	ft_atoi(const char *str)
 {
-	if (pthread_mutex_init(mutex, NULL) < 0)
+	int	result;
+	int	sign;
+
+	result = 0;
+	sign = 1;
+	while (*str == ' ' || (*str >= 9 && *str <= 13))
+		str++;
+	if (*str == '-' || *str == '+')
 	{
-		printf("Error to init mutex\n");
-		exit(-1);
+		if (*str == '-')
+			sign = -1;
+		str++;
 	}
+	while (*str >= '0' && *str <= '9')
+	{
+		result = result * 10 + (*str - '0') * sign;
+		str++;
+	}
+	return (result);
 }
 
-void *life_cycle(void *mutex)
+void *life_cycle(void *info)
 {
-	// 임시로 일단 먹기만 + 예외처리
-	pthread_mutex_lock((pthread_mutex_t *)mutex);
-	printf("Yammy~\n");
-	pthread_mutex_unlock((pthread_mutex_t *)mutex);
+	t_philo_info	*philo_info;
 
+	philo_info = (t_philo_info *)info;
+	while (1)
+	{
+		pthread_mutex_lock(&philo_info->mutex);
+		write(1, "life_cycle\n", 11);
+		sleep(100);
+		pthread_mutex_unlock(&philo_info->mutex);
+	}
+	
 	return NULL;
 }
 
-void	create_philosophers(pthread_t **philosophers, int num_philosophers, pthread_mutex_t *mutex)
+int	create_philosophers(t_simul_info *info)
 {
-	*philosophers = malloc(sizeof(pthread_t) * num_philosophers);
-	if (*philosophers == NULL)
+	int				num_philo;
+	t_philo_info	*philos;
+
+	if (pthread_mutex_init(&info->mutex, NULL) < 0)
+		return -2;
+	philos = info->philos;
+	num_philo = info->number_of_philosophers;
+	philos = malloc(sizeof(t_philo_info) * num_philo);
+	if (philos->thread == NULL)
 	{
 		printf("Error to create pthread\n");
-		exit(-1);
+		return -1;
 	}
-	while (num_philosophers)
+	while (num_philo > 0)
 	{
-		pthread_create(philosophers[num_philosophers-1], NULL, life_cycle, mutex);
-        pthread_join(&philosophers[num_philosophers-1], NULL);
-		num_philosophers--;
+		pthread_create(&philos[num_philo-1].thread, NULL, life_cycle, info->philos);
+		philos[num_philo-1].mutex = info->mutex;
+		num_philo--;
 	}
-    
+	return 0;
+}
+
+int	init_simul_info(t_simul_info *info, int argc, char **argv)
+{
+	int	i;
+	info->number_of_philosophers = ft_atoi(argv[1]);
+	info->time_to_die = ft_atoi(argv[2]);
+	info->time_to_eat = ft_atoi(argv[3]);
+	info->time_to_sleep = ft_atoi(argv[4]);
+	if (argc == 6)
+		info->number_must_eat = ft_atoi(argv[5]);
+	info->forks = malloc(sizeof(int) * info->number_of_philosophers);
+	if (info->forks == NULL)
+		return -1;
+	i = 0;
+	while (i < info->number_of_philosophers)
+		info->forks[i++] = NOT_USING;
+	create_philosophers(info);
+	return 0;
+}
+
+int	detach_join(t_simul_info *info)
+{
+	// 에러 처리 할 것
+	int				i;
+	t_philo_info	*philos;
+
+	philos = info->philos;
+
+	i = 0;
+	// while (i < info->number_of_philosophers)
+	// {
+	// 	write(1, "debug\n", 6);
+	// 	pthread_detach(philos->threads[i++]);
+	// }
+	// i--;
+	// while (i >= 0)
+	// {
+	// 	pthread_join(philos->threads[i--], NULL);
+	// }
+	return 0;
 }
 
 int	main(int argc, char **argv)
 {
-	pthread_t		*philosophers;
-	pthread_mutex_t	mutex;
+	t_simul_info	simul_info;
 
 	if (argc != 5 && argc != 6)
 	{
 		printf("Invalid Input\n");
-		exit(0);
+		return -1;
 	}
-	init_mutex(&mutex);
-	create_philosophers(&philosophers, ft_atoi(argv[1]), &mutex);
+	init_simul_info(&simul_info, argc, argv);
+	detach_join(&simul_info);
+
+	return 0;
 }

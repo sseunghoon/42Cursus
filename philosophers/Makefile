@@ -6,7 +6,7 @@
 #    By: seunghso <seunghso@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/20 13:49:39 by seunghso          #+#    #+#              #
-#    Updated: 2022/09/01 17:55:17 by seunghso         ###   ########.fr        #
+#    Updated: 2023/01/27 14:27:43 by seunghso         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,22 +27,19 @@ INC_B	=	include_bonus
 
 ifdef WITH_BONUS
 	OBJS	= $(OBJS_B)
-	INC		= $(INC_M)
+	INC		= $(INC_B)
 else
 	OBJS = $(OBJS_M)
-	INC		= $(INC_B)
+	INC		= $(INC_M)
 endif
 
 CC		=	cc
 CFLAGS	=	-Wall -Werror -Wextra
-CLIB	=	-Llibft -l_seunghso
-LIBFT	=	libft
 
 all		:	$(NAME)
 
 $(NAME)	:	$(OBJS)
-	make -C $(LIBFT)
-	$(CC) $(CFLAGS) $(CLIB) -I $(INC) $(OBJS) -o $(NAME)
+	$(CC) $(CFLAGS) -I $(INC) $(OBJS) -o $(NAME) -fsanitize=address
 
 %.o	:%.c
 	$(CC) $(CFLAGS) -c $< -o $@
@@ -53,11 +50,9 @@ bonus :
 clean	:
 	rm -rf $(OBJS_M)
 	rm -rf $(OBJS_B)
-	make -C $(LIBFT) clean
 
 fclean	: clean
 	rm -rf	$(NAME)
-	make -C $(LIBFT) fclean
 
 re		: fclean all
 
