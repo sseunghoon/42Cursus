@@ -6,7 +6,7 @@
 /*   By: seunghso <seunghso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/20 18:42:08 by seunghso          #+#    #+#             */
-/*   Updated: 2023/01/27 16:56:55 by seunghso         ###   ########.fr       */
+/*   Updated: 2023/02/06 20:26:18 by seunghso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,15 +37,16 @@ int	ft_atoi(const char *str)
 
 void *life_cycle(void *info)
 {
-	t_philo_info	*philo_info;
+	t_simul_info	*simul_info;
 
-	philo_info = (t_philo_info *)info;
+	simul_info = (t_simul_info *)info;
 	while (1)
 	{
-		pthread_mutex_lock(&philo_info->mutex);
+		pthread_mutex_lock(&simul_info->mutex);
 		write(1, "life_cycle\n", 11);
-		sleep(100);
-		pthread_mutex_unlock(&philo_info->mutex);
+		sleep(3);
+		write(1, "unlock\n", 7);
+		pthread_mutex_unlock(&simul_info->mutex);
 	}
 	
 	return NULL;
@@ -58,9 +59,9 @@ int	create_philosophers(t_simul_info *info)
 
 	if (pthread_mutex_init(&info->mutex, NULL) < 0)
 		return -2;
-	philos = info->philos;
 	num_philo = info->number_of_philosophers;
-	philos = malloc(sizeof(t_philo_info) * num_philo);
+	info->philos = malloc(sizeof(t_philo_info) * num_philo);
+	philos = info->philos;
 	if (philos->thread == NULL)
 	{
 		printf("Error to create pthread\n");
@@ -68,8 +69,9 @@ int	create_philosophers(t_simul_info *info)
 	}
 	while (num_philo > 0)
 	{
-		pthread_create(&philos[num_philo-1].thread, NULL, life_cycle, info->philos);
-		philos[num_philo-1].mutex = info->mutex;
+		philos[num_philo-1].mutex = &info->mutex;
+		pthread_create(&philos[num_philo-1].thread, NULL, life_cycle, info);
+		
 		num_philo--;
 	}
 	return 0;
@@ -103,16 +105,10 @@ int	detach_join(t_simul_info *info)
 	philos = info->philos;
 
 	i = 0;
-	// while (i < info->number_of_philosophers)
-	// {
-	// 	write(1, "debug\n", 6);
-	// 	pthread_detach(philos->threads[i++]);
-	// }
-	// i--;
-	// while (i >= 0)
-	// {
-	// 	pthread_join(philos->threads[i--], NULL);
-	// }
+	while (i < info->number_of_philosophers)
+	{
+		pthread_join(philos[i].thread, NULL);
+	}
 	return 0;
 }
 

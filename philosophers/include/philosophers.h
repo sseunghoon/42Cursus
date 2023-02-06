@@ -6,7 +6,7 @@
 /*   By: seunghso <seunghso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/20 18:40:21 by seunghso          #+#    #+#             */
-/*   Updated: 2023/01/27 16:49:44 by seunghso         ###   ########.fr       */
+/*   Updated: 2023/02/06 19:33:44 by seunghso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ typedef struct	s_philo_info
 	pthread_t		thread;
 	int				last_eat_time;
 	int				number_eat;
-	pthread_mutex_t	mutex;
+	pthread_mutex_t	*mutex;
 }	t_philo_info;
 
 typedef struct	s_simul_info
