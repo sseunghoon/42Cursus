@@ -6,7 +6,7 @@
 /*   By: seunghso <seunghso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/20 18:42:08 by seunghso          #+#    #+#             */
-/*   Updated: 2023/02/07 17:30:45 by seunghso         ###   ########.fr       */
+/*   Updated: 2023/02/07 19:23:46 by seunghso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,11 +43,17 @@ long	get_time()
 	return time.tv_usec;
 }
 
-int	join_thread(pthread_t *monitor, t_philo_info *philos)
+int	join_thread(pthread_t *monitor, t_philo_info *philos, t_simul_info info)
 {
-	pthread_join(*monitor, NULL);
-	while (philos->number_philo--)
-		pthread_join(philos->thread, NULL);
+	// pthread_join(*monitor, NULL);
+	monitor = (void *)monitor;
+	printf("philos->number_philo : %d", philos->number_philo);
+	int i = info.number_of_philos;
+	while (i)
+	{
+		pthread_join(philos[i].thread, NULL);
+		i--;
+	}
 	return (0);
 }
 
@@ -59,22 +65,18 @@ void	*monitoring(void *philosophers)
 	t_philo_info	*philos;
 
 	philos = (t_philo_info *)philosophers;
-	printf("debug0\n");
 
 	info = philos[0].t_simul_info;
-	printf("debug0.5\n");
 
 	num_philos = info->number_of_philos;
-	printf("debug1\n");
 	while (1)
 	{
 		i = 0;
 		while (i < num_philos)
 		{
-			printf("debug2\n");
 			if (philos[i].last_eat_time + info->time_to_die > get_time())
 			{
-				printf("%d: Die\n", i);
+				printf("%d: Die\n", i+1);
 			}
 			i++;
 		}
@@ -85,7 +87,7 @@ void	*monitoring(void *philosophers)
 
 int	create_monitor(pthread_t *monitor, t_philo_info *philos)
 {
-	printf("create monitor\n");
+	printf("create monitor %d\n", philos[0].number_philo);
 	pthread_create(monitor, NULL, monitoring, philos);
 
 	return 0;
@@ -93,11 +95,14 @@ int	create_monitor(pthread_t *monitor, t_philo_info *philos)
 
 int	take_fork(t_philo_info *philo, t_simul_info *simul_info)
 {
+	printf("right: %d\n", philo->right);
 	if (simul_info->forks[philo->right] == NOT_USING)
-	{
-		simul_info->forks[philo->right] = USING;
+	{		
 		if (simul_info->forks[philo->left] == NOT_USING)
+		{
+			simul_info->forks[philo->right] = USING;
 			simul_info->forks[philo->left] = USING;
+		}
 		else
 		{
 			printf("I have right and not have left\n");
@@ -130,6 +135,7 @@ void	*life_cycle(void *philosopher)
 			philo->last_eat_time = get_time();
 			printf("%d %d: Eat\n", philo->last_eat_time, philo->number_philo);
 			usleep(simul_info->time_to_eat * 1000);
+			printf("wake up\n");
 			putdown_fork(philo, simul_info);
 		}
 		pthread_mutex_unlock(&simul_info->mutex);
@@ -145,9 +151,10 @@ int	create_philosophers(t_simul_info *info, t_philo_info *philos)
 {
 	int	i;
 
-	i = 0;
+	i = -1;
 	while (++i < info->number_of_philos)
 	{
+		printf("i:%d\n",i);
 		philos[i].number_philo = i;
 		philos[i].number_eat = 0;
 		philos[i].last_eat_time = 0;
@@ -190,8 +197,8 @@ int	main(int argc, char **argv)
 	}
 	init_simul(&philos, &simul_info, argc, argv);
 	create_philosophers(&simul_info, philos);
-	create_monitor(&monitor, philos);
-	join_thread(&monitor, philos);
+	// create_monitor(&monitor, philos);
+	join_thread(&monitor, philos, simul_info);
 
 	return 0;
 }
