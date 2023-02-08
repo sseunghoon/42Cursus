@@ -6,7 +6,7 @@
 /*   By: seunghso <seunghso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/20 18:42:08 by seunghso          #+#    #+#             */
-/*   Updated: 2023/02/08 16:47:42 by seunghso         ###   ########.fr       */
+/*   Updated: 2023/02/08 17:19:54 by seunghso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,31 +60,26 @@ void	*monitoring(void *philosophers)
 {
 	int				i;
 	int				num_philos;
-	int				cnt;
 	t_philo			*philos;
 	t_simul_info	*info;
 
 	philos = (t_philo *)philosophers;
 	info = philos[0].t_simul_info;
 	num_philos = info->num_of_philos;
-	while (1)
+	while (info->status == CONTINUE)
 	{
 		i = 0;
-		cnt = 0;
 		while (i < num_philos)
 		{
-			if (philos[i].status == LIVE)
-				cnt++;
 			long current_time = get_time();
-			if (philos[i].last_eat + info->time_to_die < current_time && philos[i].status == LIVE)
+			if (philos[i].last_eat + info->time_to_die < current_time)
 			{
-				philos[i].status = DIE;
+				info->status = END;
 				printf("%ld %d died\n", current_time, philos[i].number+1);
+				break;
 			}
 			i++;
 		}
-		if (cnt == 0)
-			break;
 		usleep(1000);
 	}
 	return NULL;
@@ -93,29 +88,33 @@ void	*monitoring(void *philosophers)
 int	create_monitor(pthread_t *monitor, t_philo *philos)
 {
 	pthread_create(monitor, NULL, monitoring, philos);
-
 	return 0;
 }
 
 int	take_fork(t_philo *philo, t_simul_info *simul_info)
 {
+	pthread_mutex_lock(&simul_info->mutex);
 	if (simul_info->forks[philo->right] == NOT_USING)
 	{
+		simul_info->forks[philo->right] = USING;
 		if (simul_info->forks[philo->left] == NOT_USING)
 		{
-			simul_info->forks[philo->right] = USING;
 			simul_info->forks[philo->left] = USING;
+			pthread_mutex_unlock(&simul_info->mutex);
 			return 1;
 		}
+		simul_info->forks[philo->right] = NOT_USING;
 	}
-	printf("%d Try get fork but faild\n", philo->number);
+	pthread_mutex_unlock(&simul_info->mutex);
 	return 0;
 }
 
 void	putdown_fork(t_philo *philo, t_simul_info *simul_info)
 {
+	pthread_mutex_lock(&simul_info->mutex);
 	simul_info->forks[philo->right] = NOT_USING;
 	simul_info->forks[philo->left] = NOT_USING;
+	pthread_mutex_unlock(&simul_info->mutex);
 }
 
 void	*life_cycle(void *philosopher)
@@ -125,27 +124,26 @@ void	*life_cycle(void *philosopher)
 
 	philo = (t_philo *)philosopher;
 	simul_info = philo->t_simul_info;
-	while (philo->status == LIVE)
+	while (simul_info->status == CONTINUE)
 	{
-		pthread_mutex_lock(&simul_info->mutex);
-		int success = take_fork(philo, simul_info);
-		if (success)
+		if (take_fork(philo, simul_info))
 		{
 			philo->last_eat = get_time();
 			printf("%ld %d is eating\n", philo->last_eat, philo->number+1);
 			usleep(simul_info->time_to_eat * 1000);
 			putdown_fork(philo, simul_info);
+			if (simul_info->status == CONTINUE)
+			{
+				printf("%ld %d is sleeping\n", get_time(), philo->number+1);
+				usleep(simul_info->time_to_sleep * 1000);
+			}
+			if (simul_info->status == CONTINUE)
+			{
+				printf("%ld %d is thinking\n", get_time(), philo->number+1);
+				usleep(1000);
+			}
 		}
-		pthread_mutex_unlock(&simul_info->mutex);
-		if (success && philo->status == LIVE)
-		{
-			printf("%ld %d is sleeping\n", get_time(), philo->number);
-			usleep(simul_info->time_to_sleep * 1000);
-			printf("%ld %d is thinking\n", get_time(), philo->number);
-		}
-		usleep(1000);
 	}
-	
 	return NULL;
 }
 
@@ -162,7 +160,6 @@ int	create_philosophers(t_simul_info *info, t_philo *philos)
 		philos[i].t_simul_info = info;
 		philos[i].left = (info->num_of_philos + i - 1) % info->num_of_philos;
 		philos[i].right = (info->num_of_philos + i) % info->num_of_philos;
-		philos[i].status = LIVE;
 		pthread_create(&(philos[i].thread), NULL, life_cycle, &philos[i]);
 	}
 	return 0;
@@ -172,6 +169,7 @@ int	init_simul(t_philo **philos, t_simul_info *info, int argc, char **argv)
 {
 	if (pthread_mutex_init(&info->mutex, NULL) < 0)
 		return -2;
+	info->status = CONTINUE;
 	info->num_of_philos = ft_atoi(argv[1]);
 	info->time_to_die = ft_atoi(argv[2]);
 	info->time_to_eat = ft_atoi(argv[3]);

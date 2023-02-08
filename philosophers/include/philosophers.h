@@ -6,7 +6,7 @@
 /*   By: seunghso <seunghso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/20 18:40:21 by seunghso          #+#    #+#             */
-/*   Updated: 2023/02/08 16:36:03 by seunghso         ###   ########.fr       */
+/*   Updated: 2023/02/08 17:20:14 by seunghso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,11 @@
 # include <unistd.h>
 # include <string.h>
 
-# define USING 1
 # define NOT_USING 0
-# define LIVE 0
-# define DIE 1
+# define USING 1
+# define END 0
+# define CONTINUE 1
+
 
 typedef struct	s_simul_info
 {
@@ -33,6 +34,7 @@ typedef struct	s_simul_info
 	long			time_to_sleep;
 	int				must_eat;
 	int				*forks;
+	int				status;
 	pthread_mutex_t	mutex;
 }	t_simul_info;
 
