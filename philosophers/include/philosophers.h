@@ -24,7 +24,8 @@
 # define USING 1
 # define END 0
 # define CONTINUE 1
-
+# define HUNGRY 0
+# define FULL 1
 
 typedef struct	s_simul_info
 {
@@ -47,6 +48,7 @@ typedef struct	s_philo
 	int				eat_cnt;
 	int				left;
 	int				right;
+	int				status;
 	pthread_t		thread;
 	t_simul_info	*t_simul_info;
 }	t_philo;

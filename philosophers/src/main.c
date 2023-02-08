@@ -78,17 +78,17 @@ int	join_thread(pthread_t *monitor, t_philo *philos, t_simul_info info)
 void	*monitoring(void *philosophers)
 {
 	int				i;
-	int				num_philos;
+	int				full_cnt;
 	t_philo			*philos;
 	t_simul_info	*info;
 
+	full_cnt = 0;
 	philos = (t_philo *)philosophers;
 	info = philos[0].t_simul_info;
-	num_philos = info->num_of_philos;
 	while (info->status == CONTINUE)
 	{
 		i = 0;
-		while (i < num_philos)
+		while (i < info->num_of_philos)
 		{
 			long current_time = get_time(info);
 			if (philos[i].last_eat + info->time_to_die < current_time)
@@ -97,9 +97,21 @@ void	*monitoring(void *philosophers)
 				mtx_printf(info, i+1, "died");
 				break;
 			}
+			if (philos[i].status == HUNGRY && philos[i].eat_cnt >= info->must_eat)
+			{
+				philos[i].status = FULL;
+				full_cnt++;
+				printf("full_cnt: %d\n", full_cnt);
+				if (full_cnt >= info->num_of_philos)
+				{
+					info->status = END;
+					break;
+				}
+			}
 			i++;
 		}
 	}
+	
 	return NULL;
 }
 
@@ -149,9 +161,10 @@ void	*life_cycle(void *philosopher)
 		{
 			philo->last_eat = get_time(simul_info);
 			mtx_printf(simul_info, philo->number+1, "is eating");
+			philo->eat_cnt++;
+			printf("eat_cnt: %d\n", philo->eat_cnt);
 			ft_usleep(simul_info, simul_info->time_to_eat);
 			putdown_fork(philo, simul_info);
-			philo->eat_cnt++;
 			if (simul_info->status == CONTINUE)
 			{
 				mtx_printf(simul_info, philo->number+1, "is sleeping");
@@ -179,6 +192,9 @@ int	create_philosophers(t_simul_info *info, t_philo *philos)
 		philos[i].t_simul_info = info;
 		philos[i].left = (info->num_of_philos + i - 1) % info->num_of_philos;
 		philos[i].right = (info->num_of_philos + i) % info->num_of_philos;
+		philos[i].status = FULL;
+		if (info->must_eat >= 0)
+			philos[i].status = HUNGRY;
 		pthread_create(&(philos[i].thread), NULL, life_cycle, &philos[i]);
 	}
 	return 0;
@@ -195,6 +211,7 @@ int	init_simul(t_philo **philos, t_simul_info *info, int argc, char **argv)
 	info->time_to_die = ft_atoi(argv[2]);
 	info->time_to_eat = ft_atoi(argv[3]);
 	info->time_to_sleep = ft_atoi(argv[4]);
+	info->must_eat = -1;
 	if (argc == 6)
 		info->must_eat = ft_atoi(argv[5]);
 	*philos = malloc(sizeof(t_philo) * info->num_of_philos);
@@ -222,6 +239,8 @@ int	main(int argc, char **argv)
 	create_philosophers(&simul_info, philos);
 	create_monitor(&monitor, philos);
 	join_thread(&monitor, philos, simul_info);
+	free(philos);
+	free(simul_info.forks);
 	return 0;
 }
 
