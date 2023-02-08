@@ -6,7 +6,7 @@
 /*   By: seunghso <seunghso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/20 18:42:08 by seunghso          #+#    #+#             */
-/*   Updated: 2023/02/07 19:23:46 by seunghso         ###   ########.fr       */
+/*   Updated: 2023/02/08 16:47:42 by seunghso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,15 +40,14 @@ long	get_time()
 	struct	timeval time;
 
 	gettimeofday(&time, NULL);
-	return time.tv_usec;
+	return (size_t)time.tv_sec * 1000 + ((size_t)time.tv_usec / 1000);
 }
 
-int	join_thread(pthread_t *monitor, t_philo_info *philos, t_simul_info info)
+int	join_thread(pthread_t *monitor, t_philo *philos, t_simul_info info)
 {
-	// pthread_join(*monitor, NULL);
+	pthread_join(*monitor, NULL);
 	monitor = (void *)monitor;
-	printf("philos->number_philo : %d", philos->number_philo);
-	int i = info.number_of_philos;
+	int i = info.num_of_philos;
 	while (i)
 	{
 		pthread_join(philos[i].thread, NULL);
@@ -61,59 +60,59 @@ void	*monitoring(void *philosophers)
 {
 	int				i;
 	int				num_philos;
+	int				cnt;
+	t_philo			*philos;
 	t_simul_info	*info;
-	t_philo_info	*philos;
 
-	philos = (t_philo_info *)philosophers;
-
+	philos = (t_philo *)philosophers;
 	info = philos[0].t_simul_info;
-
-	num_philos = info->number_of_philos;
+	num_philos = info->num_of_philos;
 	while (1)
 	{
 		i = 0;
+		cnt = 0;
 		while (i < num_philos)
 		{
-			if (philos[i].last_eat_time + info->time_to_die > get_time())
+			if (philos[i].status == LIVE)
+				cnt++;
+			long current_time = get_time();
+			if (philos[i].last_eat + info->time_to_die < current_time && philos[i].status == LIVE)
 			{
-				printf("%d: Die\n", i+1);
+				philos[i].status = DIE;
+				printf("%ld %d died\n", current_time, philos[i].number+1);
 			}
 			i++;
 		}
-
+		if (cnt == 0)
+			break;
+		usleep(1000);
 	}
 	return NULL;
 }
 
-int	create_monitor(pthread_t *monitor, t_philo_info *philos)
+int	create_monitor(pthread_t *monitor, t_philo *philos)
 {
-	printf("create monitor %d\n", philos[0].number_philo);
 	pthread_create(monitor, NULL, monitoring, philos);
 
 	return 0;
 }
 
-int	take_fork(t_philo_info *philo, t_simul_info *simul_info)
+int	take_fork(t_philo *philo, t_simul_info *simul_info)
 {
-	printf("right: %d\n", philo->right);
 	if (simul_info->forks[philo->right] == NOT_USING)
-	{		
+	{
 		if (simul_info->forks[philo->left] == NOT_USING)
 		{
 			simul_info->forks[philo->right] = USING;
 			simul_info->forks[philo->left] = USING;
+			return 1;
 		}
-		else
-		{
-			printf("I have right and not have left\n");
-			return 0;
-		}
-		return 1;
 	}
+	printf("%d Try get fork but faild\n", philo->number);
 	return 0;
 }
 
-void	putdown_fork(t_philo_info *philo, t_simul_info *simul_info)
+void	putdown_fork(t_philo *philo, t_simul_info *simul_info)
 {
 	simul_info->forks[philo->right] = NOT_USING;
 	simul_info->forks[philo->left] = NOT_USING;
@@ -121,72 +120,75 @@ void	putdown_fork(t_philo_info *philo, t_simul_info *simul_info)
 
 void	*life_cycle(void *philosopher)
 {
-	t_philo_info	*philo;
+	t_philo			*philo;
 	t_simul_info	*simul_info;
 
-	philo = (t_philo_info *)philosopher;
+	philo = (t_philo *)philosopher;
 	simul_info = philo->t_simul_info;
-	while (1)
+	while (philo->status == LIVE)
 	{
 		pthread_mutex_lock(&simul_info->mutex);
 		int success = take_fork(philo, simul_info);
 		if (success)
 		{
-			philo->last_eat_time = get_time();
-			printf("%d %d: Eat\n", philo->last_eat_time, philo->number_philo);
+			philo->last_eat = get_time();
+			printf("%ld %d is eating\n", philo->last_eat, philo->number+1);
 			usleep(simul_info->time_to_eat * 1000);
-			printf("wake up\n");
 			putdown_fork(philo, simul_info);
 		}
 		pthread_mutex_unlock(&simul_info->mutex);
-		printf("%d: Sleep\n", philo->number_philo);
-		usleep(simul_info->time_to_sleep * 1000);
-		printf("%d: Thinking\n", philo->number_philo);
+		if (success && philo->status == LIVE)
+		{
+			printf("%ld %d is sleeping\n", get_time(), philo->number);
+			usleep(simul_info->time_to_sleep * 1000);
+			printf("%ld %d is thinking\n", get_time(), philo->number);
+		}
+		usleep(1000);
 	}
 	
 	return NULL;
 }
 
-int	create_philosophers(t_simul_info *info, t_philo_info *philos)
+int	create_philosophers(t_simul_info *info, t_philo *philos)
 {
 	int	i;
 
 	i = -1;
-	while (++i < info->number_of_philos)
+	while (++i < info->num_of_philos)
 	{
-		printf("i:%d\n",i);
-		philos[i].number_philo = i;
-		philos[i].number_eat = 0;
-		philos[i].last_eat_time = 0;
+		philos[i].number = i;
+		philos[i].eat_cnt = 0;
+		philos[i].last_eat = get_time();
 		philos[i].t_simul_info = info;
-		philos[i].left = (info->number_of_philos + i - 1) % info->number_of_philos;
-		philos[i].right = (info->number_of_philos + i) % info->number_of_philos;
-		pthread_create(&philos[i].thread, NULL, life_cycle, &philos[i]);
+		philos[i].left = (info->num_of_philos + i - 1) % info->num_of_philos;
+		philos[i].right = (info->num_of_philos + i) % info->num_of_philos;
+		philos[i].status = LIVE;
+		pthread_create(&(philos[i].thread), NULL, life_cycle, &philos[i]);
 	}
 	return 0;
 }
 
-int	init_simul(t_philo_info **philos, t_simul_info *info, int argc, char **argv)
+int	init_simul(t_philo **philos, t_simul_info *info, int argc, char **argv)
 {
 	if (pthread_mutex_init(&info->mutex, NULL) < 0)
 		return -2;
-	info->number_of_philos = ft_atoi(argv[1]);
+	info->num_of_philos = ft_atoi(argv[1]);
 	info->time_to_die = ft_atoi(argv[2]);
 	info->time_to_eat = ft_atoi(argv[3]);
 	info->time_to_sleep = ft_atoi(argv[4]);
 	if (argc == 6)
-		info->number_must_eat = ft_atoi(argv[5]);
-	*philos = malloc(sizeof(t_philo_info) * info->number_of_philos);
-	info->forks = malloc(sizeof(int) * info->number_of_philos);
+		info->must_eat = ft_atoi(argv[5]);
+	*philos = malloc(sizeof(t_philo) * info->num_of_philos);
+	info->forks = malloc(sizeof(int) * info->num_of_philos);
 	if (*philos == NULL || info->forks == NULL)
 		return -1;
-	memset(info->forks, NOT_USING, info->number_of_philos * sizeof(int));
+	memset(info->forks, NOT_USING, info->num_of_philos * sizeof(int));
 	return 0;
 }
 
 int	main(int argc, char **argv)
 {
-	t_philo_info	*philos;
+	t_philo			*philos;
 	t_simul_info	simul_info;
 	pthread_t		monitor;
 
@@ -197,7 +199,7 @@ int	main(int argc, char **argv)
 	}
 	init_simul(&philos, &simul_info, argc, argv);
 	create_philosophers(&simul_info, philos);
-	// create_monitor(&monitor, philos);
+	create_monitor(&monitor, philos);
 	join_thread(&monitor, philos, simul_info);
 
 	return 0;
