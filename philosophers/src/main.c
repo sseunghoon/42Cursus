@@ -62,29 +62,23 @@ int ft_usleep(t_simul_info *info, long time)
 	return (0);
 }
 
-int	join_thread(pthread_t *monitor, t_philo *philos, t_simul_info info)
+int	wait_philosophers(t_philo *philos, t_simul_info info)
 {
-	pthread_join(*monitor, NULL);
-	monitor = (void *)monitor;
-	int i = info.num_of_philos;
+	int	i;
+
+	i = info.num_of_philos;
 	while (i)
-	{
-		pthread_join(philos[i].thread, NULL);
-		i--;
-	}
+		if (pthread_join(philos[i--].thread, NULL))
+			return (1);
 	return (0);
 }
 
-void	*monitoring(void *philosophers)
+void	monitoring(t_philo *philos, t_simul_info *info)
 {
-	int				i;
-	int				full_cnt;
-	t_philo			*philos;
-	t_simul_info	*info;
+	int	i;
+	int	full_cnt;
 
 	full_cnt = 0;
-	philos = (t_philo *)philosophers;
-	info = philos[0].t_simul_info;
 	while (info->status == CONTINUE)
 	{
 		i = 0;
@@ -101,7 +95,6 @@ void	*monitoring(void *philosophers)
 			{
 				philos[i].status = FULL;
 				full_cnt++;
-				printf("full_cnt: %d\n", full_cnt);
 				if (full_cnt >= info->num_of_philos)
 				{
 					info->status = END;
@@ -111,14 +104,6 @@ void	*monitoring(void *philosophers)
 			i++;
 		}
 	}
-	
-	return NULL;
-}
-
-int	create_monitor(pthread_t *monitor, t_philo *philos)
-{
-	pthread_create(monitor, NULL, monitoring, philos);
-	return 0;
 }
 
 int	take_fork(t_philo *philo, t_simul_info *simul_info)
@@ -162,7 +147,6 @@ void	*life_cycle(void *philosopher)
 			philo->last_eat = get_time(simul_info);
 			mtx_printf(simul_info, philo->number+1, "is eating");
 			philo->eat_cnt++;
-			printf("eat_cnt: %d\n", philo->eat_cnt);
 			ft_usleep(simul_info, simul_info->time_to_eat);
 			putdown_fork(philo, simul_info);
 			if (simul_info->status == CONTINUE)
@@ -195,18 +179,15 @@ int	create_philosophers(t_simul_info *info, t_philo *philos)
 		philos[i].status = FULL;
 		if (info->must_eat >= 0)
 			philos[i].status = HUNGRY;
-		pthread_create(&(philos[i].thread), NULL, life_cycle, &philos[i]);
+		if (pthread_create(&(philos[i].thread), NULL, life_cycle, &philos[i]))
+			return (1);
 	}
+	monitoring(philos, info);
 	return 0;
 }
 
 int	init_simul(t_philo **philos, t_simul_info *info, int argc, char **argv)
 {
-	if (pthread_mutex_init(&info->fork_mutex, NULL) < 0)
-		return -2;
-	if (pthread_mutex_init(&info->print_mutex, NULL) < 0)
-		return -2;
-	info->status = CONTINUE;
 	info->num_of_philos = ft_atoi(argv[1]);
 	info->time_to_die = ft_atoi(argv[2]);
 	info->time_to_eat = ft_atoi(argv[3]);
@@ -214,13 +195,17 @@ int	init_simul(t_philo **philos, t_simul_info *info, int argc, char **argv)
 	info->must_eat = -1;
 	if (argc == 6)
 		info->must_eat = ft_atoi(argv[5]);
+	if (info->num_of_philos <= 0 || info->time_to_die <= 0 || info->time_to_eat <= 0 || info->time_to_sleep <= 0)
+		return (1);
+	info->status = CONTINUE;	
+	info->start_time = 0;
+	if (pthread_mutex_init(&info->fork_mutex, NULL) || pthread_mutex_init(&info->print_mutex, NULL))
+		return (1);
 	*philos = malloc(sizeof(t_philo) * info->num_of_philos);
 	info->forks = malloc(sizeof(int) * info->num_of_philos);
 	if (*philos == NULL || info->forks == NULL)
-		return -1;
+		return (1);
 	memset(info->forks, NOT_USING, info->num_of_philos * sizeof(int));
-	info->start_time = 0;
-	
 	return 0;
 }
 
@@ -228,31 +213,22 @@ int	main(int argc, char **argv)
 {
 	t_philo			*philos;
 	t_simul_info	simul_info;
-	pthread_t		monitor;
 
 	if (argc != 5 && argc != 6)
+		return (1);
+	if (init_simul(&philos, &simul_info, argc, argv))
+		return (2);
+	if (create_philosophers(&simul_info, philos))
 	{
-		printf("Invalid Input\n");
-		return -1;
+		free(philos);
+		free(simul_info.forks);
+		return (3);
 	}
-	init_simul(&philos, &simul_info, argc, argv);
-	create_philosophers(&simul_info, philos);
-	create_monitor(&monitor, philos);
-	join_thread(&monitor, philos, simul_info);
-	free(philos);
-	free(simul_info.forks);
-	return 0;
+	if (wait_philosophers(philos, simul_info))
+	{
+		free(philos);
+		free(simul_info.forks);
+		return (4);
+	}
+	return (0);
 }
-
-/**
- * To Do List
- * eat_cnt_mutex 구현
- * pthread, pthrad_mutex 함수 에러처리
- * destroy() 자원할당해제 함수 구현 [free, destroy]
- * NORM
- * 
- * Complete
- * start_time 초기화해서 타임스탬프 이쁘게
- * usleep() 쪼개서 실행해서 철학자 잘 안 죽게 만들기
- * print_mutex구현
- */
