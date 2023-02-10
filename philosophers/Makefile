@@ -39,7 +39,7 @@ CFLAGS	=	-Wall -Werror -Wextra
 all		:	$(NAME)
 
 $(NAME)	:	$(OBJS)
-	$(CC) $(CFLAGS) -I $(INC) $(OBJS) -o $(NAME) -fsanitize=address
+	$(CC) $(CFLAGS) -I $(INC) $(OBJS) -o $(NAME)
 
 %.o	:%.c
 	$(CC) $(CFLAGS) -c $< -o $@

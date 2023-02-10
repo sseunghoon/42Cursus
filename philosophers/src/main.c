@@ -92,8 +92,7 @@ int	init_simul_info(t_simul_info *info, int argc, char **argv)
 	i = 0;
 	while (i < info->number_of_philosophers)
 		info->forks[i++] = NOT_USING;
-	create_philosophers(info);
-	return 0;
+	return create_philosophers(info);
 }
 
 int	detach_join(t_simul_info *info)
@@ -121,7 +120,8 @@ int	main(int argc, char **argv)
 		printf("Invalid Input\n");
 		return -1;
 	}
-	init_simul_info(&simul_info, argc, argv);
+	if (init_simul_info(&simul_info, argc, argv) != 0)
+		return -1;
 	detach_join(&simul_info);
 
 	return 0;
