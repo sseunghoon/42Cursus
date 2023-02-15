@@ -22,12 +22,12 @@
 
 # define NOT_USING 0
 # define USING 1
-# define END 0
-# define CONTINUE 1
+# define CONTINUE 0
+# define END 1
 # define HUNGRY 0
 # define FULL 1
 
-typedef struct	s_simul_info
+typedef struct s_simul_info
 {
 	int				num_of_philos;
 	long			time_to_die;
@@ -41,7 +41,7 @@ typedef struct	s_simul_info
 	pthread_mutex_t	print_mutex;
 }	t_simul_info;
 
-typedef struct	s_philo
+typedef struct s_philo
 {
 	int				number;
 	long			last_eat;
@@ -63,7 +63,7 @@ void	mtx_printf(t_simul_info *info, int i, char *str);
 int		init_info(t_simul_info *info, int argc, char **argv);
 int		init_philos(t_simul_info *info, t_philo *philos);
 void	monitoring(t_philo *philos, t_simul_info *info);
-int		create_philosophers(t_philo **philos, t_simul_info *info)
+int		create_philosophers(t_philo **philos, t_simul_info *info);
 int		wait_philosophers(t_philo *philos, t_simul_info info);
 
 // thread.c (in philosophers)

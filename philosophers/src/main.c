@@ -37,12 +37,12 @@ int	ft_atoi(const char *str)
 
 long	get_time(t_simul_info *info)
 {
-	struct	timeval time;
+	struct timeval	time;
 
 	gettimeofday(&time, NULL);
 	if (info->start_time == 0)
 		info->start_time = time.tv_sec * 1000 + time.tv_usec / 1000;
-	return time.tv_sec * 1000 + time.tv_usec / 1000 - info->start_time;
+	return (time.tv_sec * 1000 + time.tv_usec / 1000 - info->start_time);
 }
 
 void	mtx_printf(t_simul_info *info, int i, char *str)
@@ -52,7 +52,7 @@ void	mtx_printf(t_simul_info *info, int i, char *str)
 	pthread_mutex_unlock(&info->print_mutex);
 }
 
-int ft_usleep(t_simul_info *info, long time)
+int	ft_usleep(t_simul_info *info, long time)
 {
 	long	start_time;
 
@@ -73,6 +73,23 @@ int	wait_philosophers(t_philo *philos, t_simul_info info)
 	return (0);
 }
 
+int	end_check(t_philo *philos, t_simul_info *info, int full_cnt, int idx)
+{
+	if (philos[idx].last_eat + info->time_to_die < get_time(info))
+	{
+		info->status = END;
+		mtx_printf(info, idx + 1, "died");
+	}
+	if (philos[idx].status == HUNGRY && philos[idx].eat_cnt >= info->must_eat)
+	{
+		philos[idx].status = FULL;
+		full_cnt++;
+		if (full_cnt >= info->num_of_philos)
+			info->status = END;
+	}
+	return (info->status);
+}
+
 void	monitoring(t_philo *philos, t_simul_info *info)
 {
 	int	i;
@@ -81,27 +98,11 @@ void	monitoring(t_philo *philos, t_simul_info *info)
 	full_cnt = 0;
 	while (info->status == CONTINUE)
 	{
-		i = 0;
-		while (i < info->num_of_philos)
+		i = -1;
+		while (++i < info->num_of_philos)
 		{
-			long current_time = get_time(info);
-			if (philos[i].last_eat + info->time_to_die < current_time)
-			{
-				info->status = END;
-				mtx_printf(info, i+1, "died");
-				break;
-			}
-			if (philos[i].status == HUNGRY && philos[i].eat_cnt >= info->must_eat)
-			{
-				philos[i].status = FULL;
-				full_cnt++;
-				if (full_cnt >= info->num_of_philos)
-				{
-					info->status = END;
-					break;
-				}
-			}
-			i++;
+			if (end_check(philos, info, full_cnt, i))
+				break ;
 		}
 	}
 }
@@ -116,12 +117,12 @@ int	take_fork(t_philo *philo, t_simul_info *simul_info)
 		{
 			simul_info->forks[philo->left] = USING;
 			pthread_mutex_unlock(&simul_info->fork_mutex);
-			return 1;
+			return (1);
 		}
 		simul_info->forks[philo->right] = NOT_USING;
 	}
 	pthread_mutex_unlock(&simul_info->fork_mutex);
-	return 0;
+	return (0);
 }
 
 void	putdown_fork(t_philo *philo, t_simul_info *simul_info)
@@ -130,6 +131,33 @@ void	putdown_fork(t_philo *philo, t_simul_info *simul_info)
 	simul_info->forks[philo->right] = NOT_USING;
 	simul_info->forks[philo->left] = NOT_USING;
 	pthread_mutex_unlock(&simul_info->fork_mutex);
+}
+
+void	philo_eat(t_simul_info *simul_info, t_philo *philo)
+{
+	philo->last_eat = get_time(simul_info);
+	mtx_printf(simul_info, philo->number + 1, "is eating");
+	philo->eat_cnt++;
+	ft_usleep(simul_info, simul_info->time_to_eat);
+	putdown_fork(philo, simul_info);
+}
+
+void	philo_sleep(t_simul_info *simul_info, t_philo *philo)
+{
+	if (simul_info->status == CONTINUE)
+	{
+		mtx_printf(simul_info, philo->number + 1, "is sleeping");
+		ft_usleep(simul_info, simul_info->time_to_sleep);
+	}
+}
+
+void	philo_think(t_simul_info *simul_info, t_philo *philo)
+{
+	if (simul_info->status == CONTINUE)
+	{
+		mtx_printf(simul_info, philo->number + 1, "is thinking");
+		usleep(200);
+	}
 }
 
 void	*life_cycle(void *philosopher)
@@ -144,24 +172,12 @@ void	*life_cycle(void *philosopher)
 	{
 		if (take_fork(philo, simul_info))
 		{
-			philo->last_eat = get_time(simul_info);
-			mtx_printf(simul_info, philo->number+1, "is eating");
-			philo->eat_cnt++;
-			ft_usleep(simul_info, simul_info->time_to_eat);
-			putdown_fork(philo, simul_info);
-			if (simul_info->status == CONTINUE)
-			{
-				mtx_printf(simul_info, philo->number+1, "is sleeping");
-				ft_usleep(simul_info, simul_info->time_to_sleep);
-			}
-			if (simul_info->status == CONTINUE)
-			{
-				mtx_printf(simul_info, philo->number+1, "is thinking");
-				usleep(200);
-			}
+			philo_eat(simul_info, philo);
+			philo_sleep(simul_info, philo);
+			philo_think(simul_info, philo);
 		}
 	}
-	return NULL;
+	return (NULL);
 }
 
 int	init_philos(t_simul_info *info, t_philo *philos)
@@ -183,7 +199,7 @@ int	init_philos(t_simul_info *info, t_philo *philos)
 	return (0);
 }
 
-int init_info(t_simul_info *info, int argc, char **argv)
+int	init_info(t_simul_info *info, int argc, char **argv)
 {
 	info->num_of_philos = ft_atoi(argv[1]);
 	info->time_to_die = ft_atoi(argv[2]);
@@ -192,19 +208,24 @@ int init_info(t_simul_info *info, int argc, char **argv)
 	info->must_eat = -1;
 	if (argc == 6)
 		info->must_eat = ft_atoi(argv[5]);
-	if (info->num_of_philos <= 0 || info->time_to_die <= 0 || info->time_to_eat <= 0 || info->time_to_sleep <= 0)
+	if (info->num_of_philos <= 0 || info->time_to_die <= 0
+		|| info->time_to_eat <= 0 || info->time_to_sleep <= 0)
 		return (1);
-	info->status = CONTINUE;	
+	info->status = CONTINUE;
 	info->start_time = 0;
 	info->forks = malloc(sizeof(int) * info->num_of_philos);
 	if (info->forks == NULL)
 		return (1);
 	memset(info->forks, NOT_USING, info->num_of_philos * sizeof(int));
+	return (0);
 }
 
 int	create_philosophers(t_philo **philos, t_simul_info *info)
 {
-	if (pthread_mutex_init(&info->fork_mutex, NULL) || pthread_mutex_init(&info->print_mutex, NULL))
+	int	i;
+
+	if (pthread_mutex_init(&info->fork_mutex, NULL)
+		|| pthread_mutex_init(&info->print_mutex, NULL))
 		return (1);
 	*philos = malloc(sizeof(t_philo) * info->num_of_philos);
 	if (*philos == NULL)
@@ -215,9 +236,11 @@ int	create_philosophers(t_philo **philos, t_simul_info *info)
 		free(info->forks);
 		return (1);
 	}
-	if (pthread_create(&((*philos)[i].thread), NULL, life_cycle, &((*philos)[i])))
-		return (1);
-	return 0;
+	i = -1;
+	while (++i < info->num_of_philos)
+		if (pthread_create(&(*philos)[i].thread, 0, life_cycle, &(*philos)[i]))
+			return (1);
+	return (0);
 }
 
 int	main(int argc, char **argv)
@@ -231,8 +254,9 @@ int	main(int argc, char **argv)
 		return (2);
 	if (create_philosophers(&philos, &simul_info))
 		return (3);
+	usleep(100);
 	monitoring(philos, &simul_info);
-	wait_philosophers(philos, simul_info)
+	wait_philosophers(philos, simul_info);
 	free(philos);
 	free(simul_info.forks);
 	return (0);
