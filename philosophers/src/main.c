@@ -164,7 +164,7 @@ void	*life_cycle(void *philosopher)
 	return NULL;
 }
 
-int	create_philosophers(t_simul_info *info, t_philo *philos)
+int	init_philos(t_simul_info *info, t_philo *philos)
 {
 	int	i;
 
@@ -179,14 +179,11 @@ int	create_philosophers(t_simul_info *info, t_philo *philos)
 		philos[i].status = FULL;
 		if (info->must_eat >= 0)
 			philos[i].status = HUNGRY;
-		if (pthread_create(&(philos[i].thread), NULL, life_cycle, &philos[i]))
-			return (1);
 	}
-	monitoring(philos, info);
-	return 0;
+	return (0);
 }
 
-int	init_simul(t_philo **philos, t_simul_info *info, int argc, char **argv)
+int init_info(t_simul_info *info, int argc, char **argv)
 {
 	info->num_of_philos = ft_atoi(argv[1]);
 	info->time_to_die = ft_atoi(argv[2]);
@@ -199,13 +196,27 @@ int	init_simul(t_philo **philos, t_simul_info *info, int argc, char **argv)
 		return (1);
 	info->status = CONTINUE;	
 	info->start_time = 0;
+	info->forks = malloc(sizeof(int) * info->num_of_philos);
+	if (info->forks == NULL)
+		return (1);
+	memset(info->forks, NOT_USING, info->num_of_philos * sizeof(int));
+}
+
+int	create_philosophers(t_philo **philos, t_simul_info *info)
+{
 	if (pthread_mutex_init(&info->fork_mutex, NULL) || pthread_mutex_init(&info->print_mutex, NULL))
 		return (1);
 	*philos = malloc(sizeof(t_philo) * info->num_of_philos);
-	info->forks = malloc(sizeof(int) * info->num_of_philos);
-	if (*philos == NULL || info->forks == NULL)
+	if (*philos == NULL)
 		return (1);
-	memset(info->forks, NOT_USING, info->num_of_philos * sizeof(int));
+	if (init_philos(info, *philos))
+	{
+		free(*philos);
+		free(info->forks);
+		return (1);
+	}
+	if (pthread_create(&((*philos)[i].thread), NULL, life_cycle, &((*philos)[i])))
+		return (1);
 	return 0;
 }
 
@@ -216,19 +227,13 @@ int	main(int argc, char **argv)
 
 	if (argc != 5 && argc != 6)
 		return (1);
-	if (init_simul(&philos, &simul_info, argc, argv))
+	if (init_info(&simul_info, argc, argv))
 		return (2);
-	if (create_philosophers(&simul_info, philos))
-	{
-		free(philos);
-		free(simul_info.forks);
+	if (create_philosophers(&philos, &simul_info))
 		return (3);
-	}
-	if (wait_philosophers(philos, simul_info))
-	{
-		free(philos);
-		free(simul_info.forks);
-		return (4);
-	}
+	monitoring(philos, &simul_info);
+	wait_philosophers(philos, simul_info)
+	free(philos);
+	free(simul_info.forks);
 	return (0);
 }
