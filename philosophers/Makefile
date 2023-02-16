@@ -1,7 +1,7 @@
 NAME	=	philosophers
 
 SRCS_DIR_M	=	src/
-SRCS_BASE_M	=	main.c
+SRCS_BASE_M	=	main.c init.c mutex.c thread.c utils.c
 OBJS_M		=	$(SRCS_M:%.c=%.o)
 SRCS_M		=	$(addprefix $(SRCS_DIR_M), $(SRCS_BASE_M))
 
@@ -44,4 +44,8 @@ fclean	: clean
 
 re		: fclean all
 
+<<<<<<< HEAD
 .PHONY: all bonus clean fclean re
+=======
+.PHONY: all bonus clean fclean re
+>>>>>>> 177e72398b260f1214d3bbfe30bbbff386e2a472

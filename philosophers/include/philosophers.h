@@ -22,12 +22,12 @@
 
 # define NOT_USING 0
 # define USING 1
-# define END 0
-# define CONTINUE 1
+# define CONTINUE 0
+# define END 1
 # define HUNGRY 0
 # define FULL 1
 
-typedef struct	s_simul_info
+typedef struct s_simul_info
 {
 	int				num_of_philos;
 	long			time_to_die;
@@ -41,7 +41,7 @@ typedef struct	s_simul_info
 	pthread_mutex_t	print_mutex;
 }	t_simul_info;
 
-typedef struct	s_philo
+typedef struct s_philo
 {
 	int				number;
 	long			last_eat;
@@ -52,5 +52,31 @@ typedef struct	s_philo
 	pthread_t		thread;
 	t_simul_info	*t_simul_info;
 }	t_philo;
+
+// main.c (in main thread)
+void	monitoring(t_philo *philos, t_simul_info *info);
+int		end_check(t_philo *philos, t_simul_info *info, int full_cnt, int idx);
+int		create_philosophers(t_philo **philos, t_simul_info *info);
+int		wait_philosophers(t_philo *philos, t_simul_info info);
+
+// thread.c (in philosophers)
+void	*life_cycle(void *philosopher);
+void	philo_think(t_simul_info *simul_info, t_philo *philo);
+void	philo_sleep(t_simul_info *simul_info, t_philo *philo);
+void	philo_eat(t_simul_info *simul_info, t_philo *philo);
+
+// mutex.c
+int		take_fork(t_philo *philo, t_simul_info *simul_info);
+void	putdown_fork(t_philo *philo, t_simul_info *simul_info);
+void	mtx_printf(t_simul_info *info, int i, char *str);
+
+// utils.c
+int		ft_atoi(const char *str);
+long	get_time(t_simul_info *info);
+int		ft_usleep(t_simul_info *info, long time);
+
+// init.c
+int		init_info(t_simul_info *info, int argc, char **argv);
+int		init_philos(t_simul_info *info, t_philo *philos);
 
 #endif
