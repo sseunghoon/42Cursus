@@ -39,7 +39,11 @@ int	init_info(t_simul_info *info, int argc, char **argv)
 	info->time_to_sleep = ft_atoi(argv[4]);
 	info->must_eat = -1;
 	if (argc == 6)
+	{
 		info->must_eat = ft_atoi(argv[5]);
+		if (info->must_eat <= 0)
+			return (1);
+	}
 	if (info->num_of_philos <= 0 || info->time_to_die <= 0
 		|| info->time_to_eat <= 0 || info->time_to_sleep <= 0)
 		return (1);

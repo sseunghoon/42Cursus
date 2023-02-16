@@ -40,7 +40,13 @@ void	putdown_fork(t_philo *philo, t_simul_info *simul_info)
 
 void	mtx_printf(t_simul_info *info, int i, char *str)
 {
+	long	current_time;
+
 	pthread_mutex_lock(&info->print_mutex);
-	printf("%ld %d %s\n", get_time(info), i, str);
+	if (info->status == CONTINUE)
+	{
+		current_time = get_time(info);
+		printf("%ld %d %s\n", current_time, i, str);
+	}
 	pthread_mutex_unlock(&info->print_mutex);
 }

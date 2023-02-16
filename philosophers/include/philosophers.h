@@ -55,7 +55,7 @@ typedef struct s_philo
 
 // main.c (in main thread)
 void	monitoring(t_philo *philos, t_simul_info *info);
-int		end_check(t_philo *philos, t_simul_info *info, int full_cnt, int idx);
+int		end_check(t_philo *philos, t_simul_info *info, int *full_cnt, int idx);
 int		create_philosophers(t_philo **philos, t_simul_info *info);
 int		wait_philosophers(t_philo *philos, t_simul_info info);
 

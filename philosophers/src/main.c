@@ -23,18 +23,13 @@ int	wait_philosophers(t_philo *philos, t_simul_info info)
 	return (0);
 }
 
-int	end_check(t_philo *philos, t_simul_info *info, int full_cnt, int idx)
+int	end_check(t_philo *philos, t_simul_info *info, int *full_cnt, int idx)
 {
-	if (philos[idx].last_eat + info->time_to_die < get_time(info))
-	{
-		info->status = END;
-		mtx_printf(info, idx + 1, "died");
-	}
 	if (philos[idx].status == HUNGRY && philos[idx].eat_cnt >= info->must_eat)
 	{
 		philos[idx].status = FULL;
-		full_cnt++;
-		if (full_cnt >= info->num_of_philos)
+		(*full_cnt)++;
+		if (*full_cnt >= info->num_of_philos)
 			info->status = END;
 	}
 	return (info->status);
@@ -51,7 +46,7 @@ void	monitoring(t_philo *philos, t_simul_info *info)
 		i = -1;
 		while (++i < info->num_of_philos)
 		{
-			if (end_check(philos, info, full_cnt, i))
+			if (end_check(philos, info, &full_cnt, i))
 				break ;
 		}
 	}
