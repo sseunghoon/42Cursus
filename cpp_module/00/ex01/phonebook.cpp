@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   phonebook.cpp                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: songseunghun <songseunghun@student.42.f    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/03/21 22:34:06 by songseunghu       #+#    #+#             */
+/*   Updated: 2023/03/21 22:34:06 by songseunghu      ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "PhoneBook.hpp"
 #include "Contact.hpp"
 
@@ -48,7 +60,7 @@ void PhoneBook::search() {
 	if (this->index == 0)
 		return ;
 	std::cout << "Number: ";
-	std::cin >> str;
+	std::getline(std::cin, str);
 	try {
 		idx = std::stoi(str);
 		if (idx < 0 || idx > 7 || idx >= this->index)
@@ -57,7 +69,5 @@ void PhoneBook::search() {
 		std::cerr << "invalid_argument" << '\n';
 		return ;
 	}
-	
-	
 	this->contacts[idx].printSelf();
 }
