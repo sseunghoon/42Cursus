@@ -15,8 +15,8 @@ class Contact {
 		std::string	nickName;
 		std::string	phoneNumber;
 		std::string	darkestSecret;
-		void		PrintShort();
-		void		PrintSelf();
+		void		printShort();
+		void		printSelf();
 		std::string	resizing(std::string str);
 		~Contact();
 };

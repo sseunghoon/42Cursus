@@ -5,34 +5,59 @@ PhoneBook::PhoneBook() {
 	index = 0;
 }
 
-void PhoneBook::Add() {
-	this->index = this->index % 8;
+PhoneBook::~PhoneBook() {
+}
+
+void PhoneBook::add() {
+	int	idx = this->index % 8;
+
+	this->contacts[idx].index = idx;
 	std::cout << "FirstName: ";
-	std::cin >> this->contacts[this->index].firstName;
+	std::getline(std::cin, this->contacts[idx].firstName);
 	std::cout << "LastName: ";
-	std::cin >> this->contacts[this->index].lastName;
+	std::getline(std::cin, this->contacts[idx].lastName);
 	std::cout << "NickName: ";
-	std::cin >> this->contacts[this->index].nickName;
+	std::getline(std::cin, this->contacts[idx].nickName);
 	std::cout << "PhoneNumber: ";
-	std::cin >> this->contacts[this->index].phoneNumber;
+	std::getline(std::cin, this->contacts[idx].phoneNumber);
 	std::cout << "DarkestSecret: ";
-	std::cin >> this->contacts[this->index].darkestSecret;
+	std::getline(std::cin, this->contacts[idx].darkestSecret);
 	this->index++;
 }
 
-void PhoneBook::PrintAll() {
-	for (int i = 0; i < 8; i++) {
-		contacts[i].PrintShort();
+void PhoneBook::printAll() {
+	int len;
+
+	std::cout << std::setw(10) << "Number" << "|";
+	std::cout << std::setw(10) << "FirstName" << "|";
+	std::cout << std::setw(10) << "LastName" << "|";
+	std::cout << std::setw(10) << "NickName" << "|";
+	std::cout << std::setw(10) << "Phone" << "|";
+	std::cout << std::setw(10) << "Secret" << std::endl;
+	len = std::min(this->index, 8);
+	for (int i = 0; i < len; i++) {
+		contacts[i].printShort();
 	}
 }
 
-void PhoneBook::Search() {
+void PhoneBook::search() {
 	std::string	str;
 	int			idx;
 
-	std::cin >> str;
-	idx = std::stoi(str);
-	if (idx < 0 || idx > 7)
+	printAll();
+	if (this->index == 0)
 		return ;
-	this->contacts[idx].PrintSelf();
+	std::cout << "Number: ";
+	std::cin >> str;
+	try {
+		idx = std::stoi(str);
+		if (idx < 0 || idx > 7 || idx >= this->index)
+			throw std::invalid_argument("invalid_argument");
+	} catch(const std::exception& e) {
+		std::cerr << "invalid_argument" << '\n';
+		return ;
+	}
+	
+	
+	this->contacts[idx].printSelf();
 }
