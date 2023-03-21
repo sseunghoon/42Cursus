@@ -3,16 +3,16 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: seunghso <seunghso@student.42.fr>          +#+  +:+       +#+         #
+#    By: songseunghun <songseunghun@student.42.f    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/18 00:37:40 by seunghso          #+#    #+#              #
-#    Updated: 2023/03/21 14:39:57 by seunghso         ###   ########.fr        #
+#    Updated: 2023/03/21 19:07:45 by songseunghu      ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME	=	phonebook
 
-SRCS	=	phonebook.cpp
+SRCS	=	main.cpp PhoneBook.cpp Contact.cpp 
 OBJS	=	$(SRCS:%.cpp=%.o)
 
 CC		=	c++

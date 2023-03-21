@@ -1,35 +1,38 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   phonebook.cpp                                      :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: seunghso <seunghso@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/21 14:06:22 by seunghso          #+#    #+#             */
-/*   Updated: 2023/03/21 16:23:59 by seunghso         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
+#include "PhoneBook.hpp"
+#include "Contact.hpp"
 
-#include "phonebook.hpp"
+PhoneBook::PhoneBook() {
+	index = 0;
+}
 
-void	add(PhoneBook )
+void PhoneBook::Add() {
+	this->index = this->index % 8;
+	std::cout << "FirstName: ";
+	std::cin >> this->contacts[this->index].firstName;
+	std::cout << "LastName: ";
+	std::cin >> this->contacts[this->index].lastName;
+	std::cout << "NickName: ";
+	std::cin >> this->contacts[this->index].nickName;
+	std::cout << "PhoneNumber: ";
+	std::cin >> this->contacts[this->index].phoneNumber;
+	std::cout << "DarkestSecret: ";
+	std::cin >> this->contacts[this->index].darkestSecret;
+	this->index++;
+}
 
-int	main(int argc, char *argv[])
-{
-	PhoneBook[10]	phoneBook;
-	std::string	command;
-	
-	
-	while (1)
-	{
-		std::cout << "Command:";
-		std::cin >> command;
-		if (command.compare("EXIT"))
-			break ;
-		if (command.compare("ADD"))
-			add();
-		if (command.compare("SEARCH"))
-			search();
+void PhoneBook::PrintAll() {
+	for (int i = 0; i < 8; i++) {
+		contacts[i].PrintShort();
 	}
-	return (0);
+}
+
+void PhoneBook::Search() {
+	std::string	str;
+	int			idx;
+
+	std::cin >> str;
+	idx = std::stoi(str);
+	if (idx < 0 || idx > 7)
+		return ;
+	this->contacts[idx].PrintSelf();
 }
