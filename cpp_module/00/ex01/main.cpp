@@ -6,11 +6,12 @@
 /*   By: songseunghun <songseunghun@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/21 14:06:22 by seunghso          #+#    #+#             */
-/*   Updated: 2023/03/21 19:07:57 by songseunghu      ###   ########.fr       */
+/*   Updated: 2023/03/21 19:50:32 by songseunghu      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "Phonebook.hpp"
+#include "PhoneBook.hpp"
+#include "Contact.hpp"
 
 int	main(int argc, char *argv[])
 {
