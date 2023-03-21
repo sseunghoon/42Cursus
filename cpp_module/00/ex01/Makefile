@@ -6,13 +6,13 @@
 #    By: seunghso <seunghso@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/18 00:37:40 by seunghso          #+#    #+#              #
-#    Updated: 2023/03/21 13:56:02 by seunghso         ###   ########.fr        #
+#    Updated: 2023/03/21 14:39:57 by seunghso         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME	=	megaphone
+NAME	=	phonebook
 
-SRCS	=	megaphone.cpp
+SRCS	=	phonebook.cpp
 OBJS	=	$(SRCS:%.cpp=%.o)
 
 CC		=	c++
