@@ -1,5 +1,4 @@
 #include "Contact.hpp"
-#include "PhoneBook.hpp"
 
 std::string Contact::resizing(std::string str) {
 	if (str.length() > 10) {
