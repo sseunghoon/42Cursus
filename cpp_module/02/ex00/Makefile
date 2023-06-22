@@ -3,28 +3,29 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: seunghso <seunghso@student.42.fr>          +#+  +:+       +#+         #
+#    By: songseunghun <songseunghun@student.42.f    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/18 00:37:40 by seunghso          #+#    #+#              #
-#    Updated: 2023/03/21 13:56:02 by seunghso         ###   ########.fr        #
+#    Updated: 2023/06/22 14:29:30 by songseunghu      ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME	=	megaphone
+NAME	=	a.out
 
-SRCS	=	megaphone.cpp
+SRCS	=	main.cpp Fixed.cpp
 OBJS	=	$(SRCS:%.cpp=%.o)
+HEADER	=	Fixed.hpp
 
-CC		=	c++
+CPP		=	c++
 CFLAGS	=	-Wall -Werror -Wextra -std=c++98
 
 all		:	$(NAME)
 
 $(NAME)	:	$(OBJS)
-	$(CC) $(CFLAGS) $(OBJS) -o $(NAME)
+	$(CPP) $(CFLAGS) $(OBJS) -o $(NAME)
 
 %.o	:%.c
-	$(CC) $(CFLAGS) -c $< -o $@
+	$(CPP) $(CFLAGS) -c $< -o $@ -include $(HEADER)
 
 clean	:
 	rm -rf $(OBJS)
