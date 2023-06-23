@@ -1,22 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ScavTrap.cpp                                       :+:      :+:    :+:   */
+/*   DiamondTrap.cpp                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: seunghso <seunghso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/22 12:36:33 by songseunghu       #+#    #+#             */
-/*   Updated: 2023/06/23 17:41:12 by seunghso         ###   ########.fr       */
+/*   Updated: 2023/06/23 20:49:22 by seunghso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ScavTrap.hpp"
+#include "DiamondTrap.hpp"
 
-ScavTrap::ScavTrap() : ClapTrap() {
-	hitPoints = 100;
-	energyPoints = 50;
-	attackDamage = 20;
-	std::cout << "ScavTrap constructor called: " << name << std::endl;
+DiamondTrap::DiamondTrap() : ClapTrap(), FragTrap(), ScavTrap() {
+	name = "Default";
+	std::cout << "DiamondTrap constructor called: " << name << std::endl;
+
 }
 
 ScavTrap::ScavTrap(std::string _name) : ClapTrap(_name) {

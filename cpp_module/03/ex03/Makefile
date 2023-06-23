@@ -6,15 +6,15 @@
 #    By: seunghso <seunghso@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/18 00:37:40 by seunghso          #+#    #+#              #
-#    Updated: 2023/06/23 17:43:33 by seunghso         ###   ########.fr        #
+#    Updated: 2023/06/23 20:14:50 by seunghso         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME	=	ScavTrap
+NAME	=	FragTrap
 
-SRCS	=	main.cpp ClapTrap.cpp ScavTrap.cpp
+SRCS	=	main.cpp ClapTrap.cpp ScavTrap.cpp FragTrap.cpp DiamondTrap.cpp
 OBJS	=	$(SRCS:%.cpp=%.o)
-HEADER	=	ClapTrap.hpp ScavTrap.hpp
+HEADER	=	ClapTrap.hpp ScavTrap.hpp FragTrap.hpp DiamondTrap.hpp
 
 CPP		=	c++
 CFLAGS	=	-Wall -Werror -Wextra -std=c++98
