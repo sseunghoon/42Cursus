@@ -1,31 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   megaphone.cpp                                      :+:      :+:    :+:   */
+/*   main.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: seunghso <seunghso@student.42.fr>          +#+  +:+       +#+        */
+/*   By: songseunghun <songseunghun@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/21 14:06:22 by seunghso          #+#    #+#             */
-/*   Updated: 2023/03/21 16:11:29 by seunghso         ###   ########.fr       */
+/*   Updated: 2023/05/25 00:49:58 by songseunghu      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <iostream>
 #include <string>
+#include "Zombie.hpp"
 
 int	main(int argc, char *argv[])
 {
-	if (argc == 1)
-		std::cout << "* LOUD AND UNBEARABLE FEEDBACK NOISE *" << std::endl;
-	else
-	{
-		for (int i = 1; i < argc; i++)
-		{
-			std::string str(argv[i]);
-			for (size_t j = 0; j < str.length(); j++)
-				std::cout << (char)std::toupper(str[j]);
-		}
-		std::cout << std::endl;
-	}
+	Zombie	stack1 = Zombie("stack1");
+	Zombie	stack2 = Zombie("stack2");
+
+	Zombie	*heap1 = newZombie("heap1");
+	Zombie	*heap2 = newZombie("heap2");
+
+	heap1->announce();
+	heap2->announce();
+
+	delete(heap1);
+	delete(heap2);
+
+	randomChump("stack3");
+	
 	return (0);
 }
