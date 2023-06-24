@@ -19,18 +19,21 @@
 #include <iomanip>
 
 class Contact {
-	public:
-		Contact();
+	private:
 		int			index;
 		std::string	firstName;
 		std::string	lastName;
 		std::string	nickName;
 		std::string	phoneNumber;
 		std::string	darkestSecret;
+
+	public:
+		Contact();
+		~Contact();
+		
 		void		printShort();
 		void		printSelf();
 		std::string	resizing(std::string str);
-		~Contact();
 };
 
 #endif
