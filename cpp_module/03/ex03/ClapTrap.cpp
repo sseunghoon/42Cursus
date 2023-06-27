@@ -20,8 +20,8 @@ ClapTrap::ClapTrap() {
 	std::cout << "ClapTrap constructor called: " << name << std::endl;
 }
 
-ClapTrap::ClapTrap(std::string _name) {
-	name = _name;
+ClapTrap::ClapTrap(std::string name) {
+	this->name = name;
 	hitPoints = 10;
 	energyPoints = 10;
 	attackDamage = 0;

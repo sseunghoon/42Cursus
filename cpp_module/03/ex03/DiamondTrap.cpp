@@ -12,30 +12,33 @@
 
 #include "DiamondTrap.hpp"
 
-DiamondTrap::DiamondTrap() : ClapTrap(), FragTrap(), ScavTrap() {
-	name = "Default";
-	std::cout << "DiamondTrap constructor called: " << name << std::endl;
-
-}
-
-ScavTrap::ScavTrap(std::string _name) : ClapTrap(_name) {
+DiamondTrap::DiamondTrap() : ClapTrap("default_clap_name"), FragTrap(), ScavTrap() {
+	name = "default";
 	hitPoints = 100;
 	energyPoints = 50;
-	attackDamage = 20;
-	std::cout << "ScavTrap constructor called: " << name << std::endl;
+	attackDamage = 30;
+	std::cout << "DiamondTrap constructor called: " << name << std::endl;
 }
 
-ScavTrap::~ScavTrap() {
-	std::cout << "ScavTrap Destructor called: " << name << std::endl;
+DiamondTrap::DiamondTrap(std::string name) : ClapTrap(name + "_clap_name"), FragTrap(), ScavTrap() {
+	this->name = name;
+	hitPoints = 100;
+	energyPoints = 50;
+	attackDamage = 30;
+	std::cout << "DiamondTrap constructor called: " << name << std::endl;
 }
 
-ScavTrap::ScavTrap(const ScavTrap& fixed) {
-	std::cout << "ScavTrap Copy constructor called: " << name << std::endl;
+DiamondTrap::~DiamondTrap() {
+	std::cout << "DiamondTrap Destructor called: " << name << std::endl;
+}
+
+DiamondTrap::DiamondTrap(const DiamondTrap& fixed) {
+	std::cout << "DiamondTrap Copy constructor called: " << name << std::endl;
 	*this = fixed;
 }
 
-ScavTrap& ScavTrap::operator=(const ScavTrap& fixed) {
-	std::cout << "ScavTrap Copy assignment operator called: " << name << std::endl;
+DiamondTrap& DiamondTrap::operator=(const DiamondTrap& fixed) {
+	std::cout << "DiamondTrap Copy assignment operator called: " << name << std::endl;
 	name = fixed.name;
 	hitPoints = fixed.hitPoints;
 	energyPoints = fixed.energyPoints;
@@ -44,21 +47,12 @@ ScavTrap& ScavTrap::operator=(const ScavTrap& fixed) {
 	return (*this);
 }
 
-void ScavTrap::attack(const std::string& target) {
-	if (energyPoints == 0 || hitPoints == 0) {
-		std::cout << "[ERROR] ScavTrap(" << name << ") can't attack " << target;
-		if (this->hitPoints == 0) {
-			std::cout << ", " << name << " is dead!" << std::endl;
-		} else {
-			std::cout << ", " << name << " has no energy!" << std::endl;
-		}
-		return ;
-	}
-	energyPoints -= 1;
-	std::cout << "ScavTrap " << this->name << " attaks " << 
-	target << ", causing " << attackDamage << " points of damage" << std::endl;
+void DiamondTrap::attack(const std::string& target) {
+	ScavTrap::attack(target);
 }
 
-void ScavTrap::guardGate() {
-	std::cout << "ScavTrap " << this->name << " is now in Gate keeper mode." << std::endl;
+void DiamondTrap::whoAmI() {
+	std::cout << "My name is " << name 
+		<< ", and ClapTrap name is " 
+		<< ClapTrap::name << std::endl;
 }

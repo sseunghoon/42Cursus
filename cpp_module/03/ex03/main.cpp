@@ -10,35 +10,35 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "FragTrap.hpp"
+#include "DiamondTrap.hpp"
 
 int main(void)
 {
-	FragTrap fragDefault;
-	FragTrap frag1("frag1");
-	FragTrap frag2("frag2");
+	DiamondTrap diamondDefault;
+	DiamondTrap diamond1("diamond1");
+	DiamondTrap diamond2("diamond2");
 
-	fragDefault.highFivesGuys();
-	frag1.attack("frag2");
-	frag2.takeDamage(20);
-	frag2.attack("frag1");
-	frag1.takeDamage(20);
-	frag1.beRepaired(1);
-	frag2.beRepaired(1);
+	diamondDefault.highFivesGuys();
+	diamond1.attack("diamond2");
+	diamond2.takeDamage(20);
+	diamond2.attack("diamond1");
+	diamond1.takeDamage(20);
+	diamond1.beRepaired(1);
+	diamond2.beRepaired(1);
 	
 	std::cout << "=============================================================" << std::endl;
 	
-	frag1.takeDamage(100);
-	frag2.takeDamage(100);
-	frag1.attack("frag2");
-	frag2.attack("frag1");
-	frag1.beRepaired(1);
-	frag2.beRepaired(1);
+	diamond1.takeDamage(100);
+	diamond2.takeDamage(100);
+	diamond1.attack("diamond2");
+	diamond2.attack("diamond1");
+	diamond1.beRepaired(1);
+	diamond2.beRepaired(1);
 
 	std::cout << "=============================================================" << std::endl;
 	
-	ClapTrap *upCasting = new FragTrap("upCasting");
-	upCasting->attack("fragDefault");
+	ClapTrap *upCasting = new DiamondTrap("upCasting");
+	upCasting->attack("diamondDefault");
 	delete upCasting;
 
 	return (0);

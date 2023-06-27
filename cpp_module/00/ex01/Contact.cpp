@@ -42,3 +42,47 @@ void Contact::printShort() {
 	std::cout << std::setw(10) << resizing(this->phoneNumber) << "|";
 	std::cout << std::setw(10) << resizing(this->darkestSecret) << std::endl;
 }
+
+void Contact::setIndex(int index) {
+	this->index = index;
+}
+
+void Contact::setFirstName(std::string firstName) {
+	this->firstName = firstName;
+}
+
+void Contact::setLastName(std::string lastName) {
+	this->lastName = lastName;
+}
+
+void Contact::setNickName(std::string nickName) {
+	this->nickName = nickName;
+}
+
+void Contact::setPhoneNumber(std::string phoneNumber) {
+	this->phoneNumber = phoneNumber;
+}
+
+void Contact::setDarkestSecret(std::string darkestSecret) {
+	this->darkestSecret = darkestSecret;
+}
+
+int Contact::getIndex() {
+    return this->index;
+}
+
+std::string Contact::getFirstName() {
+    return this->firstName;
+}
+
+std::string Contact::getNickName() {
+    return this->nickName;
+}
+
+std::string Contact::getPhoneNumber() {
+    return this->phoneNumber;
+}
+
+std::string Contact::getDarkestSecret() {
+    return this->darkestSecret;
+}

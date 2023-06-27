@@ -34,6 +34,20 @@ class Contact {
 		void		printShort();
 		void		printSelf();
 		std::string	resizing(std::string str);
+
+		void setIndex(int index);
+		void setFirstName(std::string firstName);
+		void setLastName(std::string lastName);
+		void setNickName(std::string nickName);
+		void setPhoneNumber(std::string phoneNumber);
+		void setDarkestSecret(std::string darkestSecret);
+
+		int getIndex();
+		std::string getFirstName();
+		std::string getLastName();
+		std::string getNickName();
+		std::string getPhoneNumber();
+		std::string getDarkestSecret();
 };
 
 #endif
