@@ -21,11 +21,13 @@
 #include "Contact.hpp"
 
 class PhoneBook {
+	private:
+		int		index;
+		Contact	contacts[8];
+		void	printAll();
+
 	public:
 		PhoneBook();
-		Contact	contacts[8];
-		int		index;
-		void	printAll();
 		void	search();
 		void	add();
 		~PhoneBook();

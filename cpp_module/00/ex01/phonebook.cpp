@@ -21,19 +21,30 @@ PhoneBook::~PhoneBook() {
 }
 
 void PhoneBook::add() {
+	std::string tmp;
 	int	idx = this->index % 8;
 
-	this->contacts[idx].index = idx;
+	this->contacts[idx].setIndex(idx);
 	std::cout << "FirstName: ";
-	std::getline(std::cin, this->contacts[idx].firstName);
+	std::getline(std::cin, tmp);
+	this->contacts[idx].setFirstName(tmp);
+	
 	std::cout << "LastName: ";
-	std::getline(std::cin, this->contacts[idx].lastName);
+	std::getline(std::cin, tmp);
+	this->contacts[idx].setLastName(tmp);
+
 	std::cout << "NickName: ";
-	std::getline(std::cin, this->contacts[idx].nickName);
+	std::getline(std::cin, tmp);
+	this->contacts[idx].setNickName(tmp);
+
 	std::cout << "PhoneNumber: ";
-	std::getline(std::cin, this->contacts[idx].phoneNumber);
+	std::getline(std::cin, tmp);
+	this->contacts[idx].setPhoneNumber(tmp);
+
 	std::cout << "DarkestSecret: ";
-	std::getline(std::cin, this->contacts[idx].darkestSecret);
+	std::getline(std::cin, tmp);
+	this->contacts[idx].setDarkestSecret(tmp);
+
 	this->index++;
 }
 

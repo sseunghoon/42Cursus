@@ -42,7 +42,7 @@ class Contact {
 		void setPhoneNumber(std::string phoneNumber);
 		void setDarkestSecret(std::string darkestSecret);
 
-		int getIndex();
+		int 		getIndex();
 		std::string getFirstName();
 		std::string getLastName();
 		std::string getNickName();

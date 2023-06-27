@@ -75,6 +75,11 @@ std::string Contact::getFirstName() {
     return this->firstName;
 }
 
+std::string Contact::getLastName()
+{
+    return std::string();
+}
+
 std::string Contact::getNickName() {
     return this->nickName;
 }
