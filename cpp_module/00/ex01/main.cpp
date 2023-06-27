@@ -13,17 +13,17 @@
 #include "PhoneBook.hpp"
 #include "Contact.hpp"
 
-int	main(int argc, char *argv[])
+int	main(void)
 {
 	PhoneBook	phoneBook;
 	std::string	command;
 	
 	
-	while (1)
+	while (true)
 	{
 		std::cout << "Command[ADD|SEARCH|EXIT]:";
 		std::getline(std::cin, command);
-		if (command == "EXIT")
+		if (std::cin.eof() || command == "EXIT")
 			break ;
 		if (command == "ADD")
 			phoneBook.add();

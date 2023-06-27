@@ -14,8 +14,6 @@
 #define CONTACT_HPP
 
 #include <iostream>
-#include <string>
-#include <stdlib.h>
 #include <iomanip>
 
 class Contact {

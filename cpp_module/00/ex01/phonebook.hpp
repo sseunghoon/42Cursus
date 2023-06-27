@@ -14,10 +14,7 @@
 #define PHONEBOOK_HPP
 
 #include <iostream>
-#include <string>
-#include <stdlib.h>
-#include <iomanip>
-#include <cstdlib>
+#include <sstream>
 #include "Contact.hpp"
 
 class PhoneBook {
@@ -32,5 +29,7 @@ class PhoneBook {
 		void	add();
 		~PhoneBook();
 };
+
+int	ft_stoi(std::string str);
 
 #endif

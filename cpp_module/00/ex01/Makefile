@@ -16,16 +16,16 @@ SRCS	=	main.cpp PhoneBook.cpp Contact.cpp
 OBJS	=	$(SRCS:%.cpp=%.o)
 HEADER = PhoneBook.hpp Contact.hpp
 
-CPP		=	c++
-CFLAGS	=	-Wall -Werror -Wextra -std=c++98
+CXX		=	c++
+CXXFLAGS	=	-Wall -Werror -Wextra -std=c++98
 
 all		:	$(NAME)
 
 $(NAME)	:	$(OBJS)
-	$(CPP) $(CFLAGS) $(OBJS) -o $(NAME)
+	$(CXX) $(CXXFLAGS) $(OBJS) -o $(NAME)
 
 %.o	:%.c
-	$(CPP) $(CFLAGS) -c $< -o $@ -include $(HEADER)
+	$(CXX) $(CXXFLAGS) -c $< -o $@ -include $(HEADER)
 
 clean	:
 	rm -rf $(OBJS)

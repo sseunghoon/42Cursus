@@ -54,9 +54,7 @@ void PhoneBook::printAll() {
 	std::cout << std::setw(10) << "Number" << "|";
 	std::cout << std::setw(10) << "FirstName" << "|";
 	std::cout << std::setw(10) << "LastName" << "|";
-	std::cout << std::setw(10) << "NickName" << "|";
-	std::cout << std::setw(10) << "Phone" << "|";
-	std::cout << std::setw(10) << "Secret" << std::endl;
+	std::cout << std::setw(10) << "NickName" << std::endl;
 	len = std::min(this->index, 8);
 	for (int i = 0; i < len; i++) {
 		contacts[i].printShort();
@@ -73,7 +71,7 @@ void PhoneBook::search() {
 	std::cout << "Number: ";
 	std::getline(std::cin, str);
 	try {
-		idx = std::stoi(str);
+		idx = ft_stoi(str);
 		if (idx < 0 || idx > 7 || idx >= this->index)
 			throw std::invalid_argument("invalid_argument");
 	} catch(const std::exception& e) {
@@ -81,4 +79,14 @@ void PhoneBook::search() {
 		return ;
 	}
 	this->contacts[idx].printSelf();
+}
+
+int ft_stoi(std::string str) {
+	int i;
+	std::stringstream ss;
+	
+	ss << str;
+	ss >> i;
+
+	return i;
 }

@@ -38,9 +38,7 @@ void Contact::printShort() {
 	std::cout << std::setw(10) << this->index << "|";
 	std::cout << std::setw(10) << resizing(this->firstName) << "|";
 	std::cout << std::setw(10) << resizing(this->lastName) << "|";
-	std::cout << std::setw(10) << resizing(this->nickName) << "|";
-	std::cout << std::setw(10) << resizing(this->phoneNumber) << "|";
-	std::cout << std::setw(10) << resizing(this->darkestSecret) << std::endl;
+	std::cout << std::setw(10) << resizing(this->nickName) << std::endl;
 }
 
 void Contact::setIndex(int index) {
