@@ -6,21 +6,23 @@
 /*   By: songseunghun <songseunghun@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/21 14:06:22 by seunghso          #+#    #+#             */
-/*   Updated: 2023/05/25 00:49:46 by songseunghu      ###   ########.fr       */
+/*   Updated: 2023/06/28 11:05:22 by songseunghu      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <iostream>
-#include <string>
 #include "Zombie.hpp"
 
-int	main(int argc, char *argv[])
+int	main(void)
 {
-	Zombie *zombies = zombieHorde(10, "eibmoz");
-	
-	for (int i = 0; i < 10; i++) {
+	Zombie zombie("stackZombie");
+	zombie.announce();
+
+	Zombie *zombies = zombieHorde(5, "heapZombie");
+
+	for (int i = 0; i < 5; i++) {
 		zombies[i].announce();
 	}
+	
 	delete[] zombies;
 	
 	return (0);
