@@ -6,7 +6,7 @@
 /*   By: songseunghun <songseunghun@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/21 22:33:44 by songseunghu       #+#    #+#             */
-/*   Updated: 2023/03/22 03:25:36 by songseunghu      ###   ########.fr       */
+/*   Updated: 2023/07/03 23:08:17 by songseunghu      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,6 @@
 #define WEAPON_HPP
 
 #include <iostream>
-#include <string>
-#include <stdlib.h>
 #include <iomanip>
 
 class Weapon {
