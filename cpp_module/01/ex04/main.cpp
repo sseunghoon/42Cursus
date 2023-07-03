@@ -6,7 +6,7 @@
 /*   By: songseunghun <songseunghun@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/21 14:06:22 by seunghso          #+#    #+#             */
-/*   Updated: 2023/06/22 12:24:34 by songseunghu      ###   ########.fr       */
+/*   Updated: 2023/07/04 00:48:50 by songseunghu      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ int	main(int argc, char *argv[])
 {
 	if (argc != 4) {
 		std::cerr << "Invalid Input" << std::endl;
+		return (-1);
 	}
 
 	std::string fileName(argv[1]);
@@ -31,6 +32,10 @@ int	main(int argc, char *argv[])
 	}
 
 	std::ifstream file(fileName);
+	if (!file.good()) {
+		std::cout << "No Such file: " << fileName << std::endl;
+		return (1);
+	}
 	std::ofstream outFile(fileName + ".replace");
 	while (file.good()) {
 		char c = file.get();
