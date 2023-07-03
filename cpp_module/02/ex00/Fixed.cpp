@@ -6,7 +6,7 @@
 /*   By: songseunghun <songseunghun@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/22 12:36:33 by songseunghu       #+#    #+#             */
-/*   Updated: 2023/06/22 16:17:26 by songseunghu      ###   ########.fr       */
+/*   Updated: 2023/07/04 01:07:08 by songseunghu      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,5 +40,6 @@ int Fixed::getRawBits(void) const
 
 void Fixed::setRawBits(int const raw)
 {
+	std::cout << "setRawBits member function called" << std::endl;
 	this->value = raw;
 }
