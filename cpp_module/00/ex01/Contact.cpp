@@ -65,27 +65,26 @@ void Contact::setDarkestSecret(std::string darkestSecret) {
 	this->darkestSecret = darkestSecret;
 }
 
-int Contact::getIndex() {
+int Contact::getIndex() const{
     return this->index;
 }
 
-std::string Contact::getFirstName() {
+std::string Contact::getFirstName() const{
     return this->firstName;
 }
 
-std::string Contact::getLastName()
-{
-    return std::string();
+std::string Contact::getLastName() const{
+    return this->lastName;
 }
 
-std::string Contact::getNickName() {
+std::string Contact::getNickName() const{
     return this->nickName;
 }
 
-std::string Contact::getPhoneNumber() {
+std::string Contact::getPhoneNumber() const{
     return this->phoneNumber;
 }
 
-std::string Contact::getDarkestSecret() {
+std::string Contact::getDarkestSecret() const{
     return this->darkestSecret;
 }
