@@ -38,3 +38,14 @@ Zombie* zombieHorde(int N, std::string name) {
 	}
 	return zombies;
 }
+
+void randomChump(std::string name) {
+	Zombie randomZombie = Zombie(name);
+}
+
+Zombie* newZombie(std::string name) {
+	Zombie	*newZombie;
+
+	newZombie = new Zombie(name);
+	return newZombie;
+}

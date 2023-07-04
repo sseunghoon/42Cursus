@@ -12,7 +12,7 @@
 
 NAME	=	BraiiiiiiinnnzzzZ
 
-SRCS	=	main.cpp Zombie.cpp newZombie.cpp randomChump.cpp
+SRCS	=	main.cpp Zombie.cpp
 OBJS	=	$(SRCS:%.cpp=%.o)
 HEADER	=	Zombie.hpp
 
