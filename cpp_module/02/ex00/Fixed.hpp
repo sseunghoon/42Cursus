@@ -6,14 +6,13 @@
 /*   By: songseunghun <songseunghun@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/22 12:36:25 by songseunghu       #+#    #+#             */
-/*   Updated: 2023/06/22 14:54:12 by songseunghu      ###   ########.fr       */
+/*   Updated: 2023/07/04 01:03:56 by songseunghu      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FIXED_HPP
 #define FIXED_HPP
 
-#include <string>
 #include <iostream>
 
 class Fixed {

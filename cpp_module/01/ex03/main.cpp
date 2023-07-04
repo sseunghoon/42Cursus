@@ -6,17 +6,15 @@
 /*   By: songseunghun <songseunghun@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/21 14:06:22 by seunghso          #+#    #+#             */
-/*   Updated: 2023/03/22 01:43:50 by songseunghu      ###   ########.fr       */
+/*   Updated: 2023/07/04 00:11:04 by songseunghu      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <iostream>
-#include <string>
 #include "Weapon.hpp"
 #include "HumanA.hpp"
 #include "HumanB.hpp"
 
-int	main(int argc, char *argv[])
+int	main(void)
 {
 	{
 		Weapon club = Weapon("crude spiked club");
@@ -33,6 +31,10 @@ int	main(int argc, char *argv[])
     	club.setType("some other type of club");
     	jim.attack();
 	}
-	
+	{
+		HumanB citizen("Citizen");
+		citizen.attack();
+	}
+
 	return (0);
 }

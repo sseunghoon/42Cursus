@@ -6,7 +6,7 @@
 /*   By: songseunghun <songseunghun@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/22 12:36:25 by songseunghu       #+#    #+#             */
-/*   Updated: 2023/06/22 16:27:35 by songseunghu      ###   ########.fr       */
+/*   Updated: 2023/07/04 01:14:10 by songseunghu      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,13 +23,16 @@ class Fixed {
 		static const int fractional_bits = 8;
 	public:
 		Fixed();
-		Fixed(const int value);
-		Fixed(const float value);
 		~Fixed();
 		Fixed(const Fixed& fixed);
 		Fixed& operator=(const Fixed& fixed);
+		
+		Fixed(const int value);
+		Fixed(const float value);
+		
 		int getRawBits(void) const;
 		void setRawBits(int const raw);
+		
 		float toFloat(void) const;
 		int toInt(void) const;
 };

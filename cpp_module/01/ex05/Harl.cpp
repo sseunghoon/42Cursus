@@ -6,7 +6,7 @@
 /*   By: songseunghun <songseunghun@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/22 12:36:33 by songseunghu       #+#    #+#             */
-/*   Updated: 2023/06/22 13:57:42 by songseunghu      ###   ########.fr       */
+/*   Updated: 2023/07/04 00:57:38 by songseunghu      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,6 @@ void Harl::complain(std::string level) {
 	if (converted_level == -1) {
 		std::cerr << "Invalid Input" << std::endl;
 		return ;
-	} else {
-		(this->*func[converted_level])();
 	}
+	(this->*func[converted_level])();
 }
