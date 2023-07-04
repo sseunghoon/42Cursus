@@ -13,10 +13,13 @@
 #include "Zombie.hpp"
 
 Zombie::Zombie() {
+	this->name = "default";
+	announce();
 }
 
 Zombie::Zombie(std::string name) {
 	this->name = name;
+	announce();
 }
 
 Zombie::~Zombie() {

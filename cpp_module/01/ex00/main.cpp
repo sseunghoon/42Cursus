@@ -22,9 +22,6 @@ int	main(int argc, char *argv[])
 	Zombie	*heap1 = newZombie("heap1");
 	Zombie	*heap2 = newZombie("heap2");
 
-	heap1->announce();
-	heap2->announce();
-
 	delete(heap1);
 	delete(heap2);
 
