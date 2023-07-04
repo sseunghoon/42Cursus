@@ -21,11 +21,11 @@ cat << EOF > "$hpp_filename"
 #define ${uppercase_name}_HPP
 
 class $name {
-public:
-    $name();
-    $name(const $name& copy);
-    $name& operator=(const $name& copy);
-    ~$name();
+    public:
+    	$name();
+		$name(const $name& copy);
+		$name& operator=(const $name& copy);
+		~$name();
 };
 
 #endif

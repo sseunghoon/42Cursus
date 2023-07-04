@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: seunghso <seunghso@student.42.fr>          +#+  +:+       +#+         #
+#    By: songseunghun <songseunghun@student.42.f    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/18 00:37:40 by seunghso          #+#    #+#              #
-#    Updated: 2023/06/23 20:14:50 by seunghso         ###   ########.fr        #
+#    Updated: 2023/07/04 01:46:57 by songseunghu      ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,16 +16,16 @@ SRCS	=	main.cpp ClapTrap.cpp ScavTrap.cpp FragTrap.cpp DiamondTrap.cpp
 OBJS	=	$(SRCS:%.cpp=%.o)
 HEADER	=	ClapTrap.hpp ScavTrap.hpp FragTrap.hpp DiamondTrap.hpp
 
-CPP		=	c++
-CFLAGS	=	-Wall -Werror -Wextra -std=c++98
+CXX		=	c++
+CXXFLAGS	=	-Wall -Werror -Wextra -std=c++98
 
 all		:	$(NAME)
 
 $(NAME)	:	$(OBJS)
-	$(CPP) $(CFLAGS) $(OBJS) -o $(NAME)
+	$(CXX) $(CXXFLAGS) $(OBJS) -o $(NAME)
 
 %.o	:%.c
-	$(CPP) $(CFLAGS) -c $< -o $@ -include $(HEADER)
+	$(CXX) $(CXXFLAGS) -c $< -o $@ -include $(HEADER)
 
 clean	:
 	rm -rf $(OBJS)

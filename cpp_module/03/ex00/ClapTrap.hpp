@@ -3,17 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ClapTrap.hpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: seunghso <seunghso@student.42.fr>          +#+  +:+       +#+        */
+/*   By: songseunghun <songseunghun@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/22 12:36:25 by songseunghu       #+#    #+#             */
-/*   Updated: 2023/06/23 15:24:30 by seunghso         ###   ########.fr       */
+/*   Updated: 2023/07/04 01:29:03 by songseunghu      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CLAPTRAP_HPP
 #define CLAPTRAP_HPP
 
-#include <string>
 #include <iostream>
 
 class ClapTrap {
@@ -28,6 +27,7 @@ class ClapTrap {
 		ClapTrap(const ClapTrap& claptrap);
 		ClapTrap& operator=(const ClapTrap& claptrap);
 		~ClapTrap();
+		
 		void attack(const std::string& target);
 		void takeDamage(unsigned int amount);
 		void beRepaired(unsigned int amount);

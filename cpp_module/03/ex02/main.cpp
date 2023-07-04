@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: seunghso <seunghso@student.42.fr>          +#+  +:+       +#+        */
+/*   By: songseunghun <songseunghun@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/21 14:06:22 by seunghso          #+#    #+#             */
-/*   Updated: 2023/06/23 20:09:07 by seunghso         ###   ########.fr       */
+/*   Updated: 2023/07/04 01:42:48 by songseunghu      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,9 @@ int main(void)
 
 	fragDefault.highFivesGuys();
 	frag1.attack("frag2");
-	frag2.takeDamage(20);
+	frag2.takeDamage(30);
 	frag2.attack("frag1");
-	frag1.takeDamage(20);
+	frag1.takeDamage(30);
 	frag1.beRepaired(1);
 	frag2.beRepaired(1);
 	
@@ -39,6 +39,7 @@ int main(void)
 	
 	ClapTrap *upCasting = new FragTrap("upCasting");
 	upCasting->attack("fragDefault");
+	fragDefault.takeDamage(30);
 	delete upCasting;
 
 	return (0);

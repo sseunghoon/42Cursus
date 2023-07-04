@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   DiamondTrap.cpp                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: seunghso <seunghso@student.42.fr>          +#+  +:+       +#+        */
+/*   By: songseunghun <songseunghun@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/22 12:36:33 by songseunghu       #+#    #+#             */
-/*   Updated: 2023/06/23 20:49:22 by seunghso         ###   ########.fr       */
+/*   Updated: 2023/07/04 02:02:01 by songseunghu      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "DiamondTrap.hpp"
 
-DiamondTrap::DiamondTrap() : ClapTrap("default_clap_name"), FragTrap(), ScavTrap() {
+DiamondTrap::DiamondTrap() : ClapTrap("default_clap_name"), ScavTrap(), FragTrap() {
 	name = "default";
 	hitPoints = 100;
 	energyPoints = 50;
@@ -20,16 +20,16 @@ DiamondTrap::DiamondTrap() : ClapTrap("default_clap_name"), FragTrap(), ScavTrap
 	std::cout << "DiamondTrap constructor called: " << name << std::endl;
 }
 
-DiamondTrap::DiamondTrap(std::string name) : ClapTrap(name + "_clap_name"), FragTrap(), ScavTrap() {
+DiamondTrap::DiamondTrap(std::string name) : ClapTrap(name + "_clap_name"), ScavTrap(), FragTrap() {
 	this->name = name;
 	hitPoints = 100;
 	energyPoints = 50;
 	attackDamage = 30;
-	std::cout << "DiamondTrap constructor called: " << name << std::endl;
+	std::cout << "DiamondTrap constructor called: " << this->name << std::endl;
 }
 
 DiamondTrap::~DiamondTrap() {
-	std::cout << "DiamondTrap Destructor called: " << name << std::endl;
+	std::cout << "DiamondTrap Destructor called: " << this->name << std::endl;
 }
 
 DiamondTrap::DiamondTrap(const DiamondTrap& fixed) {
@@ -52,6 +52,11 @@ void DiamondTrap::attack(const std::string& target) {
 }
 
 void DiamondTrap::whoAmI() {
+	if (energyPoints == 0 || hitPoints == 0) {
+		std::cout << name << "has no energyPoints or hitPoints!" << std::endl;
+		return ;
+	}
+
 	std::cout << "My name is " << name 
 		<< ", and ClapTrap name is " 
 		<< ClapTrap::name << std::endl;

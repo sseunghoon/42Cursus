@@ -3,18 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   DiamondTrap.hpp                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: seunghso <seunghso@student.42.fr>          +#+  +:+       +#+        */
+/*   By: songseunghun <songseunghun@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/22 12:36:25 by songseunghu       #+#    #+#             */
-/*   Updated: 2023/06/23 20:42:03 by seunghso         ###   ########.fr       */
+/*   Updated: 2023/07/04 01:50:50 by songseunghu      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef DIAMONDTRAP_HPP
 #define DIAMONDTRAP_HPP
 
-#include <string>
-#include <iostream>
 #include "ScavTrap.hpp"
 #include "FragTrap.hpp"
 

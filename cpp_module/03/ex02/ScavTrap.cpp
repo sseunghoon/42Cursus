@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ScavTrap.cpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: seunghso <seunghso@student.42.fr>          +#+  +:+       +#+        */
+/*   By: songseunghun <songseunghun@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/22 12:36:33 by songseunghu       #+#    #+#             */
-/*   Updated: 2023/06/23 17:41:12 by seunghso         ###   ########.fr       */
+/*   Updated: 2023/07/04 01:38:55 by songseunghu      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,5 +61,9 @@ void ScavTrap::attack(const std::string& target) {
 }
 
 void ScavTrap::guardGate() {
-	std::cout << "ScavTrap " << this->name << " is now in Gate keeper mode." << std::endl;
+	if (this->energyPoints != 0) {
+		std::cout << "ScavTrap " << this->name << " is now in Gate keeper mode." << std::endl;
+	} else {
+		std::cout << "ScavTrap " << this->name << " has no energy." << std::endl;
+	}
 }

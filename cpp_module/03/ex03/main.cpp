@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: seunghso <seunghso@student.42.fr>          +#+  +:+       +#+        */
+/*   By: songseunghun <songseunghun@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/21 14:06:22 by seunghso          #+#    #+#             */
-/*   Updated: 2023/06/23 20:09:07 by seunghso         ###   ########.fr       */
+/*   Updated: 2023/07/04 02:00:13 by songseunghu      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,14 @@ int main(void)
 	DiamondTrap diamond2("diamond2");
 
 	diamondDefault.highFivesGuys();
+	diamondDefault.whoAmI();
+	diamond1.whoAmI();
+	diamond2.whoAmI();
+
 	diamond1.attack("diamond2");
-	diamond2.takeDamage(20);
+	diamond2.takeDamage(30);
 	diamond2.attack("diamond1");
-	diamond1.takeDamage(20);
+	diamond1.takeDamage(30);
 	diamond1.beRepaired(1);
 	diamond2.beRepaired(1);
 	
@@ -39,6 +43,7 @@ int main(void)
 	
 	ClapTrap *upCasting = new DiamondTrap("upCasting");
 	upCasting->attack("diamondDefault");
+	diamondDefault.takeDamage(30);
 	delete upCasting;
 
 	return (0);
