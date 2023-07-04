@@ -4,10 +4,6 @@ WrongCat::WrongCat() : WrongAnimal("WrongCat") {
 	std::cout << "WrongCat default constructor called: " << type << std::endl;
 }
 
-WrongAnimal::WrongAnimal(const std::string& type) : type(type) {
-	std::cout << "WrongAnimal type constructor called: " << type << std::endl;
-}
-
 WrongCat::~WrongCat() {
 	std::cout << "WrongCat destructor called: " << type << std::endl;
 }
@@ -24,5 +20,5 @@ WrongCat& WrongCat::operator=(const WrongCat& copy) {
 }
 
 void WrongCat::makeSound() const {
-	std::cout << type << ": Meow~" << std::endl;
+	std::cout << type << ": WrongMeow~" << std::endl;
 }
