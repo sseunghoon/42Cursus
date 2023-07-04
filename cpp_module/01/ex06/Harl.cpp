@@ -46,17 +46,18 @@ int convert_level(std::string level) {
 
 void Harl::complain(std::string level) {
 	int converted_level = convert_level(level);
+	void (Harl::*func[4])() = {&Harl::debug, &Harl::info, &Harl::warning, &Harl::error};
 	
 	switch (converted_level)
 	{
 	case 0:
-		this->debug();
+		(this->*func[0])();
 	case 1:
-		this->info();
+		(this->*func[1])();
 	case 2:
-		this->warning();
+		(this->*func[2])();
 	case 3:
-		this->error();
+		(this->*func[3])();
 		break;
 	
 	default:
