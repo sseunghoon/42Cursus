@@ -76,6 +76,10 @@ int ft_stoi(std::string str) {
 	ss << str;
 	ss >> i;
 
+	if (ss.fail()) {
+		i = -1;
+	}
+
 	return i;
 }
 
@@ -84,10 +88,11 @@ std::string get_input(std::string str) {
 
 	std::cout << str;
     std::getline(std::cin, tmp);
-	if (std::cin.eof()) {
+	if (std::cin.eof() || tmp.empty()) {
 		std::cin.clear();
 		std::cout << std::endl;
 		clearerr(stdin);
+		return get_input(str);
 	}
 	return tmp;
 }
