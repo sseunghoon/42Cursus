@@ -21,9 +21,8 @@ int	main(void)
 	
 	while (true)
 	{
-		std::cout << "Command[ADD|SEARCH|EXIT]:";
-		std::getline(std::cin, command);
-		if (std::cin.eof() || command == "EXIT")
+		command = get_input("Command[ADD|SEARCH|EXIT]:");
+		if (command == "EXIT")
 			break ;
 		if (command == "ADD")
 			phoneBook.add();

@@ -25,25 +25,11 @@ void PhoneBook::add() {
 	int	idx = this->index % 8;
 
 	this->contacts[idx].setIndex(idx);
-	std::cout << "FirstName: ";
-	std::getline(std::cin, tmp);
-	this->contacts[idx].setFirstName(tmp);
-	
-	std::cout << "LastName: ";
-	std::getline(std::cin, tmp);
-	this->contacts[idx].setLastName(tmp);
-
-	std::cout << "NickName: ";
-	std::getline(std::cin, tmp);
-	this->contacts[idx].setNickName(tmp);
-
-	std::cout << "PhoneNumber: ";
-	std::getline(std::cin, tmp);
-	this->contacts[idx].setPhoneNumber(tmp);
-
-	std::cout << "DarkestSecret: ";
-	std::getline(std::cin, tmp);
-	this->contacts[idx].setDarkestSecret(tmp);
+	this->contacts[idx].setFirstName(get_input("FirstName: "));
+	this->contacts[idx].setLastName(get_input("LastName: "));
+	this->contacts[idx].setNickName(get_input("NickName: "));
+	this->contacts[idx].setPhoneNumber(get_input("PhoneNumber: "));
+	this->contacts[idx].setDarkestSecret(get_input("DarkestSecret: "));
 
 	this->index++;
 }
@@ -68,8 +54,10 @@ void PhoneBook::search() {
 	printAll();
 	if (this->index == 0)
 		return ;
-	std::cout << "Number: ";
-	std::getline(std::cin, str);
+	str = get_input("Number: ");
+	if (str.length() == 0) {
+		return ;
+	}
 	try {
 		idx = ft_stoi(str);
 		if (idx < 0 || idx > 7 || idx >= this->index)
@@ -89,4 +77,17 @@ int ft_stoi(std::string str) {
 	ss >> i;
 
 	return i;
+}
+
+std::string get_input(std::string str) {
+	std::string tmp;
+
+	std::cout << str;
+    std::getline(std::cin, tmp);
+	if (std::cin.eof()) {
+		std::cin.clear();
+		std::cout << std::endl;
+		clearerr(stdin);
+	}
+	return tmp;
 }

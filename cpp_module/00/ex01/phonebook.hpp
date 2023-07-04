@@ -13,7 +13,6 @@
 #ifndef PHONEBOOK_HPP
 #define PHONEBOOK_HPP
 
-#include <iostream>
 #include <sstream>
 #include "Contact.hpp"
 
@@ -31,5 +30,6 @@ class PhoneBook {
 };
 
 int	ft_stoi(std::string str);
+std::string	get_input(std::string str);
 
 #endif
