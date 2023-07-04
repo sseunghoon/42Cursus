@@ -14,8 +14,6 @@
 #define ZOMBIE_HPP
 
 #include <iostream>
-#include <string>
-#include <stdlib.h>
 #include <iomanip>
 
 class Zombie {
