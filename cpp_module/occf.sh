@@ -43,10 +43,10 @@ $name::$name() {
 $name::~$name() {
 }
 
-$name::$name(const $name& copy) {
+$name::$name(const $name& other) {
 }
 
-$name& $name::operator=(const $name& copy) {
+$name& $name::operator=(const $name& source) {
 	
 	return (*this);
 }
