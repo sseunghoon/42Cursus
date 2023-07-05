@@ -12,9 +12,9 @@
 
 NAME	=	Polymorphism
 
-SRCS	=	main.cpp Animal.cpp Dog.cpp Cat.cpp
+SRCS	=	main.cpp Animal.cpp Dog.cpp Cat.cpp Brain.cpp
 OBJS	=	$(SRCS:%.cpp=%.o)
-HEADER	=	Animal.hpp Dog.hpp Cat.hpp
+HEADER	=	Animal.hpp Dog.hpp Cat.hpp Brain.hpp
 
 CXX		=	c++
 CXXFLAGS	=	-Wall -Werror -Wextra -std=c++98

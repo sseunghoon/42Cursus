@@ -27,5 +27,5 @@ void Dog::makeSound() const {
 }
 
 void Dog::setIdea(std::string idea, int idx) {
-	brain.setIdea(idea, idx);
+	brain->setIdea(idea, idx);
 }
