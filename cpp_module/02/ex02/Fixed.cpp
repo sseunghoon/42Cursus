@@ -121,7 +121,7 @@ float Fixed::toFloat(void) const {
 }
 
 int Fixed::toInt(void) const {
-	return this->value >> this->fractional_bits;
+	return this->value / (1 << this->fractional_bits);
 }
 
 Fixed& Fixed::min(Fixed& fixed1, Fixed& fixed2) {
