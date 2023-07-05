@@ -40,15 +40,15 @@ cat << EOF > "$cpp_filename"
 $name::$name() {
 }
 
-$name::~$name() {
-}
-
 $name::$name(const $name& other) {
 }
 
 $name& $name::operator=(const $name& source) {
 	
 	return (*this);
+}
+
+$name::~$name() {
 }
 
 EOF
