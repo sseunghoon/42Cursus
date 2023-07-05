@@ -12,6 +12,7 @@ Cat::~Cat() {
 
 Cat::Cat(const Cat& copy) {
 	std::cout << "Cat copy constructor called: " << type << std::endl;
+	// if (this != )
 	*this = copy;
 }
 
