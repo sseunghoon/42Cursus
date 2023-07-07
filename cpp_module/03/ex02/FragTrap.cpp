@@ -30,7 +30,7 @@ FragTrap::~FragTrap() {
 	std::cout << "FragTrap Destructor called: " << name << std::endl;
 }
 
-FragTrap::FragTrap(const FragTrap& fixed) {
+FragTrap::FragTrap(const FragTrap& fixed) : ClapTrap(fixed.name) {
 	std::cout << "FragTrap Copy constructor called: " << name << std::endl;
 	*this = fixed;
 }

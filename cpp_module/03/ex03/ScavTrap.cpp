@@ -30,7 +30,7 @@ ScavTrap::~ScavTrap() {
 	std::cout << "ScavTrap Destructor called: " << name << std::endl;
 }
 
-ScavTrap::ScavTrap(const ScavTrap& fixed) {
+ScavTrap::ScavTrap(const ScavTrap& fixed) : ClapTrap(fixed.name) {
 	std::cout << "ScavTrap Copy constructor called: " << name << std::endl;
 	*this = fixed;
 }
