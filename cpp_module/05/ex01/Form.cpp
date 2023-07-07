@@ -4,12 +4,13 @@ Form::Form() : name("default"), isSigned(false), signGrade(150), exeGrade(150) {
 	std::cout << "Bureaucrat Default constructor called" << std::endl;
 }
 
-Form::Form(const Form& other) {
+Form::Form(const Form& other) : signGrade(other.getSignGrade()), exeGrade(other.getExeGrade()) {
 	std::cout << "Bureaucrat Copy constructor called" << std::endl;
 	*this = other;
 }
 
-Form& Form::operator=(const Form& source) {
+Form& Form::operator=(const Form& source) : name(sou{
+	this.
 	
 	return (*this);
 }

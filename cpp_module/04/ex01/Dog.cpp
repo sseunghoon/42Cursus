@@ -17,7 +17,12 @@ Dog::Dog(const Dog& copy) : Animal("Dog") {
 
 Dog& Dog::operator=(const Dog& copy) {
 	std::cout << "Dog Copy assignment operator called: " << type << std::endl;
-	type = copy.type;
+	
+	if (this != &copy) {
+		type = copy.type;
+		delete brain;
+		brain = new Brain(*copy.brain);
+	}
 	
 	return (*this);
 }

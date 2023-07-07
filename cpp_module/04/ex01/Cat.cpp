@@ -19,10 +19,12 @@ Cat::Cat(const Cat& copy) : Animal("Cat") {
 
 Cat& Cat::operator=(const Cat& copy) {
 	std::cout << "Cat Copy assignment operator called: " << type << std::endl;
-	type = copy.type;
-
-	delete brain;
-	brain = new Brain(*copy.brain);
+	
+	if (this != &copy) {
+		type = copy.type;
+		delete brain;
+		brain = new Brain(*copy.brain);
+	}
 
 	return (*this);
 }
