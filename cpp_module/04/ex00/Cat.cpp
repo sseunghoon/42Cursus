@@ -8,7 +8,7 @@ Cat::~Cat() {
 	std::cout << "Cat destructor called: " << type << std::endl;
 }
 
-Cat::Cat(const Cat& copy) {
+Cat::Cat(const Cat& copy) : Animal("Cat") {
 	std::cout << "Cat copy constructor called: " << type << std::endl;
 	*this = copy;
 }

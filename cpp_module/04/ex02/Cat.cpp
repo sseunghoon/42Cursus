@@ -1,6 +1,6 @@
 #include "Cat.hpp"
 
-Cat::Cat() : Animal("Cat") {
+Cat::Cat() : AAnimal("Cat") {
 	std::cout << "Cat default constructor called: " << type << std::endl;
 	brain = new Brain();
 }
@@ -10,7 +10,7 @@ Cat::~Cat() {
 	delete brain;
 }
 
-Cat::Cat(const Cat& copy) : Animal("Cat") {
+Cat::Cat(const Cat& copy) : AAnimal("Cat") {
 	std::cout << "Cat copy constructor called: " << type << std::endl;
 	brain = new Brain();
 

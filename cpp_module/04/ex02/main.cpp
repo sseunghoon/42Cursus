@@ -17,9 +17,10 @@ int main(void)
 {
 	std::cout << std::endl;
 
+	// AAnimal test;
 	{
-		const Animal *j = new Dog();
-		const Animal *i = new Cat();
+		const AAnimal *j = new Dog();
+		const AAnimal *i = new Cat();
 
 		std::cout << std::endl;
 
@@ -28,7 +29,7 @@ int main(void)
 	}
 	std::cout << "\n==================================\n" << std::endl;
 	{
-		Animal *arr[4];
+		AAnimal *arr[4];
 		for (int i = 0; i < 4; i++) {
 			if (i < 2)
 				arr[i] = new Dog();
@@ -41,8 +42,6 @@ int main(void)
 			delete arr[i];
 		}
 	}
-
-	system("leaks Polymorphism");
 
 	return 0;
 }
