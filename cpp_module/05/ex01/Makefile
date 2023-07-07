@@ -10,11 +10,11 @@
 #                                                                              #
 # **************************************************************************** #
 
-NAME	=	bureaucrat
+NAME	=	FormUp
 
-SRCS	=	main.cpp Bureaucrat.cpp
+SRCS	=	main.cpp Bureaucrat.cpp Form.cpp
 OBJS	=	$(SRCS:%.cpp=%.o)
-HEADER	=	Bureaucrat.hpp 
+HEADER	=	Bureaucrat.hpp Form.hpp
 
 CXX		=	c++
 CXXFLAGS	=	-Wall -Werror -Wextra -std=c++98

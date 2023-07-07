@@ -13,18 +13,25 @@ class Bureaucrat {
 			public:
 				const char * what(void) const throw();
 		};
+		class GradeTooLowException : public std::exception {
+			public:
+				const char * what(void) const throw();
+		};
 
     public:
     	Bureaucrat();
+		Bureaucrat(std::string name, int grade);
 		Bureaucrat(const Bureaucrat& copy);
 		Bureaucrat& operator=(const Bureaucrat& copy);
 		~Bureaucrat();
 
-		std::string getName() const;
-		int getGrade() const;
+		void checkGrade(int futureGrade) const;
 
-		void increment(int amount);
-		void decrement(int amount);
+		const std::string& getName() const;
+		const int getGrade() const;
+
+		void incrementGrade();
+		void decrementGrade();
 };
 
 std::ostream& operator << (std::ostream &out, const Bureaucrat &bc);
