@@ -22,16 +22,18 @@ class Form {
 
     public:
     	Form();
+		Form(std::string _name, int signGrade, int exeGrade);
 		Form(const Form& copy);
 		Form& operator=(const Form& copy);
 		~Form();
 
-		void beSigned(Bureaucrat bc);
+		void beSigned(const Bureaucrat &bc);
+		void checkException() const;
 
 		const std::string& getName() const;
-		const bool getIsSigned() const;
-		const int getSignGrade() const;
-		const int getExeGrade() const;
+		bool getIsSigned() const;
+		int getSignGrade() const;
+		int getExeGrade() const;
 };
 
 std::ostream& operator << (std::ostream &out, const Form &form);

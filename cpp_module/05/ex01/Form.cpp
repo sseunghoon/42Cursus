@@ -2,15 +2,23 @@
 
 Form::Form() : name("default"), isSigned(false), signGrade(150), exeGrade(150) {
 	std::cout << "Bureaucrat Default constructor called" << std::endl;
+	checkException();
+}
+
+Form::Form(std::string name, int signGrade, int exeGrade) : name(name), isSigned(false), signGrade(signGrade), exeGrade(exeGrade) {
+	std::cout << "Bureaucrat Default constructor called" << std::endl;
+	checkException();
 }
 
 Form::Form(const Form& other) : signGrade(other.getSignGrade()), exeGrade(other.getExeGrade()) {
 	std::cout << "Bureaucrat Copy constructor called" << std::endl;
+	checkException();
 	*this = other;
 }
 
-Form& Form::operator=(const Form& source) : name(sou{
-	this.
+Form& Form::operator=(const Form& source) {
+	this->isSigned = source.getIsSigned();
+	checkException();
 	
 	return (*this);
 }
@@ -26,23 +34,36 @@ const char * Form::GradeTooLowException::what(void) const throw() {
 	return "Grade can't be lower than 1";
 }
 
-void Form::beSigned(Bureaucrat bc) {
-	
+void Form::checkException() const {
+	if (signGrade < 1 || exeGrade < 1) {
+		throw Form::GradeTooLowException();
+	}
+	if (signGrade > 150 || exeGrade > 150) {
+		throw Form::GradeTooHighException();
+	}
+}
+
+void Form::beSigned(const Bureaucrat &bc) {
+	if (bc.getGrade() <= signGrade) {
+		isSigned = true;
+	} else {
+		throw GradeTooHighException();
+	}
 }
 
 const std::string &Form::getName() const {
     return name;
 }
 
-const bool Form::getIsSigned() const {
+bool Form::getIsSigned() const {
     return isSigned;
 }
 
-const int Form::getSignGrade() const {
+int Form::getSignGrade() const {
     return signGrade;
 }
 
-const int Form::getExeGrade() const {
+int Form::getExeGrade() const {
     return exeGrade;
 }
 

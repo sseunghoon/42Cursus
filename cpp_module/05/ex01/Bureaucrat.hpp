@@ -3,7 +3,8 @@
 
 #include <iostream>
 #include <exception>
-#include "Form.hpp"
+
+class Form;
 
 class Bureaucrat {
 	private:
@@ -29,7 +30,7 @@ class Bureaucrat {
 		void checkGrade(int futureGrade) const;
 
 		const std::string& getName() const;
-		const int getGrade() const;
+		int getGrade() const;
 
 		void incrementGrade();
 		void decrementGrade();
