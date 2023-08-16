@@ -6,15 +6,15 @@
 #    By: songseunghun <songseunghun@student.42.f    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/18 00:37:40 by seunghso          #+#    #+#              #
-#    Updated: 2023/07/04 03:32:21 by songseunghu      ###   ########.fr        #
+#    Updated: 2023/08/16 15:38:14 by songseunghu      ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME	=	bureaucrat
+NAME	=	ScalarConverter
 
-SRCS	=	main.cpp Bureaucrat.cpp
+SRCS	=	main.cpp ScalarConverter.cpp
 OBJS	=	$(SRCS:%.cpp=%.o)
-HEADER	=	Bureaucrat.hpp 
+HEADER	=	ScalarConverter.hpp 
 
 CXX		=	c++
 CXXFLAGS	=	-Wall -Werror -Wextra -std=c++98
