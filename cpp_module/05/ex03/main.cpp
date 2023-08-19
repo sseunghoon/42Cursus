@@ -22,6 +22,8 @@ int main(void)
 	Intern intern;
 	Bureaucrat highBC("highBC", 1);
 
+	std::cout << "\n======================\n" << std::endl;
+
 	AForm* scForm = intern.makeForm("shrubbery creation", "scTarget");
 	AForm* rrForm = intern.makeForm("robotomy request", "rrTarget");
 	AForm* ppForm = intern.makeForm("presidential pardon", "ppTarget");
@@ -33,6 +35,7 @@ int main(void)
 	if (scForm) {
 		highBC.signForm(*scForm);
 		highBC.executeForm(*scForm);
+		delete scForm;
 	} else {
 		std::cout << "scForm is NULL" << std::endl;
 	}
@@ -44,6 +47,7 @@ int main(void)
 	if (rrForm) {
 		highBC.signForm(*rrForm);
 		highBC.executeForm(*rrForm);
+		delete rrForm;
 	} else {
 		std::cout << "rrForm is NULL" << std::endl;
 	}
@@ -55,6 +59,7 @@ int main(void)
 	if (ppForm) {
 		highBC.signForm(*ppForm);
 		highBC.executeForm(*ppForm);
+		delete ppForm;
 	} else {
 		std::cout << "ppForm is NULL" << std::endl;
 	}
@@ -67,6 +72,7 @@ int main(void)
 	if (failureForm) {
 		highBC.signForm(*failureForm);
 		highBC.executeForm(*failureForm);
+		delete failureForm;
 	} else {
 		std::cout << "failureForm is NULL" << std::endl;
 	}

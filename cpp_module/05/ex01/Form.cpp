@@ -38,10 +38,10 @@ const char * Form::GradeTooLowException::what(void) const throw() {
 
 void Form::checkException() const {
 	if (signGrade < 1 || exeGrade < 1) {
-		throw Form::GradeTooLowException();
+		throw Form::GradeTooHighException();
 	}
 	if (signGrade > 150 || exeGrade > 150) {
-		throw Form::GradeTooHighException();
+		throw Form::GradeTooLowException();
 	}
 }
 

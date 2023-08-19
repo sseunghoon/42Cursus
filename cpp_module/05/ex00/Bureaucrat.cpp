@@ -27,19 +27,19 @@ Bureaucrat::~Bureaucrat() {
 }
 
 const char * Bureaucrat::GradeTooHighException::what(void) const throw() {
-	return "Grade can't lower than 150";
+	return "Grade can't be higher than 1";
 }
 
 const char * Bureaucrat::GradeTooLowException::what(void) const throw() {
-	return "Grade can't be higher than 1";
+	return "Grade can't lower than 150";
 }
 
 void Bureaucrat::checkGrade(int futureGrade) const {
 	if (futureGrade < 1) {
-		throw Bureaucrat::GradeTooLowException();
+		throw Bureaucrat::GradeTooHighException();
 	}
 	if (futureGrade > 150) {
-		throw Bureaucrat::GradeTooHighException();
+		throw Bureaucrat::GradeTooLowException();
 	}
 }
 
