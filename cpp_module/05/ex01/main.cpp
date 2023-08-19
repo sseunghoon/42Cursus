@@ -49,7 +49,7 @@ int main(void)
 		} catch (std::exception& e) {
 			std::cerr << e.what() << std::endl;
 		}
-		
+		std::cout << "\n================================\n\n";
 		try {
 			bc.incrementGrade();
 			bc.signForm(form);
