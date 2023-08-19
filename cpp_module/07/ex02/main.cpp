@@ -3,14 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   main.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: songseunghun <songseunghun@student.42.f    +#+  +:+       +#+        */
+/*   By: seunghso <seunghso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/21 14:06:22 by seunghso          #+#    #+#             */
-/*   Updated: 2023/08/16 21:48:34 by songseunghu      ###   ########.fr       */
+/*   Updated: 2023/08/19 16:08:47 by seunghso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <iostream>
+#include <ctime>
+#include <cstdlib>
 #include "Array.hpp"
 
 int main(void)

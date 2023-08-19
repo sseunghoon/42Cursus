@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: songseunghun <songseunghun@student.42.f    +#+  +:+       +#+        */
+/*   By: seunghso <seunghso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/21 14:06:22 by seunghso          #+#    #+#             */
-/*   Updated: 2023/08/16 17:21:34 by songseunghu      ###   ########.fr       */
+/*   Updated: 2023/08/19 16:08:23 by seunghso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 #include "A.hpp"
 #include "B.hpp"
 #include "C.hpp"
+#include <ctime>
+#include <cstdlib>
 
 Base* generate(void)
 {
