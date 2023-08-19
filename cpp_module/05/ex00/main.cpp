@@ -33,8 +33,7 @@ int main(void)
 	std::cout << "\n============================================\n\n";
 
 	try {
-		Bureaucrat t3("t3", 1);
-		t3.incrementGrade();
+		Bureaucrat t3("t3", 0);
 	} catch (const std::exception &e) {
 		std::cerr << "t3: " << e.what() << std::endl;
 	}

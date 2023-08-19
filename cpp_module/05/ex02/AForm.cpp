@@ -41,10 +41,10 @@ const char * AForm::NotSignedException::what(void) const throw() {
 
 void AForm::checkException() const {
 	if (signGrade < 1 || exeGrade < 1) {
-		throw AForm::GradeTooLowException();
+		throw AForm::GradeTooHighException();
 	}
 	if (signGrade > 150 || exeGrade > 150) {
-		throw AForm::GradeTooHighException();
+		throw AForm::GradeTooLowException();
 	}
 }
 
@@ -53,7 +53,7 @@ void AForm::isExecutable(const Bureaucrat &executor) const {
 		throw AForm::NotSignedException();
 	}
 	if (executor.getGrade() > exeGrade) {
-		throw AForm::GradeTooLowException();
+		throw AForm::GradeTooHighException();
 	}
 
 }

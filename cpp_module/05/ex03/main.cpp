@@ -35,6 +35,7 @@ int main(void)
 	if (scForm) {
 		highBC.signForm(*scForm);
 		highBC.executeForm(*scForm);
+		delete scForm;
 	} else {
 		std::cout << "scForm is NULL" << std::endl;
 	}
@@ -46,6 +47,7 @@ int main(void)
 	if (rrForm) {
 		highBC.signForm(*rrForm);
 		highBC.executeForm(*rrForm);
+		delete rrForm;
 	} else {
 		std::cout << "rrForm is NULL" << std::endl;
 	}
@@ -57,6 +59,7 @@ int main(void)
 	if (ppForm) {
 		highBC.signForm(*ppForm);
 		highBC.executeForm(*ppForm);
+		delete ppForm;
 	} else {
 		std::cout << "ppForm is NULL" << std::endl;
 	}
@@ -69,6 +72,7 @@ int main(void)
 	if (failureForm) {
 		highBC.signForm(*failureForm);
 		highBC.executeForm(*failureForm);
+		delete failureForm;
 	} else {
 		std::cout << "failureForm is NULL" << std::endl;
 	}
