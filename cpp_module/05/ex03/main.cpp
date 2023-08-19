@@ -22,6 +22,8 @@ int main(void)
 	Intern intern;
 	Bureaucrat highBC("highBC", 1);
 
+	std::cout << "\n======================\n" << std::endl;
+
 	AForm* scForm = intern.makeForm("shrubbery creation", "scTarget");
 	AForm* rrForm = intern.makeForm("robotomy request", "rrTarget");
 	AForm* ppForm = intern.makeForm("presidential pardon", "ppTarget");

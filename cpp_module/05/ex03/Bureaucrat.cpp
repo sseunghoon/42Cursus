@@ -28,19 +28,19 @@ Bureaucrat::~Bureaucrat() {
 }
 
 const char * Bureaucrat::GradeTooHighException::what(void) const throw() {
-	return "Grade can't lower than 150";
+	return "Grade can't higher than 1";
 }
 
 const char * Bureaucrat::GradeTooLowException::what(void) const throw() {
-	return "Grade can't be higher than 1";
+	return "Grade can't be lower than 150";
 }
 
 void Bureaucrat::checkGrade(int futureGrade) const {
 	if (futureGrade < 1) {
-		throw Bureaucrat::GradeTooLowException();
+		throw Bureaucrat::GradeTooHighException();
 	}
 	if (futureGrade > 150) {
-		throw Bureaucrat::GradeTooHighException();
+		throw Bureaucrat::GradeTooLowException();
 	}
 }
 
@@ -65,6 +65,7 @@ int Bureaucrat::getGrade() const {
 void Bureaucrat::signForm(AForm &form) {
 	try {
 		form.beSigned(*this);
+		std::cout << this->getName() << " signed " << form.getName() << std::endl;
 	} catch (const std::exception &e) {
 		std::cerr << this->getName() << " couldn't sign " << form.getName() << " because " << e.what() << std::endl;
 	}
