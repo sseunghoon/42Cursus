@@ -3,18 +3,18 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: seunghso <seunghso@student.42.fr>          +#+  +:+       +#+         #
+#    By: songseunghun <songseunghun@student.42.f    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2023/08/19 15:06:58 by seunghso          #+#    #+#              #
-#    Updated: 2023/08/19 15:07:00 by seunghso         ###   ########.fr        #
+#    Created: 2023/03/18 00:37:40 by seunghso          #+#    #+#              #
+#    Updated: 2023/08/16 17:27:32 by songseunghu      ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME	=	easyfind
+NAME	=	whatever
 
 SRCS	=	main.cpp
 OBJS	=	$(SRCS:%.cpp=%.o)
-HEADER	=	easyfind.hpp 
+HEADER	=	whatever.hpp 
 
 CXX		=	c++
 CXXFLAGS	=	-Wall -Werror -Wextra -std=c++98

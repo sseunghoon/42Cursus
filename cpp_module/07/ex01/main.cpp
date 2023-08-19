@@ -3,17 +3,22 @@
 /*                                                        :::      ::::::::   */
 /*   main.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: seunghso <seunghso@student.42.fr>          +#+  +:+       +#+        */
+/*   By: songseunghun <songseunghun@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/21 14:06:22 by seunghso          #+#    #+#             */
-/*   Updated: 2023/08/19 15:04:01 by seunghso         ###   ########.fr       */
+/*   Updated: 2023/08/16 19:03:11 by songseunghu      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "Span.hpp"
+#include "iter.hpp"
 
-int main(void) {
-	
+int main(void)
+{
+	int arr[] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
+	::iter<int>(arr, 10, ::print);
 
-	return (0);
+	std::string str = "Hello, World!";
+	iter<const char>(str.c_str(), str.length(), ::print);
+
+	return 0;
 }
