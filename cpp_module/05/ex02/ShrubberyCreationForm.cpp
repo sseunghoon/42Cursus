@@ -26,7 +26,9 @@ ShrubberyCreationForm& ShrubberyCreationForm::operator=(const ShrubberyCreationF
 void ShrubberyCreationForm::execute(Bureaucrat const & executor) const {
 	isExecutable(executor);
 
-	std::ofstream file(getName() + "_shrubbery");
+	std::string fileName = getName() + "_shrubbery";
+	std::ofstream file(fileName.c_str());
+	
 	file << "       _-_" << std::endl;
 	file << "    /~~   ~~\\" << std::endl;
 	file << " /~~         ~~\\" << std::endl;

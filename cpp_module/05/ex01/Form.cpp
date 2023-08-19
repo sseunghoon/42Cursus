@@ -10,7 +10,7 @@ Form::Form(std::string name, int signGrade, int exeGrade) : name(name), isSigned
 	checkException();
 }
 
-Form::Form(const Form& other) : name(other.getName()), isSigned(false), signGrade(other.getSignGrade()), exeGrade(other.getExeGrade()) {
+Form::Form(const Form& other) : name(other.getName()), isSigned(other.getIsSigned()), signGrade(other.getSignGrade()), exeGrade(other.getExeGrade()) {
 	std::cout << "Form Copy constructor called" << std::endl;
 	checkException();
 	*this = other;
@@ -70,7 +70,7 @@ int Form::getExeGrade() const {
 }
 
 std::ostream& operator << (std::ostream &out, const Form &form) {
-	out << form.getName() << ", isSigned: " << form.getIsSigned()
+	out << form.getName() 
 		<< ", isSigned: " << form.getIsSigned()
 		<< ", signGrade: " << form.getSignGrade()
 		<< ", exeGrade: " << form.getExeGrade();

@@ -3,18 +3,18 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: songseunghun <songseunghun@student.42.f    +#+  +:+       +#+         #
+#    By: seunghso <seunghso@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/18 00:37:40 by seunghso          #+#    #+#              #
-#    Updated: 2023/08/16 21:13:55 by songseunghu      ###   ########.fr        #
+#    Updated: 2023/08/19 15:11:35 by seunghso         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME	=	span
 
-SRCS	=	main.cpp
+SRCS	=	main.cpp Span.cpp
 OBJS	=	$(SRCS:%.cpp=%.o)
-HEADER	=	easyfind.hpp 
+HEADER	=	Span.hpp 
 
 CXX		=	c++
 CXXFLAGS	=	-Wall -Werror -Wextra -std=c++98

@@ -10,7 +10,7 @@ AForm::AForm(std::string name, int signGrade, int exeGrade) : name(name), isSign
 	checkException();
 }
 
-AForm::AForm(const AForm& other) : name(other.getName()), isSigned(false), signGrade(other.getSignGrade()), exeGrade(other.getExeGrade()) {
+AForm::AForm(const AForm& other) : name(other.getName()), isSigned(other.getIsSigned()), signGrade(other.getSignGrade()), exeGrade(other.getExeGrade()) {
 	std::cout << "AForm Copy constructor called" << std::endl;
 	checkException();
 	*this = other;
@@ -83,7 +83,7 @@ int AForm::getExeGrade() const {
 }
 
 std::ostream& operator << (std::ostream &out, const AForm &AForm) {
-	out << AForm.getName() << ", isSigned: " << AForm.getIsSigned()
+	out << AForm.getName() 
 		<< ", isSigned: " << AForm.getIsSigned()
 		<< ", signGrade: " << AForm.getSignGrade()
 		<< ", exeGrade: " << AForm.getExeGrade();
