@@ -41,7 +41,7 @@ int		Span::shortestSpan() {
 	std::sort(vec.begin(), vec.end());
 
 	int min = vec[1] - vec[0];
-	for (int i = 1; i < vec.size(); i++) {
+	for (unsigned int i = 1; i < vec.size(); i++) {
 		if (vec[i] - vec[i - 1] < min)
 			min = vec[i] - vec[i - 1];
 	}
