@@ -57,6 +57,7 @@ void ScalarConverter::convert(std::string str) {
 		std::cout << "float: " << fValue << ".0f" << std::endl;
 		std::cout << "double: " << dValue << ".0" << std::endl;
 	} else {
+		std::cout.setf(std::ios::showpos);
 		std::cout << "float: " << fValue << "f" << std::endl;
 		std::cout << "double: " << dValue << std::endl;
 	}
