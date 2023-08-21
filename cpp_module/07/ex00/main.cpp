@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   main.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: songseunghun <songseunghun@student.42.f    +#+  +:+       +#+        */
+/*   By: seunghso <seunghso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/21 14:06:22 by seunghso          #+#    #+#             */
-/*   Updated: 2023/08/16 17:31:58 by songseunghu      ###   ########.fr       */
+/*   Updated: 2023/08/21 19:12:24 by seunghso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "whatever.hpp"
+#include <iostream>
 
 int main(void)
 {
