@@ -9,7 +9,7 @@ class Array
         unsigned int len;
 
     public:
-        Array() : array(NULL), len(0) {}
+        Array() : array(new T[0]), len(1) {}
         Array(unsigned int n) : array(new T[n]), len(n) {}
 
         Array(const Array& src) : array(NULL), len(0) {
