@@ -24,7 +24,7 @@ class $name {
     public:
     	$name();
 		$name(const $name& copy);
-		$name& operator=(const $name& copy);
+		$name& operator=(const $name& other);
 		~$name();
 };
 
@@ -40,10 +40,10 @@ cat << EOF > "$cpp_filename"
 $name::$name() {
 }
 
-$name::$name(const $name& other) {
+$name::$name(const $name& copy) {
 }
 
-$name& $name::operator=(const $name& source) {
+$name& $name::operator=(const $name& other) {
 	
 	return (*this);
 }
