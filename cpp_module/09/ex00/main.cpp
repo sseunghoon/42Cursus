@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: songseunghun <songseunghun@student.42.f    +#+  +:+       +#+        */
+/*   By: seunghso <seunghso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/21 14:06:22 by seunghso          #+#    #+#             */
-/*   Updated: 2023/08/23 18:18:26 by songseunghu      ###   ########.fr       */
+/*   Updated: 2023/08/23 18:32:09 by seunghso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ int main(int argc, char **argv) {
 			std::cerr << "Error: not a positive number." << std::endl;
 			continue ;
 		} else if (amount > 1000) {
-			std::cerr << "Error: too much money." << std::endl;
+			std::cerr << "Error: too large a number." << std::endl;
 			continue ;
 		}
 

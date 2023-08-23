@@ -40,11 +40,12 @@ void BitcoinExchange::exchange(std::string date, float amount) {
 }
 
 float BitcoinExchange::getExchangeRate(std::string date) {
-	std::map<std::string, float>::iterator iter = _map.lower_bound(date);
+	std::map<std::string, float>::iterator iter = _map.upper_bound(date);
 	if (iter == _map.end()) {
 		std::cout << "Error: No data: " << date << std::endl;
 		exit(1);
 	}
+	iter--; 
 	return (iter->second);
 }
 
