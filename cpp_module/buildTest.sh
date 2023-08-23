@@ -5,7 +5,7 @@ run_make() {
     local dir="$1"
     local fclean="$2"
 
-    cd "$dir"
+    cd "$dir" || exit
 
     # Find directories containing a Makefile and run make on them
     find . -type f -name 'Makefile' | while read -r makefile; do
