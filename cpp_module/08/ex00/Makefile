@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: seunghso <seunghso@student.42.fr>          +#+  +:+       +#+         #
+#    By: songseunghun <songseunghun@student.42.f    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/19 15:06:58 by seunghso          #+#    #+#              #
-#    Updated: 2023/08/19 15:07:00 by seunghso         ###   ########.fr        #
+#    Updated: 2023/08/23 12:31:09 by songseunghu      ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,7 +24,7 @@ all		:	$(NAME)
 $(NAME)	:	$(OBJS)
 	$(CXX) $(CXXFLAGS) $(OBJS) -o $(NAME)
 
-%.o	:%.c
+%.o	:%.cpp
 	$(CXX) $(CXXFLAGS) -c $< -o $@ -include $(HEADER)
 
 clean	:

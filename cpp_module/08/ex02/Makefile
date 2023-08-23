@@ -6,15 +6,14 @@
 #    By: songseunghun <songseunghun@student.42.f    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/18 00:37:40 by seunghso          #+#    #+#              #
-#    Updated: 2023/08/23 12:31:05 by songseunghu      ###   ########.fr        #
+#    Updated: 2023/08/23 12:37:13 by songseunghu      ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME	=	span
+NAME	=	mutantstack
 
-SRCS	=	main.cpp Span.cpp
+SRCS	=	main.cpp
 OBJS	=	$(SRCS:%.cpp=%.o)
-HEADER	=	Span.hpp 
 
 CXX		=	c++
 CXXFLAGS	=	-Wall -Werror -Wextra -std=c++98
@@ -25,7 +24,7 @@ $(NAME)	:	$(OBJS)
 	$(CXX) $(CXXFLAGS) $(OBJS) -o $(NAME)
 
 %.o	:%.cpp
-	$(CXX) $(CXXFLAGS) -c $< -o $@ -include $(HEADER)
+	$(CXX) $(CXXFLAGS) -c $< -o $@
 
 clean	:
 	rm -rf $(OBJS)
@@ -33,6 +32,7 @@ clean	:
 fclean	: clean
 	rm -rf	$(NAME)
 
-re		: fclean all
+re		: fclean
+	@make all
 
 .PHONY: all clean fclean re
