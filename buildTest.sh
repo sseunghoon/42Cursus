@@ -26,7 +26,7 @@ FCLEAN="false"
 
 while [[ "$#" -gt 0 ]]; do
     case "$1" in
-        -c|--clean|-f|--fclean) FCLEAN="true"; shift ;;
+        -f|--fclean) FCLEAN="true"; shift ;;
         *) DIRECTORY="$1"; shift ;;
     esac
 done
