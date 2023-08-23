@@ -3,18 +3,17 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: songseunghun <songseunghun@student.42.f    +#+  +:+       +#+         #
+#    By: seunghso <seunghso@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/18 00:37:40 by seunghso          #+#    #+#              #
-#    Updated: 2023/03/21 19:18:59 by songseunghu      ###   ########.fr        #
+#    Updated: 2023/08/23 10:53:26 by seunghso         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME	=	phoneBook
 
-SRCS	=	main.cpp PhoneBook.cpp Contact.cpp 
+SRCS	=	main.cpp Phonebook.cpp Contact.cpp 
 OBJS	=	$(SRCS:%.cpp=%.o)
-HEADER = PhoneBook.hpp Contact.hpp
 
 CXX		=	c++
 CXXFLAGS	=	-Wall -Werror -Wextra -std=c++98
@@ -24,8 +23,8 @@ all		:	$(NAME)
 $(NAME)	:	$(OBJS)
 	$(CXX) $(CXXFLAGS) $(OBJS) -o $(NAME)
 
-%.o	:%.c
-	$(CXX) $(CXXFLAGS) -c $< -o $@ -include $(HEADER)
+%.o	:%.cpp
+	$(CXX) $(CXXFLAGS) -c $< -o $@
 
 clean	:
 	rm -rf $(OBJS)
