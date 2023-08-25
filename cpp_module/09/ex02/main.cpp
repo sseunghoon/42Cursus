@@ -6,7 +6,7 @@
 /*   By: seunghso <seunghso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/21 14:06:22 by seunghso          #+#    #+#             */
-/*   Updated: 2023/08/23 18:32:09 by seunghso         ###   ########.fr       */
+/*   Updated: 2023/08/25 15:34:47 by seunghso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,16 @@ int main(int argc, char **argv) {
 		i++;
 	}
 
-	PmergeMe::run(str);
+	
+	
+	clock_t	start;
+	clock_t	end;
+	PmergeMe pm;
+
+	start = clock();
+	pm.mergeInsertionSort(v);
+	end = clock();
+	std::cout << end - start << std::endl;
 	
 	return (0);
 }

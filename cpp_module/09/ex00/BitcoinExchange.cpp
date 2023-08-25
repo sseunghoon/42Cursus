@@ -50,7 +50,7 @@ float BitcoinExchange::getExchangeRate(std::string date) {
 }
 
 bool BitcoinExchange::isValid(std::string& line, std::string& date, float& amount) {
-	if (line.compare("date | value") == 0)
+	if (line.empty() || line.compare("date | value") == 0)
 		return false;
 
 	if (line.find(" | ") == std::string::npos) {
