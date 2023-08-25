@@ -37,17 +37,12 @@ void PmergeMe::run(std::string& str) {
 		l.push_back(num);
 	}
 
-	// sort vector by  Ford-Johnson algorithm.
-	// https://en.wikipedia.org/wiki/Ford%E2%80%93Johnson_algorithm
-	for (unsigned int i = 0; i < v.size(); i++) {
-		for (unsigned int j = 0; j < v.size(); j++) {
-			if (v[i] < v[j]) {
-				int tmp = v[i];
-				v[i] = v[j];
-				v[j] = tmp;
-			}
-		}
-	}
+	
+
+
+
+
+
 
 
 }
