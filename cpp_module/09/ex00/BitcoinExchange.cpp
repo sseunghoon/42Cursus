@@ -49,3 +49,67 @@ float BitcoinExchange::getExchangeRate(std::string date) {
 	return (iter->second);
 }
 
+bool BitcoinExchange::isValid(std::string& line, std::string& date, float& amount) {
+	if (line.compare("date | value") == 0)
+		return false;
+
+	if (line.find(" | ") == std::string::npos) {
+		std::cerr << "Error: bad input => " << line << std::endl;
+		return false;
+	}
+
+	date = line.substr(0, line.find(" | "));
+	if (date.length() != 10) {
+		std::cerr << "Error: bad date format => " << date << std::endl;
+		return false;
+	}
+	if (date[4] != '-' || date[7] != '-') {
+		std::cerr << "Error: bad date format => " << date << std::endl;
+		return false;
+	}
+
+	std::string year = date.substr(0, 4);
+	std::string month = date.substr(5, 2);
+	std::string day = date.substr(8, 2);
+	if (year < "0000" || year > "9999") {
+		std::cerr << "Error: bad date format => " << date << std::endl;
+		return false;
+	}
+	if (month < "01" || month > "12") {
+		std::cerr << "Error: bad date format => " << date << std::endl;
+		return false;
+	}
+	if (day < "01" || day > "31") {
+		std::cerr << "Error: bad date format => " << date << std::endl;
+		return false;
+	}
+
+	std::string amountStr = line.substr(line.find(" | ") + 3);
+	for (unsigned int i = 0; i < amountStr.length(); i++) {
+		if (amountStr[i] != '.' && (amountStr[i] < '0' || amountStr[i] > '9')) {
+			std::cerr << "Error: not a positive number." << std::endl;
+			return false;
+		}
+	}
+
+	amount = std::atof(amountStr.c_str());
+	if (amount > 1000) {
+		std::cerr << "Error: too large a number." << std::endl;
+		return false;
+	}
+
+	return true;
+}
+
+void BitcoinExchange::convert(std::ifstream& inputFile) {
+	std::string line;
+	std::string date;
+	float amount;
+
+	while (inputFile.good()) {
+		std::getline(inputFile, line);
+
+		if (isValid(line, date, amount))
+			exchange(date, amount);
+	}
+}

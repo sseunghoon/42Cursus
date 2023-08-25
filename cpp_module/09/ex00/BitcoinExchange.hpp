@@ -9,19 +9,19 @@
 class BitcoinExchange {
 	private:
 		std::map<std::string, float> _map;
-		float getExchangeRate(std::string date);
 
+		bool isValid(std::string& line, std::string& date, float& amount);
+		float getExchangeRate(std::string date);
+		void exchange(std::string date, float amount);
 
 		BitcoinExchange(const BitcoinExchange& copy);
 		BitcoinExchange& operator=(const BitcoinExchange& other);
 
     public:
-    	BitcoinExchange();
+		BitcoinExchange();
 		~BitcoinExchange();
 
-		void exchange(std::string date, float amount);
-		
-
+		void convert(std::ifstream& inputFile);
 };
 
 #endif
