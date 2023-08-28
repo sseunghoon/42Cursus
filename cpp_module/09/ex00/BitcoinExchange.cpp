@@ -4,7 +4,7 @@ BitcoinExchange::BitcoinExchange() {
 	std::string dbName = "data.csv";
 	std::ifstream dbFile(dbName.c_str());
 	if (!dbFile.good()) {
-		std::cerr << "Error: database doesn't exist." << std::endl;
+		std::cout << "Error: database doesn't exist." << std::endl;
 		exit(1);
 	}
 	std::string line;
@@ -31,7 +31,7 @@ BitcoinExchange& BitcoinExchange::operator=(const BitcoinExchange& other) {
 
 void BitcoinExchange::exchange(std::string date, float amount) {
 	if (amount < 0) {
-		std::cerr << "Error: not a positive number." << std::endl;
+		std::cout << "Error: not a positive number." << std::endl;
 		return ;
 	}
 
@@ -54,17 +54,17 @@ bool BitcoinExchange::isValid(std::string& line, std::string& date, float& amoun
 		return false;
 
 	if (line.find(" | ") == std::string::npos) {
-		std::cerr << "Error: bad input => " << line << std::endl;
+		std::cout << "Error: bad input => " << line << std::endl;
 		return false;
 	}
 
 	date = line.substr(0, line.find(" | "));
 	if (date.length() != 10) {
-		std::cerr << "Error: bad date format => " << date << std::endl;
+		std::cout << "Error: bad date format => " << date << std::endl;
 		return false;
 	}
 	if (date[4] != '-' || date[7] != '-') {
-		std::cerr << "Error: bad date format => " << date << std::endl;
+		std::cout << "Error: bad date format => " << date << std::endl;
 		return false;
 	}
 
@@ -72,29 +72,32 @@ bool BitcoinExchange::isValid(std::string& line, std::string& date, float& amoun
 	std::string month = date.substr(5, 2);
 	std::string day = date.substr(8, 2);
 	if (year < "0000" || year > "9999") {
-		std::cerr << "Error: bad date format => " << date << std::endl;
+		std::cout << "Error: bad date format => " << date << std::endl;
 		return false;
 	}
 	if (month < "01" || month > "12") {
-		std::cerr << "Error: bad date format => " << date << std::endl;
+		std::cout << "Error: bad date format => " << date << std::endl;
 		return false;
 	}
 	if (day < "01" || day > "31") {
-		std::cerr << "Error: bad date format => " << date << std::endl;
+		std::cout << "Error: bad date format => " << date << std::endl;
 		return false;
 	}
 
 	std::string amountStr = line.substr(line.find(" | ") + 3);
 	for (unsigned int i = 0; i < amountStr.length(); i++) {
 		if (amountStr[i] != '.' && (amountStr[i] < '0' || amountStr[i] > '9')) {
-			std::cerr << "Error: not a positive number." << std::endl;
+			std::cout << "Error: bad value format." << std::endl;
 			return false;
 		}
 	}
 
 	amount = std::atof(amountStr.c_str());
-	if (amount > 1000) {
-		std::cerr << "Error: too large a number." << std::endl;
+	if (amount < 0) {
+		std::cout << "Error: not a positive number." << std::endl;
+		return false;
+	} else if (amount > 1000) {
+		std::cout << "Error: too large a number." << std::endl;
 		return false;
 	}
 
