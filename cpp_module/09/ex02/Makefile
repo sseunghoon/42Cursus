@@ -6,7 +6,7 @@
 #    By: songseunghun <songseunghun@student.42.f    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/18 00:37:40 by seunghso          #+#    #+#              #
-#    Updated: 2023/08/28 12:53:12 by songseunghu      ###   ########.fr        #
+#    Updated: 2023/08/28 17:07:46 by songseunghu      ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@ SRCS	=	main.cpp PmergeMe.cpp
 OBJS	=	$(SRCS:%.cpp=%.o)
 
 CXX		=	c++
-CXXFLAGS	=	-Wall -Werror -Wextra -std=c++98 -fsanitize=address
+CXXFLAGS	=	-Wall -Werror -Wextra -std=c++98
 
 all		:	$(NAME)
 
