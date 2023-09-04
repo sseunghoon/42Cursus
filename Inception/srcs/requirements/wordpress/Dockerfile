@@ -20,6 +20,7 @@ RUN apk update;	\
 		    mariadb-client
 
 # curl - URL을 통해 데이터를 전송하기 위한 명령 줄 도구
+RUN apk update && apk add curl
 # Tini 패키지 설치
 RUN apk update && apk add --no-cache curl tini
 
