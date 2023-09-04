@@ -40,13 +40,13 @@ volumes:
   db-volume:
     driver: local
     driver_opts:
-      device: /home/seunghso/data/db-data
+      device: ~/data/db-data
       type: none
       o: bind
   wp-volume:
     driver: local
     driver_opts:
-      device: /home/seunghso/data/wp-data
+      device: ~/data/wp-data
       type: none
       o: bind
 
