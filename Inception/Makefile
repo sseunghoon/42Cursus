@@ -1,37 +1,35 @@
-# **************************************************************************** #
-#                                                                              #
-#                                                         :::      ::::::::    #
-#    Makefile                                           :+:      :+:    :+:    #
-#                                                     +:+ +:+         +:+      #
-#    By: seunghso <seunghso@student.42.fr>          +#+  +:+       +#+         #
-#                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2023/08/30 14:45:44 by seunghso          #+#    #+#              #
-#    Updated: 2023/08/30 14:45:56 by seunghso         ###   ########.fr        #
-#                                                                              #
-# **************************************************************************** #
+name = inception
 
-NAME	=	Inception
+all:
+	@printf "Launch configuration ${name}...\n"
+	@bash srcs/requirements/wordpress/tools/make_dir.sh
+	@docker compose -f ./srcs/docker-compose.yml --env-file ./srcs/.env up -d
 
-SRCS	=	megaphone.cpp
-OBJS	=	$(SRCS:%.cpp=%.o)
+up:
+	@printf "Up all stoped container${name}...\n"
+	@docker compose -f ./srcs/docker-compose.yml --env-file ./srcs/.env up -d
 
-CXX		=	c++
-CXXFLAGS	=	-Wall -Werror -Wextra -std=c++98
+down:
+	@printf "Stopping configuration ${name}...\n"
+	@docker compose -f ./srcs/docker-compose.yml --env-file ./srcs/.env down
 
-all		:	$(NAME)
+re: fclean
+	@printf "Rebuild configuration ${name}...\n"
+	@bash srcs/requirements/wordpress/tools/make_dir.sh
+	@docker compose -f ./srcs/docker-compose.yml --env-file ./srcs/.env up -d --build
 
-$(NAME)	:	$(OBJS)
-	$(CXX) $(CXXFLAGS) $(OBJS) -o $(NAME)
+clean: down
+	@printf "Cleaning configuration ${name}...\n"
+	@docker system prune -a
+	@sudo rm -rf ~/data/
 
-%.o	:%.c
-	$(CXX) $(CXXFLAGS) -c $< -o $@
+fclean: clean
+	@printf "Total clean of all configurations docker\n"
+	@docker compose -f ./srcs/docker-compose.yml --env-file ./srcs/.env down -v
+	@docker system prune --volumes
+	@docker network prune
+	@docker volume prune -a
+	@docker image prune -a
+	@docker system prune -a
 
-clean	:
-	rm -rf $(OBJS)
-
-fclean	: clean
-	rm -rf	$(NAME)
-
-re		: fclean all
-
-.PHONY: all clean fclean re
+.PHONY	: all up down re clean fclean
