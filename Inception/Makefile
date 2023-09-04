@@ -28,7 +28,7 @@ fclean: clean
 	@docker-compose -f ./srcs/docker-compose.yml --env-file ./srcs/.env down -v
 	@docker system prune --volumes
 	@docker network prune
-	@docker volume prune -a
+	@docker volume prune
 	@docker image prune -a
 	@docker system prune -a
 
