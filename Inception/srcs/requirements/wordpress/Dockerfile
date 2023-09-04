@@ -10,7 +10,7 @@ RUN apk update;	\
     # PHP Iconv 확장 - 문자 인코딩 변환을 위한 확장
     # MariaDB 클라이언트 - MariaDB 데이터베이스에 접속하기 위한 클라이언트
 
-    apk add --no cache \
+    apk add \
 			php81			\ 
 			php81-fpm		\
     		php81-mysqli    \
