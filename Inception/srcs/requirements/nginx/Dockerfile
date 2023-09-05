@@ -34,4 +34,4 @@ EXPOSE 443
 # 컨테이너의 시작점으로 Tini를 사용
 ENTRYPOINT ["/sbin/tini", "--"]
 # 컨테이너가 시작되면 Nginx를 데몬 모드로 실행
-CMD ["nginx", "-g", "daemon off;"]
+CMD ["nginx"]
